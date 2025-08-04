@@ -1,0 +1,4491 @@
+[
+    {
+        "id": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "type": "tab",
+        "label": "1 - Comunicação CLP",
+        "disabled": false,
+        "info": "Fluxo gerado automaticamente em 2025-04-14 03:35:35"
+    },
+    {
+        "id": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "type": "tab",
+        "label": "5 - Dashboard / API",
+        "disabled": false,
+        "info": "Fluxo gerado automaticamente em 2025-04-14 03:35:35"
+    },
+    {
+        "id": "b7c2f397fdbb5ba7",
+        "type": "tab",
+        "label": "Post Alarmes",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "82177b4cf60ced3f",
+        "type": "tab",
+        "label": "POST Avisos",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "52ad4f8017343188",
+        "type": "tab",
+        "label": "POST Status",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1178555e0391a6a5",
+        "type": "tab",
+        "label": "POST Velocidade",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5f0cc578e3a7799a",
+        "type": "tab",
+        "label": "POST Podução",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a1b2c3d4e5f6g7h8",
+        "type": "subflow",
+        "name": "Enviar para API Supervisorio",
+        "info": "Subfluxo reutilizável para enviar dados para a API.\n\n**Entrada:**\n- `msg.payload`: Deve ser o objeto JSON a ser enviado (ex: `{ Id: \"...\", Informacao: \"...\" }`).\n- `msg.endpoint`: A rota da API (ex: `\"rotuladora/alarmes\"`).\n\n**Saída:**\n- `msg.payload`: A resposta da API.",
+        "category": "",
+        "in": [],
+        "out": [],
+        "env": [
+            {
+                "name": "API_BASE_URL",
+                "type": "str",
+                "value": "http://localhost:5292/api/mmdba/",
+                "ui": {
+                    "label": {
+                        "en-US": "URL Base da API"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "opts": []
+                    }
+                }
+            },
+            {
+                "name": "API_KEY",
+                "type": "cred",
+                "value": "cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh",
+                "ui": {
+                    "label": {
+                        "en-US": "Chave da API (X-API-Key)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "opts": []
+                    }
+                }
+            }
+        ],
+        "color": "#DDAA99"
+    },
+    {
+        "id": "e2c976410bae5973",
+        "type": "group",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3eb1114138462d15",
+            "16c3474d0fa88d28",
+            "8c4dfad7280706f6",
+            "5683e63dc816d6ba",
+            "52339acf7c9c25e3",
+            "d903bf2552b4d04e",
+            "37ad8f035f991edb",
+            "2cc45438110c5bf0",
+            "b849b868fe398b94",
+            "97a9dbc9ef407b30",
+            "af41a7078a9a69b5",
+            "22b306165af57355",
+            "e1922cdc6cb66df4",
+            "8c3e82141abd04b6",
+            "147fbbe42e0360ed",
+            "5fa64e2fb33931c2",
+            "b11efabe41360dd1",
+            "a3fcc348e736653d",
+            "2fd22538093eb082",
+            "04aa094d13920b0b",
+            "be80aafebed1617c",
+            "b7d80bfbba8f9de6",
+            "576eec2789581f0c",
+            "e647d465c34aeeb6",
+            "ff477f8997949aa7",
+            "8c598741420e577c",
+            "344504109310bb19",
+            "68d28074074d5b01",
+            "f0723e23f63228cb",
+            "21b748e83d1b0cb8",
+            "dfeb520d888b6a5e",
+            "3b531b8d59b6746a",
+            "d760dcd18dc14871",
+            "a87d661e50a78d26",
+            "2600e797a9a14213"
+        ],
+        "x": 194,
+        "y": 339,
+        "w": 1312,
+        "h": 1082
+    },
+    {
+        "id": "503dab05d971424f",
+        "type": "group",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3c4dbc71516bbb4a",
+            "967614ec9b97872c",
+            "f35a7387f8030050",
+            "d96bc84d6e1e1a3e",
+            "1a627ec61fa41ad3",
+            "411f5830291a98e1",
+            "ca771467befab1aa",
+            "ced7b8863dba2b1a",
+            "a8a74087be5e1be2",
+            "28efadb56ecee668",
+            "fd9bdc07dafa3510",
+            "7cf6ca3f6c127d6b",
+            "180ca450d8615045",
+            "a9984b55cc1aacab",
+            "8a8c7b39fa0902c2",
+            "ae3bbca8950ddaa5",
+            "493d02873735b1c3",
+            "544634f6023286bb",
+            "99d9cc2f0266bc84",
+            "ab7aec5d4adea838",
+            "1d81efbed0b9b2f7",
+            "ea7eeed91bffc143",
+            "43092977af804cdc",
+            "b7c064e998ea4723",
+            "45cf104adf96aaed",
+            "37a417bb7f06efdb",
+            "f4c2276fe794c5ca",
+            "74b761158efc9834",
+            "6e6ffd7554e62eec",
+            "55be8b6598f0ac15",
+            "c8c4cc518ec00b16",
+            "b99b8f4e873ef702",
+            "e7c75dc7ed2c7502"
+        ],
+        "x": 164,
+        "y": 199,
+        "w": 782,
+        "h": 562
+    },
+    {
+        "id": "a40cb1939c2419d6",
+        "type": "group",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "5f2e145cc2649227",
+            "16c94c9ae6741fda",
+            "590a721b4c724795",
+            "bda91513947130ef",
+            "e22f5d7ba9bf32ef",
+            "f86e6091a5492206",
+            "41d7f404f7979912",
+            "a565ecd9bea0b796",
+            "5dd79f69aedc4003"
+        ],
+        "x": 1034,
+        "y": 479,
+        "w": 322,
+        "h": 342
+    },
+    {
+        "id": "2462a8ae0c6e0370",
+        "type": "group",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "32c881b61ab6a626",
+            "92f207c838c2e0e8",
+            "201dc49b66a7cd7e",
+            "221f22b688c4b0e8",
+            "5b03c9fb62d97830"
+        ],
+        "x": 1034,
+        "y": 199,
+        "w": 322,
+        "h": 222
+    },
+    {
+        "id": "65cf911606445133",
+        "type": "group",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "0f604b9b408fa488",
+            "7d99d5d5579eac61",
+            "3dc2a7f9b2b55c09",
+            "0d2699a84da6efcb",
+            "f359c0eaebe262a1",
+            "4902ee97d4e3a7b3",
+            "d9c11c4c0aa7cfbf",
+            "10c3aa6c2bdfbdd7",
+            "5ff7fb7424252468",
+            "85950fd53a8e67cd",
+            "2ee67441b5f24580"
+        ],
+        "x": 1714,
+        "y": 1479,
+        "w": 1032,
+        "h": 382
+    },
+    {
+        "id": "a7bd69dce71f6fb5",
+        "type": "group",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "7f4021a5794a364c",
+            "1c0fe42750c2b5fa",
+            "d07b31023f39de74",
+            "bc690de41fcb7e72",
+            "e9cc4be5e21112f7",
+            "19221510a54cfabe",
+            "4f04038023b818d4"
+        ],
+        "x": 1714,
+        "y": 339,
+        "w": 1052,
+        "h": 262
+    },
+    {
+        "id": "46efa2b24427216f",
+        "type": "group",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "23dbeec0a99e5bff",
+            "b32483ba27aa1b3b",
+            "f2eedb944cbc15f9",
+            "dd47865b3a96ce8f",
+            "36649369118f626a",
+            "6c9b0d12afbfc136",
+            "119c082c665f0d16",
+            "571a93f74f391290",
+            "62a5dc25a7509070",
+            "0d226791c6fbc32d",
+            "e42672fb36f2bd15",
+            "e2a151b8840c2eea",
+            "35496b1e5f573563",
+            "008fae7d6407f9c9",
+            "9260773d2da16558",
+            "822abba324ec73af",
+            "5c3d30a5dcb5ac93",
+            "20e70b437d8ef2f3",
+            "3e791ef6448e149d",
+            "d9bf271c7e06ccaa",
+            "7e214cdd987f4a05",
+            "d92e4184d0218034",
+            "7e277bbfac644521",
+            "232544b7f2a495aa",
+            "d66c7d967b4b28bf",
+            "65e71929e10f9a76",
+            "fcd693bbd9c83e42",
+            "8021329368182baa",
+            "0e84fae51cb0586c",
+            "10fa5d05f2ec0ff0",
+            "369f25dffefd8073",
+            "40c8226e8ca5f2d6",
+            "57dd9f8918756df1"
+        ],
+        "x": 174,
+        "y": 819,
+        "w": 782,
+        "h": 562
+    },
+    {
+        "id": "aee98873942a1d03",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.100.100",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": 2,
+        "cycletime": 1000,
+        "timeout": 2000,
+        "name": "AllDigitalOutputs",
+        "vartable": [
+            {
+                "addr": "Q0.0",
+                "name": "Q0.0"
+            },
+            {
+                "addr": "Q0.1",
+                "name": "Q0.1"
+            },
+            {
+                "addr": "Q0.2",
+                "name": "Q0.2"
+            },
+            {
+                "addr": "Q0.3",
+                "name": "Q0.3"
+            },
+            {
+                "addr": "Q0.4",
+                "name": "Q0.4"
+            },
+            {
+                "addr": "Q0.5",
+                "name": "Q0.5"
+            },
+            {
+                "addr": "Q0.6",
+                "name": "Q0.6"
+            },
+            {
+                "addr": "Q0.7",
+                "name": "Q0.7"
+            },
+            {
+                "addr": "Q1.0",
+                "name": "Q1.0"
+            },
+            {
+                "addr": "Q1.1",
+                "name": "Q1.1"
+            },
+            {
+                "addr": "Q1.2",
+                "name": "Q1.2"
+            },
+            {
+                "addr": "Q1.3",
+                "name": "Q1.3"
+            },
+            {
+                "addr": "Q1.4",
+                "name": "Q1.4"
+            },
+            {
+                "addr": "Q1.5",
+                "name": "Q1.5"
+            },
+            {
+                "addr": "Q1.6",
+                "name": "Q1.6"
+            },
+            {
+                "addr": "Q1.7",
+                "name": "Q1.7"
+            }
+        ]
+    },
+    {
+        "id": "58c0d6014ed6b2f7",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "0b375e4cf1ac812f",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.100.100",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": 2,
+        "cycletime": 1000,
+        "timeout": 2000,
+        "name": "AllDigitalInputs",
+        "vartable": [
+            {
+                "addr": "DB1,X0.0",
+                "name": "I0.0"
+            },
+            {
+                "addr": "DB1,X0.1",
+                "name": "I0.1"
+            },
+            {
+                "addr": "DB1,X0.2",
+                "name": "I0.2"
+            },
+            {
+                "addr": "DB1,X0.3",
+                "name": "I0.3"
+            },
+            {
+                "addr": "DB1,X0.4",
+                "name": "I0.4"
+            },
+            {
+                "addr": "DB1,X0.5",
+                "name": "I0.5"
+            },
+            {
+                "addr": "DB1,X0.6",
+                "name": "I0.6"
+            },
+            {
+                "addr": "DB1,X0.7",
+                "name": "I0.7"
+            },
+            {
+                "addr": "DB1,X1.0",
+                "name": "I1.0"
+            },
+            {
+                "addr": "DB1,X1.1",
+                "name": "I1.1"
+            },
+            {
+                "addr": "DB1,X1.2",
+                "name": "I1.2"
+            },
+            {
+                "addr": "DB1,X1.3",
+                "name": "I1.3"
+            },
+            {
+                "addr": "DB1,X1.4",
+                "name": "I1.4"
+            },
+            {
+                "addr": "DB1,X1.5",
+                "name": "I1.5"
+            },
+            {
+                "addr": "DB1,X1.6",
+                "name": "I1.6"
+            },
+            {
+                "addr": "DB1,X1.7",
+                "name": "I1.7"
+            }
+        ]
+    },
+    {
+        "id": "e6f49469bd46b297",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.100.100",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": 2,
+        "cycletime": 1000,
+        "timeout": 2000,
+        "name": "AllAnalogInputs",
+        "vartable": [
+            {
+                "addr": "DB3,I0",
+                "name": "IW2"
+            },
+            {
+                "addr": "DB3,I2",
+                "name": "IW4"
+            },
+            {
+                "addr": "DB3,I4",
+                "name": "IW6"
+            },
+            {
+                "addr": "DB3,I6",
+                "name": "IW8"
+            }
+        ]
+    },
+    {
+        "id": "01845494f4327e3f",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.100.100",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": 2,
+        "cycletime": 1000,
+        "timeout": 2000,
+        "name": "AllAnalogOutputs",
+        "vartable": [
+            {
+                "addr": "DB4,I0",
+                "name": "QW2"
+            },
+            {
+                "addr": "DB4,I2",
+                "name": "QW4"
+            }
+        ]
+    },
+    {
+        "id": "8b35a8b5-95af-4bb3-97f4-dfbb6497ff03",
+        "type": "comment",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "name": "Legenda - 1 - Comunicação CLP",
+        "info": "Aba destinada à função: 1 - Comunicação CLP",
+        "x": 290,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3c4dbc71516bbb4a",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q0.0",
+        "mode": "link",
+        "links": [
+            "3eb1114138462d15"
+        ],
+        "x": 425,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "967614ec9b97872c",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.0",
+        "diff": true,
+        "name": "Q0.0",
+        "x": 240,
+        "y": 300,
+        "wires": [
+            [
+                "3c4dbc71516bbb4a"
+            ]
+        ]
+    },
+    {
+        "id": "f35a7387f8030050",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.1",
+        "diff": true,
+        "name": "Q0.1",
+        "x": 240,
+        "y": 360,
+        "wires": [
+            [
+                "d96bc84d6e1e1a3e"
+            ]
+        ]
+    },
+    {
+        "id": "d96bc84d6e1e1a3e",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q0.1",
+        "mode": "link",
+        "links": [
+            "d903bf2552b4d04e"
+        ],
+        "x": 425,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1a627ec61fa41ad3",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.2",
+        "diff": true,
+        "name": "Q0.2",
+        "x": 240,
+        "y": 420,
+        "wires": [
+            [
+                "fd9bdc07dafa3510"
+            ]
+        ]
+    },
+    {
+        "id": "411f5830291a98e1",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.3",
+        "diff": true,
+        "name": "Q0.3",
+        "x": 240,
+        "y": 480,
+        "wires": [
+            [
+                "7cf6ca3f6c127d6b"
+            ]
+        ]
+    },
+    {
+        "id": "ca771467befab1aa",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.4",
+        "diff": true,
+        "name": "Q0.4",
+        "x": 240,
+        "y": 540,
+        "wires": [
+            [
+                "180ca450d8615045"
+            ]
+        ]
+    },
+    {
+        "id": "ced7b8863dba2b1a",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.5",
+        "diff": true,
+        "name": "Q0.5",
+        "x": 240,
+        "y": 600,
+        "wires": [
+            [
+                "a9984b55cc1aacab"
+            ]
+        ]
+    },
+    {
+        "id": "a8a74087be5e1be2",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.6",
+        "diff": true,
+        "name": "Q0.6",
+        "x": 240,
+        "y": 660,
+        "wires": [
+            [
+                "8a8c7b39fa0902c2"
+            ]
+        ]
+    },
+    {
+        "id": "28efadb56ecee668",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.7",
+        "diff": true,
+        "name": "Q0.7",
+        "x": 240,
+        "y": 720,
+        "wires": [
+            [
+                "ae3bbca8950ddaa5"
+            ]
+        ]
+    },
+    {
+        "id": "fd9bdc07dafa3510",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q0.2",
+        "mode": "link",
+        "links": [
+            "2cc45438110c5bf0"
+        ],
+        "x": 425,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "7cf6ca3f6c127d6b",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q0.3",
+        "mode": "link",
+        "links": [
+            "97a9dbc9ef407b30"
+        ],
+        "x": 425,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "180ca450d8615045",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q0.4",
+        "mode": "link",
+        "links": [
+            "22b306165af57355"
+        ],
+        "x": 425,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "a9984b55cc1aacab",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q0.5",
+        "mode": "link",
+        "links": [
+            "8c3e82141abd04b6"
+        ],
+        "x": 425,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "8a8c7b39fa0902c2",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q0.6",
+        "mode": "link",
+        "links": [
+            "5fa64e2fb33931c2"
+        ],
+        "x": 425,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "ae3bbca8950ddaa5",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q0.7",
+        "mode": "link",
+        "links": [
+            "a3fcc348e736653d"
+        ],
+        "x": 425,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "493d02873735b1c3",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q1.0",
+        "mode": "link",
+        "links": [
+            "3eb1114138462d15",
+            "2fd22538093eb082"
+        ],
+        "x": 905,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "544634f6023286bb",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q1.1",
+        "diff": true,
+        "name": "Q1.0",
+        "x": 720,
+        "y": 300,
+        "wires": [
+            [
+                "493d02873735b1c3"
+            ]
+        ]
+    },
+    {
+        "id": "99d9cc2f0266bc84",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q1.1",
+        "diff": true,
+        "name": "Q1.1",
+        "x": 720,
+        "y": 360,
+        "wires": [
+            [
+                "ab7aec5d4adea838"
+            ]
+        ]
+    },
+    {
+        "id": "ab7aec5d4adea838",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q1.1",
+        "mode": "link",
+        "links": [
+            "d903bf2552b4d04e",
+            "b7d80bfbba8f9de6"
+        ],
+        "x": 905,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1d81efbed0b9b2f7",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q1.2",
+        "diff": true,
+        "name": "Q1.2",
+        "x": 720,
+        "y": 420,
+        "wires": [
+            [
+                "f4c2276fe794c5ca"
+            ]
+        ]
+    },
+    {
+        "id": "ea7eeed91bffc143",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q1.3",
+        "diff": true,
+        "name": "Q1.3",
+        "x": 720,
+        "y": 480,
+        "wires": [
+            [
+                "74b761158efc9834"
+            ]
+        ]
+    },
+    {
+        "id": "43092977af804cdc",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q1.4",
+        "diff": true,
+        "name": "Q1.4",
+        "x": 720,
+        "y": 540,
+        "wires": [
+            [
+                "6e6ffd7554e62eec"
+            ]
+        ]
+    },
+    {
+        "id": "b7c064e998ea4723",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q1.5",
+        "diff": true,
+        "name": "Q1.5",
+        "x": 720,
+        "y": 600,
+        "wires": [
+            [
+                "55be8b6598f0ac15"
+            ]
+        ]
+    },
+    {
+        "id": "45cf104adf96aaed",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q1.6",
+        "diff": true,
+        "name": "Q1.6",
+        "x": 720,
+        "y": 660,
+        "wires": [
+            [
+                "c8c4cc518ec00b16"
+            ]
+        ]
+    },
+    {
+        "id": "37a417bb7f06efdb",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q1.7",
+        "diff": true,
+        "name": "Q1.7",
+        "x": 720,
+        "y": 720,
+        "wires": [
+            [
+                "b99b8f4e873ef702"
+            ]
+        ]
+    },
+    {
+        "id": "f4c2276fe794c5ca",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q1.2",
+        "mode": "link",
+        "links": [
+            "2cc45438110c5bf0",
+            "e647d465c34aeeb6"
+        ],
+        "x": 905,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "74b761158efc9834",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q1.3",
+        "mode": "link",
+        "links": [
+            "97a9dbc9ef407b30",
+            "8c598741420e577c"
+        ],
+        "x": 905,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "6e6ffd7554e62eec",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q1.4",
+        "mode": "link",
+        "links": [
+            "22b306165af57355",
+            "68d28074074d5b01"
+        ],
+        "x": 905,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "55be8b6598f0ac15",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q1.5",
+        "mode": "link",
+        "links": [
+            "8c3e82141abd04b6",
+            "21b748e83d1b0cb8"
+        ],
+        "x": 905,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "c8c4cc518ec00b16",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q1.6",
+        "mode": "link",
+        "links": [
+            "5fa64e2fb33931c2",
+            "3b531b8d59b6746a"
+        ],
+        "x": 905,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "b99b8f4e873ef702",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "link out Q1.7",
+        "mode": "link",
+        "links": [
+            "a3fcc348e736653d",
+            "a87d661e50a78d26"
+        ],
+        "x": 905,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "e7c75dc7ed2c7502",
+        "type": "comment",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Saidas Digitais ",
+        "info": "Saidas Digitais ",
+        "x": 550,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "23dbeec0a99e5bff",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I0.0",
+        "mode": "link",
+        "links": [
+            "d242598c4cb9bbbb"
+        ],
+        "x": 435,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "b32483ba27aa1b3b",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I0.0",
+        "diff": true,
+        "name": "I0.0",
+        "x": 250,
+        "y": 920,
+        "wires": [
+            [
+                "23dbeec0a99e5bff"
+            ]
+        ]
+    },
+    {
+        "id": "f2eedb944cbc15f9",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I0.1",
+        "diff": true,
+        "name": "I0.1",
+        "x": 250,
+        "y": 980,
+        "wires": [
+            [
+                "dd47865b3a96ce8f"
+            ]
+        ]
+    },
+    {
+        "id": "dd47865b3a96ce8f",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I0.1",
+        "mode": "link",
+        "links": [
+            "6f1a5f8421301ec5"
+        ],
+        "x": 435,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "36649369118f626a",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I0.2",
+        "diff": true,
+        "name": "I0.2",
+        "x": 250,
+        "y": 1040,
+        "wires": [
+            [
+                "e42672fb36f2bd15"
+            ]
+        ]
+    },
+    {
+        "id": "6c9b0d12afbfc136",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I0.3",
+        "diff": true,
+        "name": "I0.3",
+        "x": 250,
+        "y": 1100,
+        "wires": [
+            [
+                "e2a151b8840c2eea"
+            ]
+        ]
+    },
+    {
+        "id": "119c082c665f0d16",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I0.4",
+        "diff": true,
+        "name": "I0.4",
+        "x": 250,
+        "y": 1160,
+        "wires": [
+            [
+                "35496b1e5f573563"
+            ]
+        ]
+    },
+    {
+        "id": "571a93f74f391290",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I0.5",
+        "diff": true,
+        "name": "I0.5",
+        "x": 250,
+        "y": 1220,
+        "wires": [
+            [
+                "008fae7d6407f9c9"
+            ]
+        ]
+    },
+    {
+        "id": "62a5dc25a7509070",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I0.6",
+        "diff": true,
+        "name": "I0.6",
+        "x": 250,
+        "y": 1280,
+        "wires": [
+            [
+                "9260773d2da16558"
+            ]
+        ]
+    },
+    {
+        "id": "0d226791c6fbc32d",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I0.7",
+        "diff": true,
+        "name": "I0.7",
+        "x": 250,
+        "y": 1340,
+        "wires": [
+            [
+                "822abba324ec73af"
+            ]
+        ]
+    },
+    {
+        "id": "e42672fb36f2bd15",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I0.2",
+        "mode": "link",
+        "links": [],
+        "x": 435,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "e2a151b8840c2eea",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I0.3",
+        "mode": "link",
+        "links": [
+            "13e923e07cfbdec1"
+        ],
+        "x": 435,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "35496b1e5f573563",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I0.4",
+        "mode": "link",
+        "links": [
+            "710348a3efe9e35f"
+        ],
+        "x": 435,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "008fae7d6407f9c9",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I0.5",
+        "mode": "link",
+        "links": [
+            "ebb2d564e1f4ae54"
+        ],
+        "x": 435,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "9260773d2da16558",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I0.6",
+        "mode": "link",
+        "links": [
+            "1281ca9c58cf7984"
+        ],
+        "x": 435,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "822abba324ec73af",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I0.7",
+        "mode": "link",
+        "links": [
+            "9d20e86fc7a3c211"
+        ],
+        "x": 435,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "5c3d30a5dcb5ac93",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I1.0",
+        "mode": "link",
+        "links": [
+            "5cbcc6c97d2c5814"
+        ],
+        "x": 915,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "20e70b437d8ef2f3",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I1.0",
+        "diff": true,
+        "name": "I1.0",
+        "x": 730,
+        "y": 920,
+        "wires": [
+            [
+                "5c3d30a5dcb5ac93"
+            ]
+        ]
+    },
+    {
+        "id": "3e791ef6448e149d",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I1.1",
+        "diff": true,
+        "name": "I1.1",
+        "x": 730,
+        "y": 980,
+        "wires": [
+            [
+                "d9bf271c7e06ccaa"
+            ]
+        ]
+    },
+    {
+        "id": "d9bf271c7e06ccaa",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I1.1",
+        "mode": "link",
+        "links": [
+            "8c389116d6b5dcca"
+        ],
+        "x": 915,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "7e214cdd987f4a05",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I1.2",
+        "diff": true,
+        "name": "I1.2",
+        "x": 730,
+        "y": 1040,
+        "wires": [
+            [
+                "fcd693bbd9c83e42"
+            ]
+        ]
+    },
+    {
+        "id": "d92e4184d0218034",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I1.3",
+        "diff": true,
+        "name": "I1.3",
+        "x": 730,
+        "y": 1100,
+        "wires": [
+            [
+                "8021329368182baa"
+            ]
+        ]
+    },
+    {
+        "id": "7e277bbfac644521",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I1.4",
+        "diff": true,
+        "name": "I1.4",
+        "x": 730,
+        "y": 1160,
+        "wires": [
+            [
+                "0e84fae51cb0586c"
+            ]
+        ]
+    },
+    {
+        "id": "232544b7f2a495aa",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I1.5",
+        "diff": true,
+        "name": "I1.5",
+        "x": 730,
+        "y": 1220,
+        "wires": [
+            [
+                "10fa5d05f2ec0ff0"
+            ]
+        ]
+    },
+    {
+        "id": "d66c7d967b4b28bf",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I1.6",
+        "diff": true,
+        "name": "I1.6",
+        "x": 730,
+        "y": 1280,
+        "wires": [
+            [
+                "369f25dffefd8073"
+            ]
+        ]
+    },
+    {
+        "id": "65e71929e10f9a76",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "endpoint": "0b375e4cf1ac812f",
+        "mode": "single",
+        "variable": "I1.7",
+        "diff": true,
+        "name": "I1.7",
+        "x": 730,
+        "y": 1340,
+        "wires": [
+            [
+                "40c8226e8ca5f2d6"
+            ]
+        ]
+    },
+    {
+        "id": "fcd693bbd9c83e42",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I1.2",
+        "mode": "link",
+        "links": [
+            "154231bbe5ed429b",
+            "7d1ab1659173d756"
+        ],
+        "x": 915,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "8021329368182baa",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I1.3",
+        "mode": "link",
+        "links": [
+            "142f6a91f624b253"
+        ],
+        "x": 915,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "0e84fae51cb0586c",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I1.4",
+        "mode": "link",
+        "links": [
+            "ecdd890c184046fd"
+        ],
+        "x": 915,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "10fa5d05f2ec0ff0",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I1.5",
+        "mode": "link",
+        "links": [
+            "8c9e25183a944e63"
+        ],
+        "x": 915,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "369f25dffefd8073",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I1.6",
+        "mode": "link",
+        "links": [
+            "ee14c586516b1a47"
+        ],
+        "x": 915,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "40c8226e8ca5f2d6",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "link out I1.7",
+        "mode": "link",
+        "links": [
+            "35ad40de2845b3d0"
+        ],
+        "x": 915,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "57dd9f8918756df1",
+        "type": "comment",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "Entradas Digitais ",
+        "info": "Entradas Digitais ",
+        "x": 560,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "5f2e145cc2649227",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "endpoint": "e6f49469bd46b297",
+        "mode": "single",
+        "variable": "IW2",
+        "diff": true,
+        "name": "IW2",
+        "x": 1110,
+        "y": 600,
+        "wires": [
+            [
+                "16c94c9ae6741fda"
+            ]
+        ]
+    },
+    {
+        "id": "16c94c9ae6741fda",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "name": "link out IW2",
+        "mode": "link",
+        "links": [
+            "7d99d5d5579eac61"
+        ],
+        "x": 1315,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "590a721b4c724795",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "endpoint": "e6f49469bd46b297",
+        "mode": "single",
+        "variable": "IW4",
+        "diff": true,
+        "name": "IW4",
+        "x": 1110,
+        "y": 660,
+        "wires": [
+            [
+                "bda91513947130ef"
+            ]
+        ]
+    },
+    {
+        "id": "bda91513947130ef",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "name": "link out IW4",
+        "mode": "link",
+        "links": [
+            "4902ee97d4e3a7b3"
+        ],
+        "x": 1315,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "e22f5d7ba9bf32ef",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "endpoint": "e6f49469bd46b297",
+        "mode": "single",
+        "variable": "IW6",
+        "diff": true,
+        "name": "IW6",
+        "x": 1110,
+        "y": 720,
+        "wires": [
+            [
+                "f86e6091a5492206"
+            ]
+        ]
+    },
+    {
+        "id": "f86e6091a5492206",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "name": "link out IW6",
+        "mode": "link",
+        "links": [
+            "10c3aa6c2bdfbdd7"
+        ],
+        "x": 1315,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "41d7f404f7979912",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "endpoint": "e6f49469bd46b297",
+        "mode": "single",
+        "variable": "IW8",
+        "diff": true,
+        "name": "IW8",
+        "x": 1110,
+        "y": 780,
+        "wires": [
+            [
+                "a565ecd9bea0b796"
+            ]
+        ]
+    },
+    {
+        "id": "a565ecd9bea0b796",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "name": "link out IW8",
+        "mode": "link",
+        "links": [
+            "85950fd53a8e67cd"
+        ],
+        "x": 1315,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "5dd79f69aedc4003",
+        "type": "comment",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "name": "Entradas Analógicas",
+        "info": "Entradas Analógicas",
+        "x": 1210,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "32c881b61ab6a626",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "2462a8ae0c6e0370",
+        "endpoint": "01845494f4327e3f",
+        "mode": "single",
+        "variable": "QW2",
+        "diff": true,
+        "name": "QW2",
+        "x": 1110,
+        "y": 320,
+        "wires": [
+            [
+                "92f207c838c2e0e8"
+            ]
+        ]
+    },
+    {
+        "id": "92f207c838c2e0e8",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "2462a8ae0c6e0370",
+        "name": "link out QW2",
+        "mode": "link",
+        "links": [
+            "1c0fe42750c2b5fa"
+        ],
+        "x": 1315,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "201dc49b66a7cd7e",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "2462a8ae0c6e0370",
+        "endpoint": "01845494f4327e3f",
+        "mode": "single",
+        "variable": "QW4",
+        "diff": true,
+        "name": "QW4",
+        "x": 1110,
+        "y": 380,
+        "wires": [
+            [
+                "221f22b688c4b0e8"
+            ]
+        ]
+    },
+    {
+        "id": "221f22b688c4b0e8",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "2462a8ae0c6e0370",
+        "name": "link out QW4",
+        "mode": "link",
+        "links": [
+            "19221510a54cfabe"
+        ],
+        "x": 1315,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "5b03c9fb62d97830",
+        "type": "comment",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "2462a8ae0c6e0370",
+        "name": "Saídas Analógicas",
+        "info": "Saídas Analógicas",
+        "x": 1210,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "6cf1af64-736c-470c-be82-48117e406d9f",
+        "type": "comment",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Legenda - 5 - Dashboard / API",
+        "info": "Aba destinada à função: 5 - Dashboard / API",
+        "x": 300,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "3eb1114138462d15",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q0.0",
+        "links": [
+            "3c4dbc71516bbb4a",
+            "493d02873735b1c3"
+        ],
+        "x": 235,
+        "y": 480,
+        "wires": [
+            [
+                "16c3474d0fa88d28"
+            ]
+        ]
+    },
+    {
+        "id": "16c3474d0fa88d28",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q0.0)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_0\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 480,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "8c4dfad7280706f6",
+        "type": "debug",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1370,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "5683e63dc816d6ba",
+        "type": "http request",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Enviar DigitalOutputs para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/atualizarIOs",
+        "tls": "58c0d6014ed6b2f7",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1110,
+        "y": 940,
+        "wires": [
+            [
+                "8c4dfad7280706f6"
+            ]
+        ]
+    },
+    {
+        "id": "52339acf7c9c25e3",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q0.1)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_1\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 540,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "d903bf2552b4d04e",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q0.1",
+        "links": [
+            "d96bc84d6e1e1a3e",
+            "ab7aec5d4adea838"
+        ],
+        "x": 235,
+        "y": 540,
+        "wires": [
+            [
+                "52339acf7c9c25e3"
+            ]
+        ]
+    },
+    {
+        "id": "37ad8f035f991edb",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q0.2)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 600,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "2cc45438110c5bf0",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q0.2",
+        "links": [
+            "fd9bdc07dafa3510",
+            "f4c2276fe794c5ca"
+        ],
+        "x": 235,
+        "y": 600,
+        "wires": [
+            [
+                "37ad8f035f991edb"
+            ]
+        ]
+    },
+    {
+        "id": "b849b868fe398b94",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q0.3)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_3\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 660,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "97a9dbc9ef407b30",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q0.3",
+        "links": [
+            "7cf6ca3f6c127d6b",
+            "74b761158efc9834"
+        ],
+        "x": 235,
+        "y": 660,
+        "wires": [
+            [
+                "b849b868fe398b94"
+            ]
+        ]
+    },
+    {
+        "id": "af41a7078a9a69b5",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q0.4)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 720,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "22b306165af57355",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q0.4",
+        "links": [
+            "180ca450d8615045",
+            "6e6ffd7554e62eec"
+        ],
+        "x": 235,
+        "y": 720,
+        "wires": [
+            [
+                "af41a7078a9a69b5"
+            ]
+        ]
+    },
+    {
+        "id": "e1922cdc6cb66df4",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q0.5)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_5\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 780,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "8c3e82141abd04b6",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q0.5",
+        "links": [
+            "a9984b55cc1aacab",
+            "55be8b6598f0ac15"
+        ],
+        "x": 235,
+        "y": 780,
+        "wires": [
+            [
+                "e1922cdc6cb66df4"
+            ]
+        ]
+    },
+    {
+        "id": "147fbbe42e0360ed",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q0.6)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 840,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "5fa64e2fb33931c2",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q0.6",
+        "links": [
+            "8a8c7b39fa0902c2",
+            "c8c4cc518ec00b16"
+        ],
+        "x": 235,
+        "y": 840,
+        "wires": [
+            [
+                "147fbbe42e0360ed"
+            ]
+        ]
+    },
+    {
+        "id": "b11efabe41360dd1",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q0.7)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_7\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 900,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "a3fcc348e736653d",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q0.7",
+        "links": [
+            "ae3bbca8950ddaa5",
+            "b99b8f4e873ef702"
+        ],
+        "x": 235,
+        "y": 900,
+        "wires": [
+            [
+                "b11efabe41360dd1"
+            ]
+        ]
+    },
+    {
+        "id": "2fd22538093eb082",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q1.0",
+        "links": [
+            "493d02873735b1c3"
+        ],
+        "x": 235,
+        "y": 960,
+        "wires": [
+            [
+                "04aa094d13920b0b"
+            ]
+        ]
+    },
+    {
+        "id": "04aa094d13920b0b",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q1.0)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_0\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 960,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "be80aafebed1617c",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q1.1)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_1\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1020,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "b7d80bfbba8f9de6",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q1.1",
+        "links": [
+            "ab7aec5d4adea838"
+        ],
+        "x": 235,
+        "y": 1020,
+        "wires": [
+            [
+                "be80aafebed1617c"
+            ]
+        ]
+    },
+    {
+        "id": "576eec2789581f0c",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q1.2)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1080,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "e647d465c34aeeb6",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q1.2",
+        "links": [
+            "f4c2276fe794c5ca"
+        ],
+        "x": 235,
+        "y": 1080,
+        "wires": [
+            [
+                "576eec2789581f0c"
+            ]
+        ]
+    },
+    {
+        "id": "ff477f8997949aa7",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q1.3)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_3\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1140,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "8c598741420e577c",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q1.3",
+        "links": [
+            "74b761158efc9834"
+        ],
+        "x": 235,
+        "y": 1140,
+        "wires": [
+            [
+                "ff477f8997949aa7"
+            ]
+        ]
+    },
+    {
+        "id": "344504109310bb19",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q1.4)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1200,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "68d28074074d5b01",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q1.4",
+        "links": [
+            "6e6ffd7554e62eec"
+        ],
+        "x": 235,
+        "y": 1200,
+        "wires": [
+            [
+                "344504109310bb19"
+            ]
+        ]
+    },
+    {
+        "id": "f0723e23f63228cb",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q1.5)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_5\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1260,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "21b748e83d1b0cb8",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q1.5",
+        "links": [
+            "55be8b6598f0ac15"
+        ],
+        "x": 235,
+        "y": 1260,
+        "wires": [
+            [
+                "f0723e23f63228cb"
+            ]
+        ]
+    },
+    {
+        "id": "dfeb520d888b6a5e",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q1.6)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1320,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "3b531b8d59b6746a",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q1.6",
+        "links": [
+            "c8c4cc518ec00b16"
+        ],
+        "x": 235,
+        "y": 1320,
+        "wires": [
+            [
+                "dfeb520d888b6a5e"
+            ]
+        ]
+    },
+    {
+        "id": "d760dcd18dc14871",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Montar objeto para API (Q1.7)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_7\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1380,
+        "wires": [
+            [
+                "5683e63dc816d6ba"
+            ]
+        ]
+    },
+    {
+        "id": "a87d661e50a78d26",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "link in Q1.7",
+        "links": [
+            "b99b8f4e873ef702"
+        ],
+        "x": 235,
+        "y": 1380,
+        "wires": [
+            [
+                "d760dcd18dc14871"
+            ]
+        ]
+    },
+    {
+        "id": "2600e797a9a14213",
+        "type": "comment",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "e2c976410bae5973",
+        "name": "Saidas Digitais ",
+        "info": "Saidas Digitais ",
+        "x": 900,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "d242598c4cb9bbbb",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I0.0",
+        "links": [
+            "23dbeec0a99e5bff"
+        ],
+        "x": 235,
+        "y": 1620,
+        "wires": [
+            [
+                "494ff9799797b104"
+            ]
+        ]
+    },
+    {
+        "id": "494ff9799797b104",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I0.0)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    id: \"Local:1:I.Data.0\",  \n    valor: String(msg.payload), // Converte o valor para string\n    informacao: \"Entrada Digital %I0.0\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1620,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "0be29e573fb9340e",
+        "type": "debug",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "e2488a0b4823ad7a",
+        "type": "http request",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Enviar DigitalInputs para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/ios",
+        "tls": "58c0d6014ed6b2f7",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 780,
+        "y": 1620,
+        "wires": [
+            [
+                "0be29e573fb9340e"
+            ]
+        ]
+    },
+    {
+        "id": "bdeb4e89da526122",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I0.1)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    id: \"Local:1:I.Data.1\",\n    valor: String(msg.payload),\n    informacao: \"Entrada Digital %I0.1\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1680,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "6f1a5f8421301ec5",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I0.1",
+        "links": [
+            "dd47865b3a96ce8f"
+        ],
+        "x": 235,
+        "y": 1680,
+        "wires": [
+            [
+                "bdeb4e89da526122"
+            ]
+        ]
+    },
+    {
+        "id": "67cf71f5c8a3fb42",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I0.2)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    id: \"Local:1:I.Data.2\",  \n    valor: String(msg.payload),\n    informacao: \"Entrada Digital %I0.2\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1740,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "154231bbe5ed429b",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I0.2",
+        "links": [
+            "fcd693bbd9c83e42"
+        ],
+        "x": 235,
+        "y": 1740,
+        "wires": [
+            [
+                "67cf71f5c8a3fb42"
+            ]
+        ]
+    },
+    {
+        "id": "655d473cab676df9",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I0.3)",
+        "func": "msg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_3\",\n    valor: String(msg.payload),\n    informacao: \"Entrada Digital %I0.3\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1800,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "13e923e07cfbdec1",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I0.3",
+        "links": [
+            "e2a151b8840c2eea"
+        ],
+        "x": 235,
+        "y": 1800,
+        "wires": [
+            [
+                "655d473cab676df9"
+            ]
+        ]
+    },
+    {
+        "id": "5ed1e84d2941c3a0",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I0.4)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1860,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "710348a3efe9e35f",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I0.4",
+        "links": [
+            "35496b1e5f573563"
+        ],
+        "x": 235,
+        "y": 1860,
+        "wires": [
+            [
+                "5ed1e84d2941c3a0"
+            ]
+        ]
+    },
+    {
+        "id": "5e6d43ae3db3c0eb",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I0.5)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_5\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1920,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "ebb2d564e1f4ae54",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I0.5",
+        "links": [
+            "008fae7d6407f9c9"
+        ],
+        "x": 235,
+        "y": 1920,
+        "wires": [
+            [
+                "5e6d43ae3db3c0eb"
+            ]
+        ]
+    },
+    {
+        "id": "c29569a10cc61833",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I0.6)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 1980,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "1281ca9c58cf7984",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I0.6",
+        "links": [
+            "9260773d2da16558"
+        ],
+        "x": 235,
+        "y": 1980,
+        "wires": [
+            [
+                "c29569a10cc61833"
+            ]
+        ]
+    },
+    {
+        "id": "5b586e91c3aa2ed8",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I0.7)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_7\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2040,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "9d20e86fc7a3c211",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I0.7",
+        "links": [
+            "822abba324ec73af"
+        ],
+        "x": 235,
+        "y": 2040,
+        "wires": [
+            [
+                "5b586e91c3aa2ed8"
+            ]
+        ]
+    },
+    {
+        "id": "5cbcc6c97d2c5814",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I1.0",
+        "links": [
+            "5c3d30a5dcb5ac93"
+        ],
+        "x": 235,
+        "y": 2100,
+        "wires": [
+            [
+                "8e6cafdc8055efa6"
+            ]
+        ]
+    },
+    {
+        "id": "8e6cafdc8055efa6",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I1.0)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_0\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2100,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "a3ddcd9199943cc3",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I1.1)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_1\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2160,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "8c389116d6b5dcca",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I1.1",
+        "links": [
+            "d9bf271c7e06ccaa"
+        ],
+        "x": 235,
+        "y": 2160,
+        "wires": [
+            [
+                "a3ddcd9199943cc3"
+            ]
+        ]
+    },
+    {
+        "id": "f14f7ec1731f9315",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I1.2)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2220,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "7d1ab1659173d756",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I1.2",
+        "links": [
+            "fcd693bbd9c83e42"
+        ],
+        "x": 235,
+        "y": 2220,
+        "wires": [
+            [
+                "f14f7ec1731f9315"
+            ]
+        ]
+    },
+    {
+        "id": "17ae2fa9231d8420",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I1.3)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_3\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2280,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "142f6a91f624b253",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I1.3",
+        "links": [
+            "8021329368182baa"
+        ],
+        "x": 235,
+        "y": 2280,
+        "wires": [
+            [
+                "17ae2fa9231d8420"
+            ]
+        ]
+    },
+    {
+        "id": "d5be07bd71f559dc",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I1.4)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2340,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "ecdd890c184046fd",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I1.4",
+        "links": [
+            "0e84fae51cb0586c"
+        ],
+        "x": 235,
+        "y": 2340,
+        "wires": [
+            [
+                "d5be07bd71f559dc"
+            ]
+        ]
+    },
+    {
+        "id": "01996d079bc71199",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I1.5)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_5\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2400,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "8c9e25183a944e63",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I1.5",
+        "links": [
+            "10fa5d05f2ec0ff0"
+        ],
+        "x": 235,
+        "y": 2400,
+        "wires": [
+            [
+                "01996d079bc71199"
+            ]
+        ]
+    },
+    {
+        "id": "ea18fc7e709caca7",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I1.6)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2460,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "ee14c586516b1a47",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I1.6",
+        "links": [
+            "369f25dffefd8073"
+        ],
+        "x": 235,
+        "y": 2460,
+        "wires": [
+            [
+                "ea18fc7e709caca7"
+            ]
+        ]
+    },
+    {
+        "id": "a53d4e2a7d3fea1f",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Montar objeto para API (I1.7)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_7\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2520,
+        "wires": [
+            [
+                "e2488a0b4823ad7a"
+            ]
+        ]
+    },
+    {
+        "id": "35ad40de2845b3d0",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "link in I1.7",
+        "links": [
+            "40c8226e8ca5f2d6"
+        ],
+        "x": 235,
+        "y": 2520,
+        "wires": [
+            [
+                "a53d4e2a7d3fea1f"
+            ]
+        ]
+    },
+    {
+        "id": "58b4ec646afcc69b",
+        "type": "comment",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "Entradas Digitais ",
+        "info": "Entradas Digitais ",
+        "x": 810,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "0f604b9b408fa488",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "Montar objeto para API (IW2)",
+        "func": "\nmsg.payload = {\n    id: \"iw2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1960,
+        "y": 1640,
+        "wires": [
+            [
+                "0d2699a84da6efcb"
+            ]
+        ]
+    },
+    {
+        "id": "7d99d5d5579eac61",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "link in IW2",
+        "links": [
+            "16c94c9ae6741fda"
+        ],
+        "x": 1755,
+        "y": 1640,
+        "wires": [
+            [
+                "0f604b9b408fa488"
+            ]
+        ]
+    },
+    {
+        "id": "3dc2a7f9b2b55c09",
+        "type": "debug",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2610,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "0d2699a84da6efcb",
+        "type": "http request",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "Enviar AnalogInputs para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/atualizarIOs",
+        "tls": "58c0d6014ed6b2f7",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2320,
+        "y": 1720,
+        "wires": [
+            [
+                "3dc2a7f9b2b55c09"
+            ]
+        ]
+    },
+    {
+        "id": "f359c0eaebe262a1",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "Montar objeto para API (IW4)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"iw4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1960,
+        "y": 1700,
+        "wires": [
+            [
+                "0d2699a84da6efcb"
+            ]
+        ]
+    },
+    {
+        "id": "4902ee97d4e3a7b3",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "link in IW4",
+        "links": [
+            "bda91513947130ef"
+        ],
+        "x": 1755,
+        "y": 1700,
+        "wires": [
+            [
+                "f359c0eaebe262a1"
+            ]
+        ]
+    },
+    {
+        "id": "d9c11c4c0aa7cfbf",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "Montar objeto para API (IW6)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"iw6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1960,
+        "y": 1760,
+        "wires": [
+            [
+                "0d2699a84da6efcb"
+            ]
+        ]
+    },
+    {
+        "id": "10c3aa6c2bdfbdd7",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "link in IW6",
+        "links": [
+            "f86e6091a5492206"
+        ],
+        "x": 1755,
+        "y": 1760,
+        "wires": [
+            [
+                "d9c11c4c0aa7cfbf"
+            ]
+        ]
+    },
+    {
+        "id": "5ff7fb7424252468",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "Montar objeto para API (IW8)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"iw8\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1960,
+        "y": 1820,
+        "wires": [
+            [
+                "0d2699a84da6efcb"
+            ]
+        ]
+    },
+    {
+        "id": "85950fd53a8e67cd",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "link in IW8",
+        "links": [
+            "a565ecd9bea0b796"
+        ],
+        "x": 1755,
+        "y": 1820,
+        "wires": [
+            [
+                "5ff7fb7424252468"
+            ]
+        ]
+    },
+    {
+        "id": "2ee67441b5f24580",
+        "type": "comment",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "65cf911606445133",
+        "name": "Entradas Analógicas",
+        "info": "Entradas Analógicas",
+        "x": 2310,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "7f4021a5794a364c",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "a7bd69dce71f6fb5",
+        "name": "Montar objeto para API (QW2)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"qw2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1970,
+        "y": 500,
+        "wires": [
+            [
+                "bc690de41fcb7e72"
+            ]
+        ]
+    },
+    {
+        "id": "1c0fe42750c2b5fa",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "a7bd69dce71f6fb5",
+        "name": "link in QW2",
+        "links": [
+            "92f207c838c2e0e8"
+        ],
+        "x": 1755,
+        "y": 500,
+        "wires": [
+            [
+                "7f4021a5794a364c"
+            ]
+        ]
+    },
+    {
+        "id": "d07b31023f39de74",
+        "type": "debug",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "a7bd69dce71f6fb5",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2630,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "bc690de41fcb7e72",
+        "type": "http request",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "a7bd69dce71f6fb5",
+        "name": "Enviar AnalogOutputs para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/atualizarIOs",
+        "tls": "58c0d6014ed6b2f7",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2330,
+        "y": 520,
+        "wires": [
+            [
+                "d07b31023f39de74"
+            ]
+        ]
+    },
+    {
+        "id": "e9cc4be5e21112f7",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "a7bd69dce71f6fb5",
+        "name": "Montar objeto para API (QW4)",
+        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"qw4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1970,
+        "y": 560,
+        "wires": [
+            [
+                "bc690de41fcb7e72"
+            ]
+        ]
+    },
+    {
+        "id": "19221510a54cfabe",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "a7bd69dce71f6fb5",
+        "name": "link in QW4",
+        "links": [
+            "221f22b688c4b0e8"
+        ],
+        "x": 1755,
+        "y": 560,
+        "wires": [
+            [
+                "e9cc4be5e21112f7"
+            ]
+        ]
+    },
+    {
+        "id": "4f04038023b818d4",
+        "type": "comment",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "a7bd69dce71f6fb5",
+        "name": "Saídas Analógicas",
+        "info": "Saídas Analógicas",
+        "x": 2310,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1210653a463bb554",
+        "type": "inject",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "true",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 130,
+        "y": 1600,
+        "wires": [
+            [
+                "494ff9799797b104",
+                "bdeb4e89da526122",
+                "67cf71f5c8a3fb42"
+            ]
+        ]
+    },
+    {
+        "id": "9ad7df0364603e59",
+        "type": "inject",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "false",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 130,
+        "y": 1640,
+        "wires": [
+            [
+                "494ff9799797b104",
+                "bdeb4e89da526122",
+                "67cf71f5c8a3fb42"
+            ]
+        ]
+    },
+    {
+        "id": "ee1999b2eec1b94d",
+        "type": "http request",
+        "z": "b7c2f397fdbb5ba7",
+        "name": "Enviar Alarmes para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/alarmes",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 750,
+        "y": 680,
+        "wires": [
+            [
+                "d90ea1914a1a0582"
+            ]
+        ]
+    },
+    {
+        "id": "d90ea1914a1a0582",
+        "type": "debug",
+        "z": "b7c2f397fdbb5ba7",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "65379a5a3dba335c",
+        "type": "inject",
+        "z": "b7c2f397fdbb5ba7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 390,
+        "y": 700,
+        "wires": [
+            [
+                "e21aa95687038ce4"
+            ]
+        ]
+    },
+    {
+        "id": "e21aa95687038ce4",
+        "type": "function",
+        "z": "b7c2f397fdbb5ba7",
+        "name": "Montar objeto para API (I0.0)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"alarmeON\",\n    //Valor: \"Emergência Ativa\",\n    //Informacao: \"Botão de Emergência foi acionado.\"\n    CodigoEvento: \"alarmeON\",\n    Valor: \"Emergência Ativa\",\n    Informacao: \"Botão de Emergência foi acionado.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Alarme\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 780,
+        "wires": [
+            [
+                "ee1999b2eec1b94d"
+            ]
+        ]
+    },
+    {
+        "id": "af7d81ec75f8d411",
+        "type": "function",
+        "z": "b7c2f397fdbb5ba7",
+        "name": "Montar objeto para API (I0.0)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"alarmeOFF\",\n    //Valor: \"Sem Alarmes\",\n    //Informacao: \"Sem Alarmes\"\n    CodigoEvento: \"alarmeOFF\",\n    Valor: \"Sem Alarmes\",\n    Informacao: \"Sem Alarmes.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Alarme\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 900,
+        "wires": [
+            [
+                "ee1999b2eec1b94d"
+            ]
+        ]
+    },
+    {
+        "id": "65299fc7def3b810",
+        "type": "inject",
+        "z": "b7c2f397fdbb5ba7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 210,
+        "y": 980,
+        "wires": [
+            [
+                "af7d81ec75f8d411"
+            ]
+        ]
+    },
+    {
+        "id": "0527a91057c4164c",
+        "type": "http request",
+        "z": "82177b4cf60ced3f",
+        "name": "Enviar Avisos para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/avisos",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 780,
+        "y": 340,
+        "wires": [
+            [
+                "bc454b3d73a95929"
+            ]
+        ]
+    },
+    {
+        "id": "bc454b3d73a95929",
+        "type": "debug",
+        "z": "82177b4cf60ced3f",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e8e3e631c584027b",
+        "type": "inject",
+        "z": "82177b4cf60ced3f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 430,
+        "y": 360,
+        "wires": [
+            [
+                "97ce2f8fc9b36bfa"
+            ]
+        ]
+    },
+    {
+        "id": "97ce2f8fc9b36bfa",
+        "type": "function",
+        "z": "82177b4cf60ced3f",
+        "name": "Montar objeto para API (I0.0)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"avisoON\",\n    //Valor: \"Aviso Enviado!\",\n    //Informacao: \"Aviso Enviado\"\n    CodigoEvento: \"avisoON\",\n    Valor: \"Aviso Enviado\",\n    Informacao: \"Aviso Enviado.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Aviso\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 440,
+        "wires": [
+            [
+                "0527a91057c4164c"
+            ]
+        ]
+    },
+    {
+        "id": "f89789e67f90499b",
+        "type": "function",
+        "z": "82177b4cf60ced3f",
+        "name": "Montar objeto para API (I0.0)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"avisosOFF\",\n    //Valor: \"Sem Avisos!\",\n    //Informacao: \"Sem Avisos\"\n    CodigoEvento: \"avisosOFF\",\n    Valor: \"Sem Avisos\",\n    Informacao: \"ASem Avisos.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Aviso\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 560,
+        "wires": [
+            [
+                "0527a91057c4164c"
+            ]
+        ]
+    },
+    {
+        "id": "c5be80165b4a8be8",
+        "type": "inject",
+        "z": "82177b4cf60ced3f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 250,
+        "y": 640,
+        "wires": [
+            [
+                "f89789e67f90499b"
+            ]
+        ]
+    },
+    {
+        "id": "811424e5e099ecb4",
+        "type": "http request",
+        "z": "52ad4f8017343188",
+        "name": "Enviar Status para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/status",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 1040,
+        "y": 340,
+        "wires": [
+            [
+                "0b3484a0667b74b8"
+            ]
+        ]
+    },
+    {
+        "id": "0b3484a0667b74b8",
+        "type": "debug",
+        "z": "52ad4f8017343188",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "09bbe8905da238e1",
+        "type": "inject",
+        "z": "52ad4f8017343188",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 470,
+        "y": 260,
+        "wires": [
+            [
+                "ae82ae0355c42e57"
+            ]
+        ]
+    },
+    {
+        "id": "ae82ae0355c42e57",
+        "type": "function",
+        "z": "52ad4f8017343188",
+        "name": "Montar objeto para API  id: \"statusAutomatico\"",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"statusAutomatico\",\n    //Valor: \"Máquina Automático\",\n    //Informacao: \"Máquina em modo automático.\"\n    CodigoEvento: \"statusAutomatico\",\n    Valor: \"Máquina Automático\",\n    Informacao: \"Máquina em modo automático.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Status\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 260,
+        "wires": [
+            [
+                "811424e5e099ecb4"
+            ]
+        ]
+    },
+    {
+        "id": "53c0d388c15f3248",
+        "type": "function",
+        "z": "52ad4f8017343188",
+        "name": "Montar objeto para API \"statusManual\"",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"statusManual\",\n    //Valor: \"Máquina Manual\",\n    //Informacao: \"Máquina em modo manual.\"\n    CodigoEvento: \"statusManual\",\n    Valor: \"Máquina Manual\",\n    Informacao: \"Máquina em modo manual.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Status\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 340,
+        "wires": [
+            [
+                "811424e5e099ecb4"
+            ]
+        ]
+    },
+    {
+        "id": "8d03d2ae442408e2",
+        "type": "inject",
+        "z": "52ad4f8017343188",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 450,
+        "y": 360,
+        "wires": [
+            [
+                "53c0d388c15f3248"
+            ]
+        ]
+    },
+    {
+        "id": "f9a818d1742ae31c",
+        "type": "function",
+        "z": "52ad4f8017343188",
+        "name": "Montar objeto para API statusDesativada",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"statusDesativada\",\n    //Valor: \"Máquina Desativada\",\n    //Informacao: \"Máquina desativada.\"\n    //CodigoEvento: \"statusManual\",\n    CodigoEvento: \"statusDesativada\",\n    Valor: \"Máquina Desativada\",\n    Informacao: \"Máquina desativada.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Status\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 460,
+        "wires": [
+            [
+                "811424e5e099ecb4"
+            ]
+        ]
+    },
+    {
+        "id": "20d7f293e711c380",
+        "type": "inject",
+        "z": "52ad4f8017343188",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 470,
+        "y": 520,
+        "wires": [
+            [
+                "f9a818d1742ae31c"
+            ]
+        ]
+    },
+    {
+        "id": "6d2afef730b78af3",
+        "type": "http request",
+        "z": "1178555e0391a6a5",
+        "name": "Enviar Velocidade Atual para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/velocidade",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 1060,
+        "y": 440,
+        "wires": [
+            [
+                "2b5e7b759fb1a896"
+            ]
+        ]
+    },
+    {
+        "id": "2b5e7b759fb1a896",
+        "type": "debug",
+        "z": "1178555e0391a6a5",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1370,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "708ca1eb253d8f8c",
+        "type": "inject",
+        "z": "1178555e0391a6a5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "7500",
+        "payloadType": "num",
+        "x": 450,
+        "y": 440,
+        "wires": [
+            [
+                "3414df6e508ec5fe"
+            ]
+        ]
+    },
+    {
+        "id": "3414df6e508ec5fe",
+        "type": "function",
+        "z": "1178555e0391a6a5",
+        "name": "Montar objeto para API ",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\n// Monta o corpo (payload) da requisição com os dados a serem enviados.\nmsg.payload = {\n    //Id: \"velocidadeAtual\",\n    //Valor: String(msg.payload),\n    //Informacao: \"Velocidade Atual.\"\n\n    CodigoEvento: \"velocidadeAtual\",\n    Valor: String(msg.payload),\n    Informacao: \"Velocidade Atual.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Velocidade\"\n};\n\n// Retorna o objeto 'msg' modificado para o próximo nó do fluxo.\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 440,
+        "wires": [
+            [
+                "6d2afef730b78af3"
+            ]
+        ]
+    },
+    {
+        "id": "1d9cd05939e5c834",
+        "type": "inject",
+        "z": "1178555e0391a6a5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "3250",
+        "payloadType": "num",
+        "x": 450,
+        "y": 400,
+        "wires": [
+            [
+                "3414df6e508ec5fe"
+            ]
+        ]
+    },
+    {
+        "id": "7f8ed885fa4b4acf",
+        "type": "inject",
+        "z": "1178555e0391a6a5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 450,
+        "y": 360,
+        "wires": [
+            [
+                "3414df6e508ec5fe"
+            ]
+        ]
+    },
+    {
+        "id": "659f03e926f02147",
+        "type": "inject",
+        "z": "1178555e0391a6a5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10750",
+        "payloadType": "num",
+        "x": 450,
+        "y": 480,
+        "wires": [
+            [
+                "3414df6e508ec5fe"
+            ]
+        ]
+    },
+    {
+        "id": "0a33dc33b654e62a",
+        "type": "inject",
+        "z": "1178555e0391a6a5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "15000",
+        "payloadType": "num",
+        "x": 450,
+        "y": 520,
+        "wires": [
+            [
+                "3414df6e508ec5fe"
+            ]
+        ]
+    },
+    {
+        "id": "inject_speed_loop",
+        "type": "inject",
+        "z": "1178555e0391a6a5",
+        "name": "Disparar a cada 1s",
+        "props": [],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 420,
+        "y": 640,
+        "wires": [
+            [
+                "function_generate_speed"
+            ]
+        ]
+    },
+    {
+        "id": "function_generate_speed",
+        "type": "function",
+        "z": "1178555e0391a6a5",
+        "name": "Gerar velocidade 0-15000",
+        "func": "// Recupera valor salvo no contexto do flow\nlet currentSpeed = flow.get('currentSpeed') || 0;\nconst step = 500;\n\ncurrentSpeed += step;\nif (currentSpeed > 15000) {\n    currentSpeed = 0;\n}\nflow.set('currentSpeed', currentSpeed);\n\nmsg.payload = currentSpeed;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 660,
+        "wires": [
+            [
+                "function_montar_objeto_api"
+            ]
+        ]
+    },
+    {
+        "id": "function_montar_objeto_api",
+        "type": "function",
+        "z": "1178555e0391a6a5",
+        "name": "Montar objeto para API",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    Id: \"velocidadeAtual\",\n    Valor: String(msg.payload),\n    Informacao: \"Velocidade Atual.\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 660,
+        "wires": [
+            [
+                "http_request_enviar_velocidade"
+            ]
+        ]
+    },
+    {
+        "id": "http_request_enviar_velocidade",
+        "type": "http request",
+        "z": "1178555e0391a6a5",
+        "name": "Enviar Velocidade Atual para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/velocidade",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 1240,
+        "y": 660,
+        "wires": [
+            [
+                "debug_resposta_api"
+            ]
+        ]
+    },
+    {
+        "id": "debug_resposta_api",
+        "type": "debug",
+        "z": "1178555e0391a6a5",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1460,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "a1b2c3d4.e5f6g7",
+        "type": "inject",
+        "z": "5f0cc578e3a7799a",
+        "name": "▶ Incrementar Peça (+1)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 330,
+        "y": 260,
+        "wires": [
+            [
+                "b2c3d4e5.f6g7h8"
+            ]
+        ]
+    },
+    {
+        "id": "b2c3d4e5.f6g7h8",
+        "type": "function",
+        "z": "5f0cc578e3a7799a",
+        "name": "Incrementar e Montar Objeto",
+        "func": "// Tenta buscar o valor atual do contador da 'memória' do fluxo.\n// Se não existir (primeira vez), define como 0.\nlet contador = flow.get('contadorPecas') || 0;\n\n// VERIFICA SE É UM COMANDO DE RESET\nif (msg.topic === 'reset') {\n    contador = 0;\n    flow.set('contadorPecas', contador); // Salva o valor zerado na memória\n    node.status({fill:\"red\", shape:\"dot\", text:\"Contador resetado para 0\"});\n    return null; // Para a execução, não envia nada para a API\n}\n\n// Se não for reset, incrementa o contador.\ncontador++;\n\n// Salva o novo valor do contador na 'memória' do fluxo para a próxima vez.\nflow.set('contadorPecas', contador);\n\n// Exibe o valor atual no status do nó para fácil visualização.\nnode.status({fill:\"green\", shape:\"dot\", text:\"Peças: \" + contador});\n\n// --- Monta a mensagem para a API ---\nmsg.headers = {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"pecasProduzidas\",\n    //Valor: String(contador), // Usa o valor do contador incrementado\n    //Informacao: \"Total de Peças Produzidas na Rotuladora\"\n    CodigoEvento: \"pecasProduzidas\",\n    Valor: String(contador),\n    Informacao: \"Contator de Produção Atual.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Contador\"\n\n\n};\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 260,
+        "wires": [
+            [
+                "c3d4e5f6.g7h8i9"
+            ]
+        ]
+    },
+    {
+        "id": "c3d4e5f6.g7h8i9",
+        "type": "http request",
+        "z": "5f0cc578e3a7799a",
+        "name": "Enviar Contagem para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/contagem",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 870,
+        "y": 260,
+        "wires": [
+            [
+                "d4e5f6g7.h8i9j0"
+            ]
+        ]
+    },
+    {
+        "id": "d4e5f6g7.h8i9j0",
+        "type": "debug",
+        "z": "5f0cc578e3a7799a",
+        "name": "Resposta da API (Contagem)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e5f6g7h8.i9j0k1",
+        "type": "inject",
+        "z": "5f0cc578e3a7799a",
+        "name": "⏹ Resetar Contagem",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "v": "reset",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "reset",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "b2c3d4e5.f6g7h8"
+            ]
+        ]
+    }
+]
