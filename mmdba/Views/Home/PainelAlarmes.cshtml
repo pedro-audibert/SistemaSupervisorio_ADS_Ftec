@@ -1,0 +1,189 @@
+﻿@*
+=========================================================================================================
+ARQUIVO: Views/Home/PainelAlarmes.cshtml (VERSÃO FINAL COM HISTÓRICO DO BANCO)
+FUNÇÃO:  Exibe uma tabela com o histórico de alarmes, que é carregado do banco de dados
+         na inicialização e atualizado em tempo real via SignalR.
+=========================================================================================================
+*@
+@{
+    ViewData["Title"] = "Histórico de Alarmes";
+}
+
+<div class="container-fluid my-4">
+    <h1 class="mb-3 text-center">Painel de Alarmes</h1>
+    <p class="text-center">Painel de Alarme - Histórico de Alarmes.</p>
+
+    <div id="statusConexao" class="alert alert-info alert-status text-center">
+        Conectando ao servidor...
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h4 class="text-center">Histórico de Alarmes</h4>
+
+            <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
+                <div>
+                    <label for="filtro-limite-alarmes" class="col-form-label">Exibir últimos:</label>
+                </div>
+                <div>
+                    <select class="form-select form-select-sm" id="filtro-limite-alarmes">
+                        <option value="10" selected>10 alarmes</option>
+                        <option value="25">25 alarmes</option>
+                        <option value="50">50 alarmes</option>
+                        <option value="100">100 alarmes</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-outline-danger" id="btn-limpar-alarmes">Limpar Histórico</button>
+                </div>
+            </div>
+
+            <table class="table table-bordered table-striped table-sm text-center" id="tblHistoricoAlarmes">
+                <thead class="thead-dark"></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmacaoLimparModal" tabindex="-1" aria-labelledby="confirmacaoLimparModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmacaoLimparModalLabel">Confirmar Ação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                Você tem certeza que deseja limpar todo o histórico de alarmes da tela?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btn-confirmar-limpeza">Sim, Limpar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        (function () {
+            // --- ELEMENTOS E ESTADO ---
+            const statusDiv = document.getElementById("statusConexao");
+            const tabelaBody = document.querySelector("#tblHistoricoAlarmes tbody");
+            const tabelaHead = document.querySelector("#tblHistoricoAlarmes thead");
+            const filtroLimiteEl = document.getElementById("filtro-limite-alarmes");
+            const btnLimparAlarmes = document.getElementById("btn-limpar-alarmes");
+            const confirmacaoLimparModalEl = document.getElementById('confirmacaoLimparModal');
+            const confirmacaoLimparModal = new bootstrap.Modal(confirmacaoLimparModalEl);
+            const btnConfirmarLimpeza = document.getElementById('btn-confirmar-limpeza');
+            let historicoDeAlarmes = [];
+
+            // --- FUNÇÕES DE UI ---
+
+            function renderizarTabela() {
+                tabelaBody.innerHTML = '';
+                const limite = parseInt(filtroLimiteEl.value, 10);
+
+                if (!historicoDeAlarmes || historicoDeAlarmes.length === 0) {
+                    for (let i = 0; i < 5; i++) {
+                        const linhaVazia = tabelaBody.insertRow();
+                        linhaVazia.insertCell().innerHTML = '&nbsp;';
+                        linhaVazia.insertCell().innerHTML = '&nbsp;';
+                        linhaVazia.classList.add('linha-vazia');
+                    }
+                    return;
+                }
+
+                const alarmesParaExibir = historicoDeAlarmes.slice(0, limite);
+                alarmesParaExibir.forEach(alarme => {
+                    const linha = tabelaBody.insertRow();
+
+                    // CORREÇÃO: Tenta ler a propriedade com minúscula ou maiúscula para ser robusto.
+                    const valor = alarme.valor || alarme.Valor || "";
+                    const timestamp = alarme.timestamp || alarme.Timestamp;
+
+                    linha.insertCell().textContent = valor;
+                    linha.insertCell().textContent = timestamp ? new Date(timestamp).toLocaleString("pt-BR") : "Data inválida";
+                });
+            }
+
+            function adicionarAlarme(alarme) {
+                historicoDeAlarmes.unshift(alarme);
+                renderizarTabela();
+            }
+
+            function criarCabecalhoTabela() {
+                tabelaHead.innerHTML = `<tr><th>Descrição do Alarme</th><th>Horário</th></tr>`;
+            }
+
+            // --- LÓGICA DE DADOS E EVENTOS ---
+
+            async function carregarHistoricoDoBanco() {
+                const limite = filtroLimiteEl.value;
+                try {
+                    const response = await fetch(`/api/dashboard/rotuladora/alarmes/historico?limite=${limite}`);
+                    if (!response.ok) {
+                        throw new Error(`Erro de rede: ${response.status}`);
+                    }
+                    historicoDeAlarmes = await response.json();
+                    renderizarTabela();
+                } catch (err) {
+                    console.error("Falha ao carregar histórico do banco:", err);
+                    tabelaBody.innerHTML = '<tr><td colspan="2" class="text-danger">Falha ao carregar histórico.</td></tr>';
+                }
+            }
+
+        filtroLimiteEl.addEventListener('change', carregarHistoricoDoBanco);
+                    btnConfirmarLimpeza.addEventListener('click', () => {
+                historicoDeAlarmes = [];
+                renderizarTabela();
+                confirmacaoLimparModal.hide();
+            });
+            btnLimparAlarmes.addEventListener('click', () => confirmacaoLimparModal.show());
+
+            // --- INICIALIZAÇÃO DA PÁGINA ---
+
+            async function iniciarConexaoSignalR() {
+                const connection = new signalR.HubConnectionBuilder()
+                    .withUrl("/alarmesHub")
+                    .withAutomaticReconnect()
+                    .build();
+
+                connection.on("postAlarmes", (id, valor, informacao, timestamp) => {
+                    if (valor && valor !== "Sem Alarmes") {
+                        adicionarAlarme({ id, valor, informacao, timestamp });
+                    }
+                });
+
+                connection.onreconnecting(() => {
+                    statusDiv.className = "alert alert-warning alert-status text-center";
+                    statusDiv.textContent = "Conexão perdida. Tentando reconectar…";
+                });
+
+                connection.onreconnected(() => {
+                    statusDiv.className = "alert alert-success alert-status text-center";
+                    statusDiv.textContent = "Reconectado com sucesso!";
+                });
+
+                try {
+                    await connection.start();
+                    statusDiv.className = "alert alert-success alert-status text-center";
+                    statusDiv.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
+
+                    // Logo após conectar, busca o histórico do banco.
+                    await carregarHistoricoDoBanco();
+
+                    criarCabecalhoTabela();
+                } catch (err) {
+                    console.error("Falha na conexão com o Hub de Alarmes:", err);
+                    statusDiv.className = "alert alert-danger alert-status text-center";
+                    statusDiv.textContent = "Falha na conexão. Verifique o console para mais detalhes.";
+                }
+            }
+
+            // Inicia todo o processo.
+            iniciarConexaoSignalR();
+        })();
+    </script>
+}

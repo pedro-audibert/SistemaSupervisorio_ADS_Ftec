@@ -1,0 +1,150 @@
+[
+  {
+    "ContainingType": "mmdba.Controllers.DashboardController",
+    "Method": "GetHistoricoAlarmes",
+    "RelativePath": "api/dashboard/rotuladora/alarmes/historico",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "limite",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mmdba.Controllers.DashboardController",
+    "Method": "GetUltimoAlarmeRotuladora",
+    "RelativePath": "api/dashboard/rotuladora/alarmes/ultimo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mmdba.Controllers.DashboardController",
+    "Method": "GetUltimoStatusRotuladora",
+    "RelativePath": "api/dashboard/rotuladora/status/ultimo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiController",
+    "Method": "PostAlarmeRotuladora",
+    "RelativePath": "api/mmdba/rotuladora/alarmes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dadosRecebidos",
+        "Type": "mmdba.Models.ApiModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiController",
+    "Method": "PostAvisoRotuladora",
+    "RelativePath": "api/mmdba/rotuladora/avisos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dadosRecebidos",
+        "Type": "mmdba.Models.ApiModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiController",
+    "Method": "PostContagemRotuladora",
+    "RelativePath": "api/mmdba/rotuladora/contagem",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dadosRecebidos",
+        "Type": "mmdba.Models.ApiModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiController",
+    "Method": "PostDadosRotuladora",
+    "RelativePath": "api/mmdba/rotuladora/dados",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dadosRecebidos",
+        "Type": "mmdba.Models.ApiModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiController",
+    "Method": "PostIOsRotuladora",
+    "RelativePath": "api/mmdba/rotuladora/IOs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dadosRecebidos",
+        "Type": "mmdba.Models.ApiModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiController",
+    "Method": "PostStatusRotuladora",
+    "RelativePath": "api/mmdba/rotuladora/status",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dadosRecebidos",
+        "Type": "mmdba.Models.ApiModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiController",
+    "Method": "PostVelocidadeRotuladora",
+    "RelativePath": "api/mmdba/rotuladora/velocidade",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dadosRecebidos",
+        "Type": "mmdba.Models.ApiModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

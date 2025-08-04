@@ -1,0 +1,109 @@
+﻿@*
+================================================================================================
+ARQUIVO: Views/Home/Privacy.cshtml (VERSÃO FINAL DOCUMENTADA)
+FUNÇÃO:  Exibe a página de Política de Privacidade da aplicação. Esta é uma View
+         primariamente estática, projetada para informar o usuário sobre as práticas
+         de coleta e uso de dados do sistema.
+================================================================================================
+*@
+
+@*
+============================================================================================
+BLOCO RAZOR
+============================================================================================
+Este bloco define o título da página, que será usado na aba do navegador.
+============================================================================================
+*@
+@{
+    ViewData["Title"] = "Política de Privacidade";
+}
+
+
+@*
+============================================================================================
+CONTEÚDO HTML
+============================================================================================
+Abaixo está a estrutura e o conteúdo textual da política de privacidade.
+============================================================================================
+*@
+<div class="container my-4">
+    <h1 class="mb-3 text-center">Política de Privacidade</h1>
+    <p class="text-center">Esta aplicação coleta dados de automação industrial com base em credenciais de acesso fornecidas, garantindo sigilo, proteção da informação e transparência com o usuário.</p>
+
+    <div class="text-center my-5">
+        <img src="~/images/logo.png" alt="Logo da Empresa" style="max-width: 400px; height: auto;" />
+        <p style="font-size: 18px; color: #333; font-weight: 500; margin-top: 1rem;">
+            Conectando máquinas, Otimizando resultados!
+        </p>
+    </div>
+
+    <div class="container">
+        <section class="mb-4">
+            <h2>1. Coleta de Dados</h2>
+            <p>Os dados coletados provêm exclusivamente de CLPs integrados via Node-RED, como:</p>
+            <ul>
+                <li>Velocidade atual de produção</li>
+                <li>Cálculo de OEE em tempo real</li>
+                <li>Produção acumulada</li>
+                <li>Histórico de alarmes (EMBD)</li>
+            </ul>
+        </section>
+
+        <section class="mb-4">
+            <h2>2. Autenticação</h2>
+            <p>O acesso à plataforma é restrito e protegido por autenticação com usuário e senha. Apenas usuários autorizados conseguem visualizar ou interagir com os dados.</p>
+            <p>Utilizamos <strong>cookies de autenticação de sessão</strong> para garantir que você permaneça logado enquanto navega em nosso site. Esses cookies são essenciais para o funcionamento das áreas protegidas da plataforma e são removidos quando você encerra sua sessão (logout).</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>3. Armazenamento</h2>
+            <p>As informações são armazenadas de forma segura e podem ser utilizadas para análise de eficiência, rastreamento de falhas e geração de relatórios históricos.</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>4. Compartilhamento</h2>
+            <p>Os dados não são compartilhados com terceiros. Toda informação coletada é tratada de maneira confidencial, visando a melhoria contínua da operação do cliente.</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>5. Segurança</h2>
+            <p>Adotamos boas práticas de segurança da informação, incluindo uso de HTTPS, controle de acesso por autenticação e senhas (que em produção devem ser hasheadas), e proteção contra ataques comuns da web.</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>6. Proteção via Cloudflare</h2>
+            <p>Utilizamos os serviços da <strong>Cloudflare</strong> para garantir conexões seguras, estáveis e protegidas entre os usuários e os servidores da aplicação.</p>
+            <ul>
+                <li>Criptografia TLS automatizada com HTTPS</li>
+                <li>Proteção contra ataques DDoS e bots maliciosos</li>
+                <li>Firewall de Aplicações Web (WAF) para filtragem inteligente</li>
+                <li>Otimização de desempenho via cache distribuído</li>
+            </ul>
+            <p>A Cloudflare atua como uma camada intermediária confiável, assegurando integridade e disponibilidade dos serviços oferecidos pela plataforma.</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>7. Consentimento</h2>
+            <p>Ao acessar e usar nossa plataforma, você consente com as práticas descritas nesta Política de Privacidade, incluindo o uso de cookies essenciais para a autenticação.</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>8. Alterações na Política de Privacidade</h2>
+            <p>Esta Política de Privacidade pode ser atualizada periodicamente. Recomendamos que você consulte esta página regularmente para se manter informado.</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>9. Informações de Contato</h2>
+            <p>Se você tiver dúvidas ou preocupações sobre esta Política de Privacidade, entre em contato conosco através do nosso suporte técnico.</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>10. Conformidade com Leis de Privacidade</h2>
+            <p>Nosso compromisso com a privacidade dos dados inclui o cumprimento de leis e regulamentações aplicáveis, como a Lei Geral de Proteção de Dados (LGPD) do Brasil.</p>
+        </section>
+    </div>
+</div>
+
+@*
+Nenhuma seção de Scripts é necessária para esta página, pois ela é puramente informativa.
+*@

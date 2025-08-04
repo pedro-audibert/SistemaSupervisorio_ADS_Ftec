@@ -1,0 +1,28 @@
+﻿@* Injeta o serviço SignInManager para podermos verificar se existem provedores de login externos (como Google, Facebook, etc.). *@
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    // Verifica se algum provedor de login externo foi configurado na aplicação.
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+@* Lista de navegação vertical com a classe 'nav-pills' do Bootstrap para o estilo dos links. *@
+<ul class="nav nav-pills flex-column">
+    @*
+        Cada 'li' representa um item do menu.
+        - A classe CSS do link é calculada dinamicamente pela classe 'ManageNavPages'.
+          Ela adiciona a classe 'active' ao link da página atual, destacando-o em azul.
+        - 'asp-page' é um Tag Helper que gera o link correto para a página Razor correspondente.
+    *@
+    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Perfil</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Senha</a></li>
+
+    @* Este item do menu só aparece se houver provedores de login externos configurados. *@
+    @if (hasExternalLogins)
+    {
+        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">Logins Externos</a></li>
+    }
+
+    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Autenticação de dois fatores</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Dados Pessoais</a></li>
+</ul>

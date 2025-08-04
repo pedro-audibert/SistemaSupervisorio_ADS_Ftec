@@ -1,0 +1,66 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Acessar Portal";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+
+                <div class="text-center mb-4">
+                    @* Certifique-se de que a sua logo está em wwwroot/images/logo.png *@
+                    <img src="~/images/logo.png" alt="Logo" style="max-width: 200px; height: auto;" />
+                    <h1 class="h3 mt-3 mb-1 fw-normal">@ViewData["Title"]</h1>
+                    <p class="text-muted">Faça login para continuar.</p>
+                </div>
+
+                <form id="account" method="post">
+
+                    @* O sumário de validação agora exibe os erros do Identity. *@
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3 text-center" role="alert"></div>
+
+                    @* Campo de E-mail, adaptado para o modelo do Identity (Input.Email). *@
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <label asp-for="Input.Email"></label>
+                        <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                    </div>
+
+                    @* Campo de Senha, adaptado para o modelo do Identity (Input.Password). *@
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Input.Password"></label>
+                        <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                    </div>
+
+                    @* Checkbox "Lembrar de mim", que já vem com o Identity. *@
+                    <div class="checkbox mb-3">
+                        <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Entrar</button>
+
+                    <div class="mt-4 text-center">
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Esqueceu sua senha?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar um novo usuário</a>
+                        </p>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Seção de scripts para habilitar a validação no lado do cliente. *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

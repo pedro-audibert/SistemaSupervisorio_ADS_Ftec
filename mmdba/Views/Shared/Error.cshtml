@@ -1,0 +1,63 @@
+﻿@*
+================================================================================================
+ARQUIVO: Views/Shared/Error.cshtml (VERSÃO FINAL DOCUMENTADA)
+FUNÇÃO:  Esta é a View de erro genérica da aplicação. Ela é exibida quando ocorre uma
+         exceção não tratada. Sua função é apresentar uma mensagem de erro amigável
+         para o usuário final, ao mesmo tempo que oferece informações de depuração
+         (como o Request ID) para os desenvolvedores.
+================================================================================================
+*@
+
+@* A diretiva @model informa que esta View espera receber um objeto do tipo 'ErrorViewModel'.
+   Esse modelo é preenchido e passado pelo método 'Error' do 'HomeController'. *@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Erro";
+}
+
+<h1 class="text-danger">Erro.</h1>
+<h2 class="text-danger">Ocorreu um erro ao processar a sua requisição.</h2>
+
+@*
+============================================================================================
+EXIBIÇÃO CONDICIONAL DO REQUEST ID
+============================================================================================
+Este bloco @if verifica a propriedade booleana 'ShowRequestId' do nosso modelo.
+Lembre-se, essa propriedade retorna 'true' apenas se 'RequestId' tiver um valor.
+Isso garante que a seção do Request ID só apareça na página se um ID estiver disponível.
+============================================================================================
+*@
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong>
+        @*
+        A tag <code> é usada para formatar texto como código.
+        Aqui, renderizamos o @Model.RequestId. Este ID é crucial para a depuração:
+        um usuário pode fornecer este código, e o desenvolvedor pode usá-lo para
+        encontrar os detalhes exatos do erro nos logs do servidor.
+        *@
+        <code>@Model.RequestId</code>
+    </p>
+}
+
+@*
+============================================================================================
+INSTRUÇÕES SOBRE O MODO DE DESENVOLVIMENTO
+============================================================================================
+Esta seção do HTML é puramente informativa para o desenvolvedor que está executando
+a aplicação. Ela explica um recurso poderoso e importante do ASP.NET Core.
+============================================================================================
+*@
+<h3>Modo de Desenvolvimento</h3>
+<p>
+    Alternar para o ambiente de <strong>Desenvolvimento</strong> exibirá informações mais detalhadas sobre o erro que ocorreu.
+</p>
+<p>
+    <strong>O ambiente de Desenvolvimento NUNCA deve ser habilitado para aplicações em produção.</strong>
+    Isso pode resultar na exibição de informações sensíveis de exceções (como strings de conexão com o banco de dados ou partes do código) para os usuários finais, o que é uma falha de segurança grave.
+</p>
+<p>
+    Para depuração local, habilite o ambiente de <strong>Desenvolvimento</strong> definindo a variável de ambiente <strong>ASPNETCORE_ENVIRONMENT</strong> como <strong>Development</strong>
+    e reiniciando a aplicação.
+</p>

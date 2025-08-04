@@ -1,0 +1,67 @@
+﻿@*
+=========================================================================================================
+ARQUIVO: Views/Home/Index.cshtml
+FUNÇÃO:  Portal principal da aplicação.
+=========================================================================================================
+*@
+@{
+    ViewData["Title"] = "Seleção de Máquina";
+    ViewData["IsPortalPage"] = true;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Portal de Supervisão</h1>
+    <p class="lead text-muted">Selecione um equipamento abaixo para iniciar o monitoramento em tempo real.</p>
+</div>
+
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-10 col-lg-11 col-xl-10">
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+            <div class="col">
+                <div class="card h-100 shadow-sm card-hover">
+                    <a asp-controller="Home" asp-action="PainelSupervisao">
+                        <img src="~/images/icone_rotuladora.png" class="card-img-top" alt="Rotuladora">
+                    </a>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <a asp-controller="Home" asp-action="PainelSupervisao" class="btn btn-primary w-100">Acessar Painel</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="~/images/icone_enchedora.png" class="card-img-top" alt="Enchedora">
+                    <div class="card-footer bg-transparent border-top-0">
+                        <a class="btn btn-outline-secondary w-100 disabled">Em Breve</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="~/images/icone_empacotadora.png" class="card-img-top" alt="Empacotadora">
+                    <div class="card-footer bg-transparent border-top-0">
+                        <a class="btn btn-outline-secondary w-100 disabled">Em Breve</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <style>
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+}
