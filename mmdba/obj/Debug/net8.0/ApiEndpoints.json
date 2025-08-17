@@ -27,8 +27,38 @@
   },
   {
     "ContainingType": "mmdba.Controllers.DashboardController",
+    "Method": "GetProducaoHistorico",
+    "RelativePath": "api/dashboard/rotuladora/producao/historico",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mmdba.Controllers.DashboardController",
     "Method": "GetUltimoStatusRotuladora",
     "RelativePath": "api/dashboard/rotuladora/status/ultimo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mmdba.Controllers.DashboardController",
+    "Method": "GetVelocidadeHistorico",
+    "RelativePath": "api/dashboard/rotuladora/velocidade/historico",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mmdba.Controllers.DashboardController",
+    "Method": "GetUltimaVelocidade",
+    "RelativePath": "api/dashboard/rotuladora/velocidade/ultima",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

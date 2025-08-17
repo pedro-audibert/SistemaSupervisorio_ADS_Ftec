@@ -6,12 +6,12 @@ FUNÇÃO:  Exibe uma tabela com o histórico de alarmes, que é carregado do ban
 =========================================================================================================
 *@
 @{
-    ViewData["Title"] = "Histórico de Alarmes";
+    ViewData["Title"] = "Histórico de Notificações";
 }
 
 <div class="container-fluid my-4">
-    <h1 class="mb-3 text-center">Painel de Alarmes</h1>
-    <p class="text-center">Painel de Alarme - Histórico de Alarmes.</p>
+    <h1 class="mb-3 text-center">Painel de Notificações</h1>
+    <p class="text-center">Painel de Notificações - Histórico de Notificações.</p>
 
     <div id="statusConexao" class="alert alert-info alert-status text-center">
         Conectando ao servidor...
@@ -85,21 +85,21 @@ FUNÇÃO:  Exibe uma tabela com o histórico de alarmes, que é carregado do ban
                 tabelaBody.innerHTML = '';
                 const limite = parseInt(filtroLimiteEl.value, 10);
 
-                if (!historicoDeAlarmes || historicoDeAlarmes.length === 0) {
-                    for (let i = 0; i < 5; i++) {
-                        const linhaVazia = tabelaBody.insertRow();
-                        linhaVazia.insertCell().innerHTML = '&nbsp;';
-                        linhaVazia.insertCell().innerHTML = '&nbsp;';
-                        linhaVazia.classList.add('linha-vazia');
-                    }
-                    return;
-                }
+                
+        if (!historicoDeAlarmes || historicoDeAlarmes.length === 0) {
+            const linhaMensagem = tabelaBody.insertRow();
+            const celulaMensagem = linhaMensagem.insertCell();
+            celulaMensagem.colSpan = 2;
+            celulaMensagem.textContent = "Nenhum alarme no histórico para exibir.";
+            celulaMensagem.style.textAlign = 'center';
+
+            return;
+        }
+                
 
                 const alarmesParaExibir = historicoDeAlarmes.slice(0, limite);
                 alarmesParaExibir.forEach(alarme => {
                     const linha = tabelaBody.insertRow();
-
-                    // CORREÇÃO: Tenta ler a propriedade com minúscula ou maiúscula para ser robusto.
                     const valor = alarme.valor || alarme.Valor || "";
                     const timestamp = alarme.timestamp || alarme.Timestamp;
 
@@ -150,9 +150,17 @@ FUNÇÃO:  Exibe uma tabela com o histórico de alarmes, que é carregado do ban
                     .withAutomaticReconnect()
                     .build();
 
-                connection.on("postAlarmes", (id, valor, informacao, timestamp) => {
-                    if (valor && valor !== "Sem Alarmes") {
-                        adicionarAlarme({ id, valor, informacao, timestamp });
+                connection.on("postAlarmes", (ultimoAlarme) => {
+                    const codigoEvento = ultimoAlarme.codigoEvento;
+                    const valor = ultimoAlarme.valor;
+                    const informacao = ultimoAlarme.informacao;
+                    const origem = ultimoAlarme.origem;
+                    const tipoEvento = ultimoAlarme.tipoEvento;
+                    const timeStamp = ultimoAlarme.timestamp;
+                   console.log("Dados recebidos via SignalR Painel Historico:", ultimoAlarme);
+
+                    if (codigoEvento !== "alarmeOFF") {
+                        adicionarAlarme(ultimoAlarme);
                     }
                 });
 

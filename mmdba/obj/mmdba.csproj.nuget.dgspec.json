@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\mmdbaProject\\VisualStudio\\mmdba\\mmdba\\mmdba.csproj": {}
+    "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_Módulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\mmdba.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\mmdbaProject\\VisualStudio\\mmdba\\mmdba\\mmdba.csproj": {
+    "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_Módulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\mmdba.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\mmdbaProject\\VisualStudio\\mmdba\\mmdba\\mmdba.csproj",
+        "projectUniqueName": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_Módulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\mmdba.csproj",
         "projectName": "mmdba",
-        "projectPath": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\mmdbaProject\\VisualStudio\\mmdba\\mmdba\\mmdba.csproj",
+        "projectPath": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_Módulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\mmdba.csproj",
         "packagesPath": "C:\\Users\\Pedro Audibert\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\mmdbaProject\\VisualStudio\\mmdba\\mmdba\\obj\\",
+        "outputPath": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_Módulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -88,6 +88,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[8.0.11, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.29.3, )"
             }
           },
           "imports": [

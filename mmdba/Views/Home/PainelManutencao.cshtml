@@ -1,7 +1,8 @@
 ﻿@*
 =========================================================================================================
 ARQUIVO: Views/Home/PainelManutencao.cshtml
-FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do sistema.
+FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do sistema,
+         com persistência de dados para manter o estado após recarregar a página.
 =========================================================================================================
 *@
 
@@ -38,85 +39,133 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
         (function () {
             // ===================================================================================
             // BLOCO 1: CONFIGURAÇÃO CENTRAL DE IOs
-            // Esta seção para adicionar ou remover um IO,
+            // Esta seção para adicionar ou remover um IO.
             // ===================================================================================
             const entradasDigitais = [
-                { id: 'Local:1:I.Data.0', endereco: 'I00', descricao: 'Chave de Segurança' },
-                { id: 'Local:1:I.Data.1', endereco: 'I01', descricao: 'Botão de Emergência' },
-                { id: 'Local:1:I.Data.2', endereco: 'I02', descricao: 'Botão Partida' },
-                { id: 'Local:1:I.Data.3', endereco: 'I03', descricao: 'Botão Parada' },
-                { id: 'Local:1:I.Data.4', endereco: 'I04', descricao: 'Sensor Falta de Rótulos' },
-                { id: 'Local:1:I.Data.5', endereco: 'I05', descricao: 'Sensor Rótulo Sobressalente' },
-                { id: 'Local:1:I.Data.6', endereco: 'I06', descricao: 'Sensor Faca na Posição' },
-                { id: 'Local:1:I.Data.7', endereco: 'I07', descricao: 'Sensor Acúmulo Entrada' },
-                { id: 'Local:1:I.Data.8', endereco: 'I08', descricao: 'Sensor Acúmulo Saída' },
-                { id: 'Local:1:I.Data.9', endereco: 'I09', descricao: 'Sensor Parada Entrada' },
-                { id: 'Local:1:I.Data.10', endereco: 'I10', descricao: 'Sensor Parada Saída' },
-                { id: 'Local:1:I.Data.11', endereco: 'I11', descricao: 'Pressostato' },
-                { id: 'Local:1:I.Data.12', endereco: 'I12', descricao: 'Botão Reset' },
-                { id: 'Local:1:I.Data.13', endereco: 'I13', descricao: 'Controle de Temperatura' },
-                { id: 'Local:1:I.Data.14', endereco: 'I14', descricao: 'Sensor Presença de Garrafas' },
-                { id: 'Local:1:I.Data.15', endereco: 'I15', descricao: 'Joggin' },
+                { id: 'in0_0', endereco: 'I00', descricao: 'Chave de Segurança' },
+                { id: 'in0_1', endereco: 'I01', descricao: 'Botão de Emergência' },
+                { id: 'in0_2', endereco: 'I02', descricao: 'Botão Partida' },
+                { id: 'in0_3', endereco: 'I03', descricao: 'Botão Parada' },
+                { id: 'in0_4', endereco: 'I04', descricao: 'Sensor Falta de Rótulos' },
+                { id: 'in0_5', endereco: 'I05', descricao: 'Sensor Rótulo Sobressalente' },
+                { id: 'in0_6', endereco: 'I06', descricao: 'Sensor Faca na Posição' },
+                { id: 'in0_7', endereco: 'I07', descricao: 'Sensor Acúmulo Entrada' },
+                { id: 'in1_0', endereco: 'I08', descricao: 'Sensor Acúmulo Saída' },
+                { id: 'in1_1', endereco: 'I09', descricao: 'Sensor Parada Entrada' },
+                { id: 'in1_2', endereco: 'I10', descricao: 'Sensor Parada Saída' },
+                { id: 'in1_3', endereco: 'I11', descricao: 'Pressostato' },
+                { id: 'in1_4', endereco: 'I12', descricao: 'Botão Reset' },
+                { id: 'in1_5', endereco: 'I13', descricao: 'Controle de Temperatura' },
+                { id: 'in1_6', endereco: 'I14', descricao: 'Sensor Presença de Garrafas' },
+                { id: 'in1_7', endereco: 'I15', descricao: 'Joggin' },
             ];
 
             const saidasDigitais = [
-                { id: 'Local:1:O.Data.0', endereco: 'Q00', descricao: 'Máquina em Operação' },
-                { id: 'Local:1:O.Data.1', endereco: 'Q01', descricao: 'Aviso Sonoro' },
-                { id: 'Local:1:O.Data.2', endereco: 'Q02', descricao: 'Máquina em Falha' },
-                { id: 'Local:1:O.Data.3', endereco: 'Q03', descricao: 'Válvula Bloqueio' },
-                { id: 'Local:1:O.Data.4', endereco: 'Q04', descricao: 'Válvula Coleiro' },
-                { id: 'Local:1:O.Data.5', endereco: 'Q05', descricao: 'Válvula Corte' },
-                { id: 'Local:1:O.Data.6', endereco: 'Q06', descricao: 'Válvula Tração' },
-                { id: 'Local:1:O.Data.7', endereco: 'Q07', descricao: 'Bomba de Vácuo' },
-                { id: 'Local:1:O.Data.8', endereco: 'Q08', descricao: 'Reset Drive Tração' },
-                { id: 'Local:1:O.Data.9', endereco: 'Q09', descricao: 'Válvula Trava Freio' },
-                { id: 'Local:1:O.Data.10', endereco: 'Q10', descricao: 'Válvula Freio' },
-                { id: 'Local:1:O.Data.11', endereco: 'Q11', descricao: 'Lâmpada Reset' },
-                { id: 'Local:1:O.Data.12', endereco: 'Q12', descricao: 'Saída Reserva Q12' },
-                { id: 'Local:1:O.Data.13', endereco: 'Q13', descricao: 'Saída Reserva Q13' },
-                { id: 'Local:1:O.Data.14', endereco: 'Q14', descricao: 'Saída Reserva Q14' },
-                { id: 'Local:1:O.Data.15', endereco: 'Q15', descricao: 'Saída Reserva Q15' },
+                { id: 'out0_0', endereco: 'Q00', descricao: 'Máquina em Operação' },
+                { id: 'out0_1', endereco: 'Q01', descricao: 'Aviso Sonoro' },
+                { id: 'out0_2', endereco: 'Q02', descricao: 'Máquina em Falha' },
+                { id: 'out0_3', endereco: 'Q03', descricao: 'Válvula Bloqueio' },
+                { id: 'out0_4', endereco: 'Q04', descricao: 'Válvula Coleiro' },
+                { id: 'out0_5', endereco: 'Q05', descricao: 'Válvula Corte' },
+                { id: 'out0_6', endereco: 'Q06', descricao: 'Válvula Tração' },
+                { id: 'out0_7', endereco: 'Q07', descricao: 'Bomba de Vácuo' },
+                { id: 'out1_0', endereco: 'Q08', descricao: 'Reset Drive Tração' },
+                { id: 'out1_1', endereco: 'Q09', descricao: 'Válvula Trava Freio' },
+                { id: 'out1_2', endereco: 'Q10', descricao: 'Válvula Freio' },
+                { id: 'out1_3', endereco: 'Q11', descricao: 'Lâmpada Reset' },
+                { id: 'out1_4', endereco: 'Q12', descricao: 'Saída Reserva Q12' },
+                { id: 'out1_5', endereco: 'Q13', descricao: 'Saída Reserva Q13' },
+                { id: 'out1_6', endereco: 'Q14', descricao: 'Saída Reserva Q14' },
+                { id: 'out1_7', endereco: 'Q15', descricao: 'Saída Reserva Q15' },
             ];
 
             const entradasAnalogicas = [
-                { id: 'Local:2:I.Ch0Data', endereco: 'IW0', descricao: 'Posição Balancin Freio' },
-                { id: 'Local:2:I.Ch1Data', endereco: 'IW1', descricao: 'Entrada Reserva IW1' },
-                { id: 'Local:2:I.Ch2Data', endereco: 'IW2', descricao: 'Entrada Reserva IW2' },
-                { id: 'Local:2:I.Ch3Data', endereco: 'IW3', descricao: 'Entrada Reserva IW3' },
+                { id: 'inIW2', endereco: 'IW2', descricao: 'Posição Balancin Freio' },
+                { id: 'inIW4', endereco: 'IW4', descricao: 'Entrada Reserva IW1' },
+                { id: 'inIW6', endereco: 'IW6', descricao: 'Entrada Reserva IW2' },
+                { id: 'inIW8', endereco: 'IW8', descricao: 'Entrada Reserva IW3' },
             ];
 
             const saidasAnalogicas = [
-                { id: 'Local:2:O.Ch0Data', endereco: 'QW0', descricao: 'Pressão Freio Desbobinador' },
-                { id: 'Local:2:O.Ch1Data', endereco: 'QW1', descricao: 'Saída Reserva QW1' },
+                { id: 'outQW2', endereco: 'QW2', descricao: 'Pressão Freio Desbobinador' },
+                { id: 'outQW4', endereco: 'QW4', descricao: 'Saída Reserva QW4' },
             ];
 
             const entradasRapidas = [
-                { id: 'Local:3:I.Ctr0CurrentCount', endereco: 'HSC00', descricao: 'Encoder Mestre' },
-                { id: 'Local:3:I.Ctr1CurrentCount', endereco: 'HSC01', descricao: 'Entrada Rápida Reserva HSC01' },
-                { id: 'Local:3:I.Ctr2CurrentCount', endereco: 'HSC02', descricao: 'Entrada Rápida Reserva HSC02' },
-                { id: 'Local:3:I.Ctr3CurrentCount', endereco: 'HSC03', descricao: 'Entrada Rápida Reserva HSC03' },
+                { id: 'inHSC00', endereco: 'HSC00', descricao: 'Encoder Mestre' },
+                { id: 'inHSC01', endereco: 'HSC01', descricao: 'Entrada Rápida Reserva HSC01' },
+                { id: 'inHSC02', endereco: 'HSC02', descricao: 'Entrada Rápida Reserva HSC02' },
+                { id: 'inHSC03', endereco: 'HSC03', descricao: 'Entrada Rápida Reserva HSC03' },
             ];
 
             // ===================================================================================
-            // BLOCO 2: FUNÇÕES DE GERAÇÃO E ATUALIZAÇÃO DA INTERFACE (UI)
+            // BLOCO 2: LÓGICA DE PERSISTÊNCIA DE DADOS (LocalStorage)
+            // Funções para salvar e recuperar o estado dos IOs, garantindo que os dados
+            // não se percam ao recarregar a página.
+            // ===================================================================================
+            const LOCAL_STORAGE_KEY = 'painelIOsStatus';
+
+            /**
+             * Recupera todos os estados de IOs salvos no localStorage.
+             * returns {object} Um objeto contendo os estados de todos os IOs, ou um objeto vazio se não houver dados ou ocorrer um erro.
+             */
+            function carregarTodosOsEstados() {
+                try {
+                    const dadosSalvos = localStorage.getItem(LOCAL_STORAGE_KEY);
+                    return dadosSalvos ? JSON.parse(dadosSalvos) : {};
+                } catch (e) {
+                    console.error("Erro ao carregar dados do localStorage. A persistência pode não funcionar.", e);
+                    return {}; // Retorna um objeto vazio para a aplicação não quebrar.
+                }
+            }
+
+            /**
+             * Salva o estado de um IO específico no localStorage.
+             * param {string} id - O ID do elemento do IO (ex: 'in0_0').
+             * param {object} estado - Um objeto contendo o {texto, className} a ser salvo.
+             */
+            function salvarEstado(id, estado) {
+                try {
+                    const todosOsEstados = carregarTodosOsEstados();
+                    todosOsEstados[id] = estado;
+                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todosOsEstados));
+                } catch (e) {
+                    console.error(`Erro ao salvar o estado para o IO '${id}' no localStorage.`, e);
+                }
+            }
+
+            // ===================================================================================
+            // BLOCO 3: FUNÇÕES DE GERAÇÃO E ATUALIZAÇÃO DA INTERFACE (UI)
             // Funções responsáveis por manipular o DOM (Document Object Model).
             // ===================================================================================
 
-            /** Gera uma tabela completa de IOs e a insere em um container específico. */
+            /** * Gera uma tabela completa de IOs, recuperando os valores do localStorage para exibição inicial.
+             */
             function gerarTabela(containerId, titulo, cabecalhos, dados) {
                 const container = document.getElementById(containerId);
                 if (!container) {
                     console.error(`Container com ID '${containerId}' não encontrado.`);
                     return;
                 }
+
+                // Carrega todos os estados salvos de uma vez para otimizar a leitura.
+                const estadosSalvos = carregarTodosOsEstados();
+
                 // Mapeia o array de dados para um string de HTML com as linhas da tabela.
-                const linhasHtml = dados.map(item => `
-                    <tr>
-                        <td>${item.endereco}</td>
-                        <td>${item.descricao}</td>
-                        <td id="${item.id}" class="fw-bold">Desconhecido</td>
-                    </tr>
-                `).join('');
+                const linhasHtml = dados.map(item => {
+                    // Verifica se existe um estado salvo para o item atual.
+                    const estadoSalvo = estadosSalvos[item.id];
+                    const textoInicial = estadoSalvo ? estadoSalvo.texto : 'Desconhecido';
+                    const classeInicial = estadoSalvo ? estadoSalvo.className : 'fw-bold';
+
+                    return `
+                        <tr>
+                            <td>${item.endereco}</td>
+                            <td>${item.descricao}</td>
+                            <td id="${item.id}" class="${classeInicial}">${textoInicial}</td>
+                        </tr>
+                    `;
+                }).join('');
 
                 // Injeta o HTML completo da tabela no container.
                 container.innerHTML = `
@@ -129,37 +178,56 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
                     </table>`;
             }
 
-            /** Atualiza o valor e a cor de um elemento (célula da tabela) na tela. */
-            function atualizarElemento(id, valor) {
-                const elemento = document.getElementById(id);
-                if (!elemento) return; // Se o elemento não for encontrado na tela, ignora.
+            /**
+             * Atualiza um IO na tela e salva seu novo estado no localStorage.
+             */
+            function atualizarIOs(ultimoIOs) {
+                const { codigoEvento, valor } = ultimoIOs;
 
-                // Trata valores booleanos (ON/OFF) de forma diferente dos numéricos.
-                if (typeof valor === 'boolean') {
-                    elemento.textContent = valor ? "ON" : "OFF";
-                    elemento.className = valor ? "bg-success text-white fw-bold" : "bg-danger text-white fw-bold";
-                } else {
-                    elemento.textContent = valor;
-                    elemento.className = "fw-bold"; // Garante que o estilo padrão seja reaplicado para valores não-booleanos.
+                if (!codigoEvento) {
+                    console.warn("IO recebido sem um 'codigoEvento' para identificar o elemento.", ultimoIOs);
+                    return;
                 }
+
+                const elemento = document.getElementById(codigoEvento);
+                if (!elemento) {
+                    // Não é um erro, pode ser um IO que não está nesta tela.
+                    return;
+                }
+
+                let texto, className;
+                if (valor === 'true' || valor === 'false') {
+                    const estaAtivo = (valor === 'true');
+                    texto = estaAtivo ? "ON" : "OFF";
+                    className = estaAtivo ? "bg-success text-white fw-bold" : "bg-danger text-white fw-bold";
+                } else {
+                    texto = valor;
+                    className = "fw-bold";
+                }
+
+                // Atualiza a interface
+                elemento.textContent = texto;
+                elemento.className = className;
+
+                // Salva o novo estado no localStorage
+                salvarEstado(codigoEvento, { texto, className });
             }
 
             // ===================================================================================
-            // BLOCO 3: LÓGICA DE CONEXÃO E INICIALIZAÇÃO DO SIGNALR
+            // BLOCO 4: LÓGICA DE CONEXÃO E INICIALIZAÇÃO DO SIGNALR
             // ===================================================================================
             async function iniciarConexaoSignalR() {
                 const statusDiv = document.getElementById("statusConexao");
                 const connection = new signalR.HubConnectionBuilder()
-                    .withUrl("/iosHub") // Aponta para o Hub de IOs no servidor.
-                    .withAutomaticReconnect() // Tenta reconectar automaticamente se a conexão cair.
+                    .withUrl("/iosHub")
+                    .withAutomaticReconnect()
                     .build();
 
-                // Listener principal: recebe a atualização de IO ("postIOs") e chama a função para atualizar a UI.
-                connection.on("postIOs", (id, valor) => {
-                    atualizarElemento(id, valor);
+                connection.on("postIOs", (ultimoIOs) => {
+                    atualizarIOs(ultimoIOs);
                 });
 
-                // Handlers para feedback visual do estado da conexão para o usuário.
+                // Handlers para feedback visual do estado da conexão.
                 connection.onreconnecting(() => {
                     statusDiv.className = "alert alert-warning alert-status text-center";
                     statusDiv.textContent = "Conexão perdida. Tentando reconectar…";
@@ -171,7 +239,7 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
                 connection.onclose(() => {
                     statusDiv.className = "alert alert-danger alert-status text-center";
                     statusDiv.textContent = "Conexão encerrada. Nova tentativa em 5 segundos...";
-                    setTimeout(iniciarConexaoSignalR, 5000); // Tenta reiniciar a conexão após 5 segundos.
+                    setTimeout(iniciarConexaoSignalR, 5000);
                 });
 
                 // Tenta iniciar a conexão com o servidor.
@@ -180,7 +248,7 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
                     statusDiv.className = "alert alert-success alert-status text-center";
                     statusDiv.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
 
-                    // Após a conexão ser bem-sucedida, chama a função para gerar todas as tabelas na tela.
+                    // Após a conexão, gera as tabelas. A função `gerarTabela` já cuida de carregar os dados persistidos.
                     gerarTabela('containerEntradasDigitais', 'Entradas Digitais', ['Endereço', 'Descrição', 'Status'], entradasDigitais);
                     gerarTabela('containerSaidasDigitais', 'Saídas Digitais', ['Endereço', 'Descrição', 'Status'], saidasDigitais);
                     gerarTabela('containerEntradasAnalogicas', 'Entradas Analógicas', ['Canal', 'Descrição', 'Valor'], entradasAnalogicas);
@@ -191,7 +259,7 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
                     console.error("Falha na conexão com o iosHub:", err);
                     statusDiv.className = "alert alert-danger alert-status text-center";
                     statusDiv.textContent = "Falha na conexão. Nova tentativa em 5 segundos.";
-                    setTimeout(iniciarConexaoSignalR, 5000); // Tenta novamente se a falha for na inicialização.
+                    setTimeout(iniciarConexaoSignalR, 5000);
                 }
             }
 

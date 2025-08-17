@@ -4,21 +4,22 @@ using System.ComponentModel.DataAnnotations;
 public class EventoMaquina
 {
     [Key]
-    public long Id { get; set; } // Identificador único de cada evento
+    public long Id { get; set; }
 
     [Required]
-    public DateTime Timestamp { get; set; } // QUANDO o evento ocorreu
+    public string CodigoEvento { get; set; }
 
     [Required]
-    public string Origem { get; set; } // DE ONDE veio (Rotuladora, Enchedora...)
+    public string Valor { get; set; }
+   
+    [Required]
+    public string Informacao { get; set; } 
 
     [Required]
-    public string TipoEvento { get; set; } // O QUE é (Alarme, Contagem...)
+    public string Origem { get; set; }
 
     [Required]
-    public string CodigoEvento { get; set; } // QUAL evento específico (E-101, PecasBoas...)
+    public string TipoEvento { get; set; }
 
-    public string? Valor { get; set; } // O valor associado ao evento
-
-    public string? Informacao { get; set; } // Um texto descritivo
+    public DateTime Timestamp { get; set; }
 }

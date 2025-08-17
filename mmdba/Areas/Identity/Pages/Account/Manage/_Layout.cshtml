@@ -1,20 +1,42 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
     else
     {
-       Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
+
+@* =============================================================== *@
+@* INÍCIO DA ALTERAÇÃO: Bloco de Estilo para "Congelar" o Layout   *@
+@* =============================================================== *@
+<style>
+    /*
+            Esta classe CSS é a chave para a solução.
+            Ela define uma altura mínima para a área de conteúdo.
+            O valor '60vh' significa 60% da altura da tela do navegador.
+            Isso força o conteúdo a ocupar um espaço consistente, impedindo
+            que o layout "pule" para cima em páginas com pouco conteúdo.
+            Você pode ajustar o valor de 60vh para mais ou menos, se desejar.
+        */
+    .manage-content-wrapper {
+        min-height: 60vh;
+    }
+</style>
+@* =============================================================== *@
+@* FIM DA ALTERAÇÃO                                                *@
+@* =============================================================== *@
+
 
 <h1>Gerenciar Conta</h1>
 
 <div>
-    <h2>Alterar as configurações da sua conta</h2>
+    <h4 class="text-muted fw-light">Altere as configurações da sua conta</h4>
     <hr />
-    <div class="row">
+    @* A classe 'manage-content-wrapper' foi adicionada na div da linha principal *@
+    <div class="row manage-content-wrapper">
         <div class="col-md-3">
             <partial name="_ManageNav" />
         </div>

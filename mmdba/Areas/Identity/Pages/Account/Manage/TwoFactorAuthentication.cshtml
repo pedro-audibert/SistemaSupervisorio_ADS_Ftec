@@ -6,78 +6,73 @@
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
-<partial name="_StatusMessage" for="StatusMessage" />
-<h3>@ViewData["Title"]</h3>
-<div class="row">
-    <div class="col-md-6">
-        @{
-            var consentFeature = HttpContext.Features.Get<ITrackingConsentFeature>();
-            @if (consentFeature?.CanTrack ?? true)
-            {
-                @if (Model.Is2faEnabled)
-                {
-                    if (Model.RecoveryCodesLeft == 0)
-                    {
-                        <div class="alert alert-danger">
-                            <strong>Você não tem mais códigos de recuperação.</strong>
-                            <p>Você precisa <a asp-page="./GenerateRecoveryCodes">gerar um novo conjunto de códigos de recuperação</a> antes de poder fazer login com um código de recuperação.</p>
-                        </div>
-                    }
-                    else if (Model.RecoveryCodesLeft == 1)
-                    {
-                        <div class="alert alert-danger">
-                            <strong>Você tem 1 código de recuperação restante.</strong>
-                            <p>Você pode <a asp-page="./GenerateRecoveryCodes">gerar um novo conjunto de códigos de recuperação</a>.</p>
-                        </div>
-                    }
-                    else if (Model.RecoveryCodesLeft <= 3)
-                    {
-                        <div class="alert alert-warning">
-                            <strong>Você tem @Model.RecoveryCodesLeft códigos de recuperação restantes.</strong>
-                            <p>Você deve <a asp-page="./GenerateRecoveryCodes">gerar um novo conjunto de códigos de recuperação</a>.</p>
-                        </div>
-                    }
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 
-                    @* Agrupando os botões para quando o 2FA está ativo *@
-                    <div class="d-flex flex-wrap gap-2">
-                        @if (Model.IsMachineRemembered)
-                        {
-                            <form method="post" style="display: inline-block">
-                                <button type="submit" class="btn btn-primary">Esquecer este navegador</button>
-                            </form>
-                        }
-                        <a asp-page="./Disable2fa" class="btn btn-primary">Desabilitar 2FA</a>
-                        <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Redefinir códigos de recuperação</a>
+<div class="mt-4">
+    @{
+        var consentFeature = HttpContext.Features.Get<ITrackingConsentFeature>();
+        @if (consentFeature?.CanTrack ?? true)
+        {
+            @if (Model.Is2faEnabled)
+            {
+                if (Model.RecoveryCodesLeft == 0)
+                {
+                    <div class="alert alert-danger">
+                        <strong>Você não tem mais códigos de recuperação.</strong>
+                        <p>Você precisa <a asp-page="./GenerateRecoveryCodes">gerar um novo conjunto de códigos de recuperação</a> antes de poder fazer login com um código de recuperação.</p>
+                    </div>
+                }
+                else if (Model.RecoveryCodesLeft == 1)
+                {
+                    <div class="alert alert-danger">
+                        <strong>Você tem 1 código de recuperação restante.</strong>
+                        <p>Você pode <a asp-page="./GenerateRecoveryCodes">gerar um novo conjunto de códigos de recuperação</a>.</p>
+                    </div>
+                }
+                else if (Model.RecoveryCodesLeft <= 3)
+                {
+                    <div class="alert alert-warning">
+                        <strong>Você tem @Model.RecoveryCodesLeft códigos de recuperação restantes.</strong>
+                        <p>Você deve <a asp-page="./GenerateRecoveryCodes">gerar um novo conjunto de códigos de recuperação</a>.</p>
                     </div>
                 }
 
-                <h4 class="mt-3">Aplicativo autenticador</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    @if (Model.IsMachineRemembered)
+                    {
+                        <form method="post" style="display: inline-block">
+                            <button type="submit" class="btn btn-primary">Esquecer este navegador</button>
+                        </form>
+                    }
+                    <a asp-page="./Disable2fa" class="btn btn-danger">Desativar 2FA</a>
+                    <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Redefinir códigos de recuperação</a>
+                </div>
+            }
+
+            @* AJUSTE: Alterado de h4 para h5 para manter a hierarquia correta de títulos *@
+            <h5 class="mt-4">Aplicativo autenticador</h5>
+            <div class="d-flex flex-wrap gap-2">
                 @if (!Model.HasAuthenticator)
                 {
-                    <div class="d-flex flex-wrap gap-2">
-                        <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Adicionar aplicativo autenticador</a>
-                    </div>
+                    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Adicionar aplicativo autenticador</a>
                 }
                 else
                 {
-                    @* Agrupando os botões para gerenciar o app autenticador *@
-                    <div class="d-flex flex-wrap gap-2">
-                        <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Configurar aplicativo</a>
-                        <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-danger">Redefinir aplicativo</a>
-                    </div>
+                    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Configurar aplicativo</a>
+                    <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-danger ms-2">Redefinir aplicativo</a>
                 }
-            }
-            else
-            {
-                <div class="alert alert-danger">
-                    <strong>A política de privacidade e de cookies não foi aceita.</strong>
-                    <p>Você precisa aceitar a política antes de poder habilitar a autenticação de dois fatores.</p>
-                </div>
-            }
+            </div>
         }
-    </div>
+        else
+        {
+            <div class="alert alert-danger">
+                <strong>A política de privacidade e de cookies não foi aceita.</strong>
+                <p>Você precisa aceitar a política antes de poder habilitar a autenticação de dois fatores.</p>
+            </div>
+        }
+    }
 </div>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

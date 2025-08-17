@@ -1,13 +1,9 @@
-/*
-================================================================================================
-ARQUIVO: Program.cs (VERSÃO FINAL CORRIGIDA E DOCUMENTADA)
-FUNÇÃO:  Ponto de entrada e principal arquivo de configuração da aplicação.
-================================================================================================
-*/
+
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,8 +30,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+// builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Registra o serviço de email personalizado.
+builder.Services.AddTransient<IEmailSender, mmdba.Services.EmailSender>();
 
 // --- 3. CONFIGURAÇÃO DE MVC, RAZOR PAGES E VALIDAÇÕES TRADUZIDAS ---
 // Adiciona os serviços de Controllers e Views, já habilitando a tradução nas Views.

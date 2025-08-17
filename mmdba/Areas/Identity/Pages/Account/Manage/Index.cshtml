@@ -1,32 +1,35 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Gerenciar Perfil";
+    ViewData["Title"] = "Perfil";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
+@* Título padronizado para h4, alinhado com as outras páginas. *@
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 
-<div class="row">
-    <div class="col-md-6">
-        <partial name="_StatusMessage" model="Model.StatusMessage" />
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+@* Adicionado contêiner com margem superior (mt-4) para espaçamento consistente. *@
+<div class="mt-4">
+    @* A estrutura de <div class="row"> e <div class="col-md-6"> foi removida daqui,
+       pois o layout principal (_Layout.cshtml) já cuida disso. *@
+    <form id="profile-form" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
-            <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" disabled />
-                <label asp-for="Username" class="form-label">Email atual</label>
-            </div>
+        <div class="form-floating mb-3">
+            <input asp-for="Username" class="form-control" disabled />
+            @* MELHORIA: Corrigido o texto da label para corresponder ao campo. *@
+            <label asp-for="Username" class="form-label">Nome de usuário (não pode ser alterado)</label>
+        </div>
 
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <label asp-for="Input.PhoneNumber" class="form-label">Número de Telefone</label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
+        <div class="form-floating mb-3">
+            <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Por favor, insira seu telefone." />
+            <label asp-for="Input.PhoneNumber" class="form-label"></label>
+            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+        </div>
 
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Salvar</button>
-        </form>
-    </div>
+        <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Salvar</button>
+    </form>
 </div>
 
 @section Scripts {

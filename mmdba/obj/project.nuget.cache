@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5yT/H+DTCbc=",
+  "dgSpecHash": "2CqxTASCnbk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\mmdbaProject\\VisualStudio\\mmdba\\mmdba\\mmdba.csproj",
+  "projectFilePath": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_Módulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\mmdba.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
@@ -140,10 +140,12 @@
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\nuget.projectmodel\\6.11.0\\nuget.projectmodel.6.11.0.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\nuget.protocol\\6.11.0\\nuget.protocol.6.11.0.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\nuget.versioning\\6.11.0\\nuget.versioning.6.11.0.nupkg.sha512",
+    "C:\\Users\\Pedro Audibert\\.nuget\\packages\\sendgrid\\9.29.3\\sendgrid.9.29.3.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.6\\sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\sqlitepclraw.core\\2.1.6\\sqlitepclraw.core.2.1.6.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.6\\sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.1.6\\sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
+    "C:\\Users\\Pedro Audibert\\.nuget\\packages\\starkbank-ecdsa\\1.3.3\\starkbank-ecdsa.1.3.3.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\system.codedom\\5.0.0\\system.codedom.5.0.0.nupkg.sha512",
     "C:\\Users\\Pedro Audibert\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",

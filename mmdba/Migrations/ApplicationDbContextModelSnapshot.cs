@@ -35,6 +35,7 @@ namespace mmdba.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Informacao")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Origem")
@@ -49,9 +50,12 @@ namespace mmdba.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Valor")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TipoEvento", "Timestamp");
 
                     b.ToTable("EventosMaquina");
                 });
@@ -192,6 +196,44 @@ namespace mmdba.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("VelocidadeInstMaquina", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CodigoEvento")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Informacao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Origem")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("TipoEvento")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Valor")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Timestamp");
+
+                    b.ToTable("VelocidadeInstMaquina");
+                });
+
             modelBuilder.Entity("mmdba.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -256,7 +298,7 @@ namespace mmdba.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("mmdba.Models.Entidades.VelocidadeInstMaquina", b =>
+            modelBuilder.Entity("mmdba.Models.Entidades.ProducaoInstMaquina", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -264,19 +306,34 @@ namespace mmdba.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("IdMaquina")
+                    b.Property<string>("CodigoEvento")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Informacao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Origem")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<double>("Velocidade")
-                        .HasColumnType("double precision");
+                    b.Property<string>("TipoEvento")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Valor")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("VelocidadeInstMaquina");
+                    b.HasIndex("Timestamp");
+
+                    b.ToTable("ProducaoInstMaquina");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

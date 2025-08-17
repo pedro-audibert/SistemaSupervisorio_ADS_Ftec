@@ -76,17 +76,17 @@
     </div>
 </div>
 
-<!-- Seção de Scripts -->
 @section Scripts {
-    <!-- Bibliotecas externas -->
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
-    <!-- Script Principal da Página -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // --- 1. ELEMENTOS E ESTADO ---
+
+            // =========================================================================
+            // I. ESTADO DA APLICAÇÃO E SELETORES DE ELEMENTOS DOM
+            // =========================================================================
             const statusConexaoElement = document.getElementById("statusConexao");
             const statusMaquinaElement = document.getElementById("statusMaquina");
             const alarmeValorElement = document.getElementById("alarmeAtual");
@@ -96,104 +96,232 @@
             const valorVelocidadeAtualElement = document.getElementById("valorVelocidadeAtual");
             const dialElement = document.querySelector(".dial");
 
-            let intervaloAlarme = null;
             let graficoVelocidade, graficoProducao;
+            let intervaloAlarme = null;
+            const UMA_HORA_EM_MS = 3600000;
 
-            // --- 2. FUNÇÕES DE ATUALIZAÇÃO DA UI ---
+            // =========================================================================
+            // II. INICIALIZAÇÃO E FLUXO PRINCIPAL
+            // =========================================================================
+            async function iniciarPagina() {
+                inicializarGraficos();
 
-            function atualizarPainelStatus(valor) {
-                statusMaquinaElement.textContent = valor;
-                    atualizarCorStatusMaquina(valor);
+                const dadosIniciais = await carregarHistoricoGraficos();
+                const atualizadorGraficos = iniciarAtualizacaoContinuaGraficos(dadosIniciais.velocidade, dadosIniciais.producao);
+                await iniciarConexoesSignalR(atualizadorGraficos.atualizarHistorico);
 
+                // Carrega os painéis não-gráficos
+                carregarUltimoAlarme();
+                carregarUltimoStatus();
+                carregarUltimaVelocidade();
             }
 
+            // =========================================================================
+            // III. LÓGICA DE DADOS E GRÁFICOS (ARQUITETURA FINAL)
+            // =========================================================================
 
-        function atualizarCorStatusMaquina(valor) {
-            statusMaquinaElement.classList.remove('alert-success', 'alert-primary', 'alert-danger', 'alert-secondary');
-
-            switch(valor) {
-                case "Máquina Automático":
-                    statusMaquinaElement.classList.add('alert-success'); // verde
-                    break;
-                case "Máquina Manual":
-                    statusMaquinaElement.classList.add('alert-primary'); // azul
-                    break;
-                case "Máquina Desativada":
-                    statusMaquinaElement.classList.add('alert-danger'); // vermelho
-                    break;
-                default:
-                    statusMaquinaElement.classList.add('alert-secondary'); // cinza
-                    break;
-            }
-        }
-
-
-
-
-
-        /*
-            function atualizarPainelAlarme(alarme) {
-                if (!alarme) return;
-                const valor = alarme.valor || alarme.Valor;
-                const timestamp = alarme.timestamp || alarme.Timestamp;
-                const id = alarme.id || alarme.Id;
-                //const codigoEvento = alarme.codigoEvento || alarme.CodigoEvento;
-                if (!timestamp) return;
-                alarmeValorElement.textContent = valor;
-                alarmeTimestampElement.textContent = new Date(timestamp).toLocaleString("pt-BR");
-                iniciarContador(timestamp, valor);
-                alarmeCardHeader.className = id !== "alarmeON" ? "card-header text-white bg-success fw-bold" : "card-header text-white bg-danger fw-bold";
-                //alarmeCardHeader.className = codigoEvento  === "alarmeON" ? "card-header text-white bg-success fw-bold" : "card-header text-white bg-danger fw-bold";
-
-            }
-       
-            */
-
-                   function atualizarPainelAlarme(alarme) {
-            if (!alarme) return;
-
-            const valor = alarme.valor || alarme.Valor;
-            const timestamp = alarme.timestamp || alarme.Timestamp;
-            const codigoEvento = (alarme.codigoEvento || alarme.CodigoEvento || "").toString().trim().toLowerCase();
-
-            if (!timestamp) return;
-
-            alarmeValorElement.textContent = valor;
-            alarmeTimestampElement.textContent = new Date(timestamp).toLocaleString("pt-BR");
-            iniciarContador(timestamp, valor);
-
-            if (codigoEvento === "alarmeon") {
-                alarmeCardHeader.className = "card-header text-white bg-danger fw-bold";
-            } else {
-                alarmeCardHeader.className = "card-header text-white bg-success fw-bold";
+            async function carregarHistoricoGraficos() {
+                let velocidade = [];
+                let producao = [];
+                try {
+                    const [respVel, respProd] = await Promise.all([
+                        fetch('/api/dashboard/rotuladora/velocidade/historico'),
+                        fetch('/api/dashboard/rotuladora/producao/historico')
+                    ]);
+                    if (respVel.ok) {
+                        const dados = await respVel.json();
+                        velocidade = dados.map(p => ({ x: new Date(p.timestamp).getTime(), y: p.valor }));
+                    }
+                    if (respProd.ok) {
+                        const dados = await respProd.json();
+                        producao = dados.map(p => ({ x: new Date(p.timestamp).getTime(), y: p.valor }));
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar histórico:", error);
+                }
+                return { velocidade, producao };
             }
 
-            console.log("Último alarme carregado:", { codigoEvento, valor, timestamp });
-        }
+            function iniciarAtualizacaoContinuaGraficos(historicoInicialVel, historicoInicialProd) {
+                let historicoVelocidade = historicoInicialVel;
+                let historicoProducao = historicoInicialProd;
 
+                const intervalId = setInterval(() => {
+                    const agora = Date.now();
+                    const limiteInicio = agora - UMA_HORA_EM_MS;
 
+                    renderizarGrafico(graficoVelocidade, historicoVelocidade, limiteInicio, agora);
+                    renderizarGrafico(graficoProducao, historicoProducao, limiteInicio, agora);
+                }, 1000);
 
-        /*
-                function atualizarCorAlarme(codigoEvento) {
-            alarmeCardHeader.classList.remove('bg-success', 'bg-danger');
+                const atualizarHistorico = (tipo, data) => {
+                    if (tipo === 'velocidade') {
+                        historicoVelocidade.push({ x: new Date(data.timestamp).getTime(), y: data.valor });
+                    } else if (tipo === 'producao') {
+                        const valorNum = parseInt(data.valor, 10);
+                        if (!isNaN(valorNum)) {
+                            historicoProducao.push({ x: new Date(data.timestamp).getTime(), y: valorNum });
+                        }
+                    }
+                };
 
-            if (codigoEvento === "alarmeON") {
-                alarmeCardHeader.classList.add('bg-danger'); // vermelho para alarme ativo
-            } else {
-                alarmeCardHeader.classList.add('bg-success'); // verde para sistema OK
+                return { atualizarHistorico };
             }
-        }
 
-        */
+            function renderizarGrafico(chart, historicoCompleto, inicio, fim) {
+                if (!chart) return;
+
+                let dadosParaRenderizar = [...historicoCompleto];
+                const ultimoPonto = historicoCompleto.length > 0 ? historicoCompleto[historicoCompleto.length - 1] : null;
+
+                if (ultimoPonto && ultimoPonto.x < fim) {
+                    dadosParaRenderizar.push({ x: fim, y: ultimoPonto.y });
+                }
+
+                chart.data.datasets[0].data = dadosParaRenderizar;
+                chart.options.scales.x.min = inicio;
+                chart.options.scales.x.max = fim;
+                chart.update('none');
+            }
+
+            // =========================================================================
+            // IV. FUNÇÕES DE UI E CONFIGURAÇÃO
+            // =========================================================================
+
+            async function iniciarConexoesSignalR(atualizadorCallback) {
+                const hubs = {
+                    alarmes: new signalR.HubConnectionBuilder().withUrl("/alarmesHub").withAutomaticReconnect().build(),
+                    status: new signalR.HubConnectionBuilder().withUrl("/statusHub").withAutomaticReconnect().build(),
+                    velocidade: new signalR.HubConnectionBuilder().withUrl("/velocidadeHub").withAutomaticReconnect().build(),
+                    contagem: new signalR.HubConnectionBuilder().withUrl("/contagemHub").withAutomaticReconnect().build()
+                };
+
+                // Handlers para os painéis que não são gráficos (lógica inalterada)
+                hubs.alarmes.on("postAlarmes", atualizarPainelAlarme);
+                hubs.status.on("postStatus", atualizarPainelStatus);
+
+                // Handlers para os gráficos
+                hubs.velocidade.on("postVelocidade", (data) => {
+                    atualizarGaugeVelocidade(data.valor);
+                    atualizadorCallback('velocidade', data); // Atualiza o array mestre
+                });
+
+                hubs.contagem.on("postContagem", (data) => {
+                    atualizadorCallback('producao', data); // Atualiza o array mestre
+                });
+
+                try {
+                    await Promise.all(Object.values(hubs).map(hub => hub.start()));
+                    if(statusConexaoElement) statusConexaoElement.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
+                } catch (err) {
+                    console.error(`Falha ao conectar nos hubs:`, err);
+                    if(statusConexaoElement) statusConexaoElement.textContent = "Falha na conexão.";
+                }
+            }
+
+            function inicializarGraficos() {
+                const vCtx = document.getElementById('graficoVelocidade')?.getContext('2d');
+                if (vCtx) {
+                    graficoVelocidade = new Chart(vCtx, criarConfiguracaoGrafico('Velocidade', { border: '#4bc0c0', background: 'rgba(75,192,192,0.2)' }, { stepped: true }));
+                }
+                const pCtx = document.getElementById('graficoProducao')?.getContext('2d');
+                if (pCtx) {
+                    graficoProducao = new Chart(pCtx, criarConfiguracaoGrafico('Produção', { border: '#36a2eb', background: 'rgba(54,162,235,0.2)' }, { stepped: true }));
+                }
+            }
+
+            function criarConfiguracaoGrafico(label, color, options = {}) {
+                const datasetConfig = { label, data: [], borderColor: color.border, backgroundColor: color.background, borderWidth: 2, pointRadius: 0, fill: true, ...options };
+                return {
+                    type: 'line', data: { datasets: [datasetConfig] },
+                    options: {
+                        responsive: true, maintainAspectRatio: false, animation: false,
+                        scales: { x: { type: 'time', time: { unit: 'minute', tooltipFormat: 'HH:mm:ss', displayFormats: { minute: 'HH:mm' } } }, y: { beginAtZero: true } },
+                        plugins: { legend: { display: false } }
+                    }
+                };
+            }
+
+            async function carregarUltimoStatus() {
+                try {
+                    const response = await fetch('/api/dashboard/rotuladora/status/ultimo');
+                    if (response.ok) {
+                        const ultimoStatus = await response.json();
+                        atualizarPainelStatus(ultimoStatus);
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar último status:", error);
+                    atualizarPainelStatus({ valor: "Status Desconhecido" });
+                }
+            }
+
+            async function carregarUltimoAlarme() {
+                try {
+                    const response = await fetch('/api/dashboard/rotuladora/alarmes/ultimo');
+                    if (response.ok) {
+                        const ultimoAlarme = await response.json();
+                        atualizarPainelAlarme(ultimoAlarme);
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar último alarme:", error);
+                    if(alarmeValorElement) alarmeValorElement.textContent = "Erro ao carregar";
+                    if(alarmeCardHeader) alarmeCardHeader.className = "card-header text-white bg-warning fw-bold";
+                }
+            }
+
+            async function carregarUltimaVelocidade() {
+                try {
+                    const response = await fetch('/api/dashboard/rotuladora/velocidade/ultima');
+                    if (response.ok) {
+                        const ultimaVelocidade = await response.json();
+                        atualizarGaugeVelocidade(ultimaVelocidade.valor);
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar último valor de velocidade para o gauge:", error);
+                }
+            }
+
+            function atualizarPainelStatus(ultimoStatus) {
+                if (!statusMaquinaElement || !ultimoStatus) return;
+                statusMaquinaElement.textContent = ultimoStatus.valor;
+                atualizarCorStatusMaquina(ultimoStatus.codigoEvento);
+            }
+
+            function atualizarCorStatusMaquina(codigoEvento) {
+                if (!statusMaquinaElement) return;
+                statusMaquinaElement.classList.remove('alert-success', 'alert-primary', 'alert-danger', 'alert-secondary');
+                switch (codigoEvento) {
+                    case "statusAutomatico": statusMaquinaElement.classList.add('alert-success'); break;
+                    case "statusManual": statusMaquinaElement.classList.add('alert-primary'); break;
+                    case "statusDesativada": statusMaquinaElement.classList.add('alert-danger'); break;
+                    default: statusMaquinaElement.classList.add('alert-secondary'); break;
+                }
+            }
+
+            function atualizarPainelAlarme(ultimoAlarme) {
+                if (!alarmeValorElement || !alarmeTimestampElement || !ultimoAlarme || !ultimoAlarme.timestamp) return;
+                alarmeValorElement.textContent = ultimoAlarme.valor;
+                alarmeTimestampElement.textContent = new Date(ultimoAlarme.timestamp).toLocaleString("pt-BR");
+                iniciarContador(ultimoAlarme.timestamp, ultimoAlarme.valor);
+                atualizaCorPainelAlarme(ultimoAlarme.codigoEvento);
+            }
+
+            function atualizaCorPainelAlarme(codigoEvento) {
+                if (!alarmeCardHeader) return;
+                alarmeCardHeader.className = (codigoEvento === "alarmeON")
+                    ? "card-header text-white bg-danger fw-bold"
+                    : "card-header text-white bg-success fw-bold";
+            }
 
             function iniciarContador(timestampISO, estadoAtual) {
+                if (!alarmeTempoDecorridoElement) return;
                 if (intervaloAlarme) clearInterval(intervaloAlarme);
                 const inicio = new Date(timestampISO);
                 if (isNaN(inicio.getTime())) return;
                 const prefixo = estadoAtual === "Sem Alarmes" ? "Sistema OK há: " : "Alarme ativo há: ";
                 const atualizar = () => {
                     const diff = Math.floor((Date.now() - inicio) / 1000);
-                    if (diff < 0) return alarmeTempoDecorridoElement.textContent = "";
+                    if (diff < 0) { alarmeTempoDecorridoElement.textContent = ""; return; }
                     const h = String(Math.floor(diff / 3600)).padStart(2, '0');
                     const m = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
                     const s = String(diff % 60).padStart(2, '0');
@@ -203,11 +331,14 @@
                 intervaloAlarme = setInterval(atualizar, 1000);
             }
 
-            function atualizarGauge(velocidade) {
+            function atualizarGaugeVelocidade(valor) {
+                if (valorVelocidadeAtualElement) {
+                    valorVelocidadeAtualElement.textContent = String(Math.round(valor)).padStart(2, '0');
+                }
                 if (!dialElement) return;
                 const max = 15000;
-                let valor = Math.min(Math.max(Number(velocidade) || 0, 0), max);
-                const prop = valor / max;
+                let valorNumerico = Math.min(Math.max(Number(valor) || 0, 0), max);
+                const prop = valorNumerico / max;
                 const angulo = prop * 270;
                 const hue = 120 - (120 * prop);
                 const cor = `hsla(${hue}, 80%, 55%, 1)`;
@@ -217,165 +348,14 @@
                     fill.style.filter = `drop-shadow(0 0 4px ${cor})`;
                 }
                 dialElement.style.boxShadow = `inset 0px 10px 15px -3px rgba(0,0,0,0.2), inset 0px 4px 6px -2px rgba(0,0,0,0.15), 0 0 12px -2px ${cor}`;
-                valorVelocidadeAtualElement.style.color = cor;
-            }
-
-            function atualizarVelocidadeAtual(valor, ts) {
-                if (valor == null) return;
-                valorVelocidadeAtualElement.textContent = String(Math.round(valor)).padStart(2, '0');
-                atualizarGauge(valor);
-                adicionarPontoAoGrafico(graficoVelocidade, ts, valor);
-            }
-
-            function atualizarDadosProducao(valor, ts) {
-                const valorNumerico = parseInt(valor, 10);
-                if (isNaN(valorNumerico)) return;
-                adicionarPontoAoGrafico(graficoProducao, ts, valorNumerico);
-            }
-
-            // --- 3. GRÁFICOS ---
-
-            function criarConfiguracaoGrafico(label, color) {
-                return {
-                    type: 'line',
-                    data: { datasets: [{ label, data: [], borderColor: color.border, backgroundColor: color.background, borderWidth: 2, pointRadius: 1, tension: 0.4, fill: true }] },
-                    options: {
-                        responsive: true, maintainAspectRatio: false, animation: false,
-                        scales: {
-                            x: { type: 'time', time: { unit: 'minute', tooltipFormat: 'HH:mm:ss', displayFormats: { minute: 'HH:mm' } } },
-                            y: { beginAtZero: true }
-                        },
-                        plugins: { legend: { display: false } }
-                    }
-                };
-            }
-
-        function inicializarGraficos() {
-            const vCtx = document.getElementById('graficoVelocidade')?.getContext('2d');
-            if (vCtx) {
-                graficoVelocidade = new Chart(vCtx, criarConfiguracaoGrafico('Velocidade', {
-                    border: '#4bc0c0',
-                    background: 'rgba(75,192,192,0.2)'
-                }));
-
-                // --- Recupera dados do cache, se existirem ---
-                const cache = localStorage.getItem("graficoVelocidadeCache");
-                if (cache) {
-                    try {
-                        const dadosSalvos = JSON.parse(cache);
-                        graficoVelocidade.data.datasets[0].data = dadosSalvos;
-                        graficoVelocidade.update();
-                    } catch (e) {
-                        console.warn("Erro ao carregar cache do gráfico de velocidade:", e);
-                    }
+                if (valorVelocidadeAtualElement) {
+                    valorVelocidadeAtualElement.style.color = cor;
                 }
             }
 
-            const pCtx = document.getElementById('graficoProducao')?.getContext('2d');
-            if (pCtx) {
-                graficoProducao = new Chart(pCtx, criarConfiguracaoGrafico('Produção', {
-                    border: '#36a2eb',
-                    background: 'rgba(54,162,235,0.2)'
-                }));
-            }
-        }
-
-
-            function adicionarPontoAoGrafico(chart, timestamp, valor) {
-                if (!chart) return;
-                const dados = chart.data.datasets[0].data;
-                dados.push({ x: timestamp, y: valor });
-                const limite = Date.now() - 3600000; // 1 hora
-                while (dados.length > 0 && dados[0].x < limite) dados.shift();
-                chart.update('none');
-
-                        if (chart === graficoVelocidade) {
-            localStorage.setItem("graficoVelocidadeCache", JSON.stringify(dados));
-        }
-            }
-
-            // --- 4. LÓGICA DE DADOS E INICIALIZAÇÃO ---
-
-        async function carregarDadosIniciais() {
-            await Promise.all([
-                carregarUltimoAlarme(),
-                carregarUltimoStatus()
-            ]);
-        }
-
-
-                async function carregarUltimoAlarme() {
-            try {
-                const response = await fetch('/api/dashboard/rotuladora/alarmes/ultimo');
-                if (response.ok) {
-                    const ultimoAlarme = await response.json();
-                    atualizarPainelAlarme(ultimoAlarme);
-                } else {
-                    throw new Error('Falha ao buscar último alarme.');
-                }
-            } catch (error) {
-                console.error("Erro ao carregar último alarme:", error);
-                alarmeValorElement.textContent = "Erro ao carregar";
-                alarmeCardHeader.className = "card-header text-white bg-warning fw-bold";
-            }
-        }
-
-
-            async function carregarUltimoStatus() {
-            try {
-                const response = await fetch('/api/dashboard/rotuladora/status/ultimo');
-                if (response.ok) {
-                    const ultimoStatus = await response.json();
-                    atualizarPainelStatus(ultimoStatus.valor || ultimoStatus.Valor);
-                } else {
-                    throw new Error('Falha ao buscar último status.');
-                }
-            } catch (error) {
-                console.error("Erro ao carregar último status:", error);
-                atualizarPainelStatus("Status Desconhecido");
-            }
-        }
-
-
-
-            async function iniciarConexoesSignalR() {
-                const hubs = {
-                    alarmes: new signalR.HubConnectionBuilder().withUrl("/alarmesHub").withAutomaticReconnect().build(),
-                    status: new signalR.HubConnectionBuilder().withUrl("/statusHub").withAutomaticReconnect().build(),
-                    velocidade: new signalR.HubConnectionBuilder().withUrl("/velocidadeHub").withAutomaticReconnect().build(),
-                    contagem: new signalR.HubConnectionBuilder().withUrl("/contagemHub").withAutomaticReconnect().build()
-                };
-
-                hubs.alarmes.on("postAlarmes", (id, valor, info, ts) => atualizarPainelAlarme({ id, valor, info, timestamp: ts }));
-                hubs.status.on("postStatus", (id, valor, info, ts) => atualizarPainelStatus(valor));
-                hubs.velocidade.on("postVelocidade", (id, valor, info, ts) => atualizarVelocidadeAtual(valor, ts));
-                hubs.contagem.on("postContagem", (id, valor, info, ts) => atualizarDadosProducao(valor, ts));
-
-                const promessasDeConexao = Object.values(hubs).map(hub => hub.start().catch(err => console.error(`Falha ao conectar no hub:`, err)));
-                await Promise.all(promessasDeConexao);
-
-                const todosConectados = Object.values(hubs).every(hub => hub.state === signalR.HubConnectionState.Connected);
-                if (todosConectados) {
-                    statusConexaoElement.className = "alert alert-success alert-status text-center";
-                    statusConexaoElement.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
-                } else {
-                    statusConexaoElement.className = "alert alert-danger alert-status text-center";
-                    statusConexaoElement.textContent = "Falha em uma ou mais conexões.";
-                }
-            }
-
-            async function iniciarPagina() {
-                // 1. INICIALIZA A UI PRIMEIRO
-                inicializarGraficos();
-
-                // 2. RODA AS TAREFAS DE DADOS EM PARALELO
-                await Promise.all([
-                    carregarDadosIniciais(),
-                    iniciarConexoesSignalR()
-                ]);
-            }
-
-            // Inicia todo o processo.
+            // =========================================================================
+            // V. EXECUÇÃO
+            // =========================================================================
             iniciarPagina();
         });
     </script>
