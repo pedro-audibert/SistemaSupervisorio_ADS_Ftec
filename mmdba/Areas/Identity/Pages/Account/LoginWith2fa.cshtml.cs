@@ -1,5 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licenciado para a .NET Foundation sob um ou mais acordos.
+// A .NET Foundation licencia este arquivo para você sob a licença MIT.
 #nullable disable
 
 using System;
@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 using mmdba.Models;
 
 namespace mmdba.Areas.Identity.Pages.Account
@@ -32,56 +31,62 @@ namespace mmdba.Areas.Identity.Pages.Account
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         public bool RememberMe { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         public string ReturnUrl { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         public class InputModel
         {
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+            /// e não é destinada ao uso direto no seu código. 
+            /// Esta API pode mudar ou ser removida em versões futuras.
             /// </summary>
-            [Required]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "O código do autenticador é obrigatório.")]
+            [StringLength(7, ErrorMessage = "O {0} deve ter pelo menos {2} e no máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Text)]
-            [Display(Name = "Authenticator code")]
+            [Display(Name = "Código do autenticador")]
             public string TwoFactorCode { get; set; }
 
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+            /// e não é destinada ao uso direto no seu código. 
+            /// Esta API pode mudar ou ser removida em versões futuras.
             /// </summary>
-            [Display(Name = "Remember this machine")]
+            [Display(Name = "Lembrar desta máquina")]
             public bool RememberMachine { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync(bool rememberMe, string returnUrl = null)
         {
-            // Ensure the user has gone through the username & password screen first
+            // Garante que o usuário passou pela tela de nome de usuário e senha primeiro
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
 
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException($"Não foi possível carregar o usuário de autenticação de dois fatores.");
             }
 
             ReturnUrl = returnUrl;
@@ -102,7 +107,7 @@ namespace mmdba.Areas.Identity.Pages.Account
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException($"Não foi possível carregar o usuário de autenticação de dois fatores.");
             }
 
             var authenticatorCode = Input.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
@@ -113,18 +118,18 @@ namespace mmdba.Areas.Identity.Pages.Account
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
+                _logger.LogInformation("Usuário com ID '{UserId}' logado com 2FA.", user.Id);
                 return LocalRedirect(returnUrl);
             }
             else if (result.IsLockedOut)
             {
-                _logger.LogWarning("User with ID '{UserId}' account locked out.", user.Id);
+                _logger.LogWarning("Conta do usuário com ID '{UserId}' bloqueada.", user.Id);
                 return RedirectToPage("./Lockout");
             }
             else
             {
-                _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+                _logger.LogWarning("Código de autenticador inválido inserido para o usuário com ID '{UserId}'.", user.Id);
+                ModelState.AddModelError(string.Empty, "Código de autenticador inválido.");
                 return Page();
             }
         }

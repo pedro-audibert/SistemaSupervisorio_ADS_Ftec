@@ -1,5 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licenciado para a .NET Foundation sob um ou mais acordos.
+// A .NET Foundation licencia este arquivo para você sob a licença MIT.
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +28,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
             return Page();

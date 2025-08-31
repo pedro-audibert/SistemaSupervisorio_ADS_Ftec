@@ -1,5 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licenciado para a .NET Foundation sob um ou mais acordos.
+// A .NET Foundation licencia este arquivo para você sob a licença MIT.
 #nullable disable
 
 using System;
@@ -27,37 +27,42 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         public string Username { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         public class InputModel
         {
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+            /// e não é destinada ao uso direto no seu código. 
+            /// Esta API pode mudar ou ser removida em versões futuras.
             /// </summary>
-            [Phone]
-            [Display(Name = "Phone number")]
+            [Phone(ErrorMessage = "Por favor, insira um número de telefone válido.")]
+            [Display(Name = "Número de telefone")]
             public string PhoneNumber { get; set; }
         }
 
@@ -79,7 +84,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadAsync(user);
@@ -91,7 +96,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -106,7 +111,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Erro inesperado ao tentar definir o número de telefone.";
                     return RedirectToPage();
                 }
             }

@@ -30,51 +30,52 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
+        ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
+        ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
+        ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
         /// </summary>
         public class InputModel
         {
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
+            ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "O campo Senha atual é obrigatório.")]
             [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
+            [Display(Name = "Senha atual")]
             public string OldPassword { get; set; }
 
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
+            ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "O campo Nova senha é obrigatório.")]
+            [StringLength(100, ErrorMessage = "A {0} deve ter pelo menos {2} e no máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "Nova senha")]
             public string NewPassword { get; set; }
 
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
+            ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "Confirmar nova senha")]
+            [Compare("NewPassword", ErrorMessage = "A nova senha e a confirmação da senha não coincidem.")]
+            [Required(ErrorMessage = "O campo Confirmar nova senha é obrigatório.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -83,7 +84,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
             var hasPassword = await _userManager.HasPasswordAsync(user);
@@ -105,7 +106,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
@@ -119,8 +120,8 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            _logger.LogInformation("Usuário alterou sua senha com sucesso.");
+            StatusMessage = "Sua senha foi alterada com sucesso.";
 
             return RedirectToPage();
         }

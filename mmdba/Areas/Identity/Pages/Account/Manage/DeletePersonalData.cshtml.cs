@@ -31,7 +31,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
 
         /// <summary>
         /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
-        /// e **não é destinada ao uso direto no seu código**. 
+        /// e não é destinada ao uso direto no seu código. 
         /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         [BindProperty]
@@ -39,19 +39,19 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
 
         /// <summary>
         /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
-        /// e **não é destinada ao uso direto no seu código**. 
-        /// Esta API pode mudar ou ser removida em versões futuras.
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida in versões futuras.
         /// </summary>
         public class InputModel
         {
             /// <summary>
             /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
-            /// e **não é destinada ao uso direto no seu código**. 
+            /// e não é destinada ao uso direto no seu código. 
             /// Esta API pode mudar ou ser removida em versões futuras.
             /// </summary>
             [Required(ErrorMessage = "A senha é obrigatória.")]
             [DataType(DataType.Password)]
-            [Display(Name = "Senha Atual")]
+            [Display(Name = "Senha atual")]
             public string Password { get; set; }
         }
 

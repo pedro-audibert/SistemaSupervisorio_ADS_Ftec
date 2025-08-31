@@ -1,5 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licenciado para a .NET Foundation sob um ou mais acordos.
+// A .NET Foundation licencia este arquivo para você sob a licença MIT.
 #nullable disable
 
 using System;
@@ -27,15 +27,16 @@ namespace mmdba.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            _logger.LogInformation("Usuário deslogado.");
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
             }
             else
             {
-                // This needs to be a redirect so that the browser performs a new
-                // request and the identity for the user gets updated.
+                // Isto precisa ser um redirecionamento para que o navegador execute uma nova
+                // requisição e a identidade do usuário seja atualizada.
                 return RedirectToPage();
             }
         }

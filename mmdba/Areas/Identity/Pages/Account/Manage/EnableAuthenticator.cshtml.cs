@@ -1,5 +1,5 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
+﻿// Licenciado para a .NET Foundation sob um ou mais acordos.
+// A .NET Foundation licencia este arquivo para você sob a licença MIT.
 #nullable disable
 
 using System;
@@ -36,52 +36,59 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         public string SharedKey { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         public string AuthenticatorUri { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         [TempData]
         public string[] RecoveryCodes { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+        /// e não é destinada ao uso direto no seu código. 
+        /// Esta API pode mudar ou ser removida em versões futuras.
         /// </summary>
         public class InputModel
         {
             /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
+            /// Esta API oferece suporte à infraestrutura da UI padrão do ASP.NET Core Identity 
+            /// e não é destinada ao uso direto no seu código. 
+            /// Esta API pode mudar ou ser removida em versões futuras.
             /// </summary>
-            [Required]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "O código de verificação é obrigatório.")]
+            [StringLength(7, ErrorMessage = "O {0} deve ter pelo menos {2} e no máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Text)]
-            [Display(Name = "Verification Code")]
+            [Display(Name = "Código de verificação")]
             public string Code { get; set; }
         }
 
@@ -90,7 +97,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadSharedKeyAndQrCodeUriAsync(user);
@@ -103,7 +110,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Não foi possível carregar o usuário com ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -112,7 +119,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            // Strip spaces and hyphens
+            // Remove espaços e hífens
             var verificationCode = Input.Code.Replace(" ", string.Empty).Replace("-", string.Empty);
 
             var is2faTokenValid = await _userManager.VerifyTwoFactorTokenAsync(
@@ -120,16 +127,16 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
 
             if (!is2faTokenValid)
             {
-                ModelState.AddModelError("Input.Code", "Verification code is invalid.");
+                ModelState.AddModelError("Input.Code", "O código de verificação é inválido.");
                 await LoadSharedKeyAndQrCodeUriAsync(user);
                 return Page();
             }
 
             await _userManager.SetTwoFactorEnabledAsync(user, true);
             var userId = await _userManager.GetUserIdAsync(user);
-            _logger.LogInformation("User with ID '{UserId}' has enabled 2FA with an authenticator app.", userId);
+            _logger.LogInformation("Usuário com ID '{UserId}' habilitou a autenticação de 2 fatores com um aplicativo autenticador.", userId);
 
-            StatusMessage = "Your authenticator app has been verified.";
+            StatusMessage = "Seu aplicativo autenticador foi verificado.";
 
             if (await _userManager.CountRecoveryCodesAsync(user) == 0)
             {
@@ -145,7 +152,7 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
 
         private async Task LoadSharedKeyAndQrCodeUriAsync(ApplicationUser user)
         {
-            // Load the authenticator key & QR code URI to display on the form
+            // Carrega a chave do autenticador e URI do código QR para exibir no formulário
             var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
             if (string.IsNullOrEmpty(unformattedKey))
             {

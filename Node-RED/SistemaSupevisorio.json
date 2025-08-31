@@ -2,21 +2,21 @@
     {
         "id": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
         "type": "tab",
-        "label": "1 - Comunicação CLP",
+        "label": "Comm CLP / Node-RED",
         "disabled": false,
-        "info": "Fluxo gerado automaticamente em 2025-04-14 03:35:35"
+        "info": ""
     },
     {
         "id": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "type": "tab",
-        "label": "5 - Dashboard / API",
+        "label": "HTTP POST IOs",
         "disabled": false,
-        "info": "Fluxo gerado automaticamente em 2025-04-14 03:35:35"
+        "info": ""
     },
     {
         "id": "b7c2f397fdbb5ba7",
         "type": "tab",
-        "label": "Post Alarmes",
+        "label": "HTTP POST Alarmes",
         "disabled": false,
         "info": "",
         "env": []
@@ -24,7 +24,7 @@
     {
         "id": "82177b4cf60ced3f",
         "type": "tab",
-        "label": "POST Avisos",
+        "label": "HTTP POST Aviso",
         "disabled": false,
         "info": "",
         "env": []
@@ -32,7 +32,7 @@
     {
         "id": "52ad4f8017343188",
         "type": "tab",
-        "label": "POST Status",
+        "label": "HTTP POST Status",
         "disabled": false,
         "info": "",
         "env": []
@@ -40,7 +40,7 @@
     {
         "id": "1178555e0391a6a5",
         "type": "tab",
-        "label": "POST Velocidade",
+        "label": "HTTP POST Velocidade",
         "disabled": false,
         "info": "",
         "env": []
@@ -48,7 +48,7 @@
     {
         "id": "5f0cc578e3a7799a",
         "type": "tab",
-        "label": "POST Podução",
+        "label": "HTTP POST Podução",
         "disabled": false,
         "info": "",
         "env": []
@@ -163,8 +163,6 @@
         },
         "nodes": [
             "3c4dbc71516bbb4a",
-            "967614ec9b97872c",
-            "f35a7387f8030050",
             "d96bc84d6e1e1a3e",
             "1a627ec61fa41ad3",
             "411f5830291a98e1",
@@ -194,11 +192,29 @@
             "55be8b6598f0ac15",
             "c8c4cc518ec00b16",
             "b99b8f4e873ef702",
-            "e7c75dc7ed2c7502"
+            "e7c75dc7ed2c7502",
+            "06170c67154bb961",
+            "c3eeb83cd53a61fc",
+            "ce040f1d56f6d9ef",
+            "d9999457800441eb",
+            "3d315d8121cb9e0c",
+            "e851620ba4b7ce22",
+            "9eacb5752e31f85f",
+            "cae3d5797a147655",
+            "11e0637650ba5089",
+            "4f6991e08253815e",
+            "3529e3d1acb335d0",
+            "6213c6a0bce73df5",
+            "a738bfffe7e68a3a",
+            "4ed7a1b78ff7ee4b",
+            "5abdc2b25b200c6c",
+            "e187cc131dd30361",
+            "f35a7387f8030050",
+            "967614ec9b97872c"
         ],
-        "x": 164,
+        "x": 174,
         "y": 199,
-        "w": 782,
+        "w": 952,
         "h": 562
     },
     {
@@ -223,11 +239,15 @@
             "f86e6091a5492206",
             "41d7f404f7979912",
             "a565ecd9bea0b796",
-            "5dd79f69aedc4003"
+            "5dd79f69aedc4003",
+            "6b815e77193f1439",
+            "d263392f48afbf02",
+            "264187a87f54e578",
+            "450335a11723085c"
         ],
-        "x": 1034,
-        "y": 479,
-        "w": 322,
+        "x": 1434,
+        "y": 819,
+        "w": 492,
         "h": 342
     },
     {
@@ -248,11 +268,13 @@
             "92f207c838c2e0e8",
             "201dc49b66a7cd7e",
             "221f22b688c4b0e8",
-            "5b03c9fb62d97830"
+            "5b03c9fb62d97830",
+            "9dbed78644d98b44",
+            "9c3dd9ac73c16f5f"
         ],
-        "x": 1034,
+        "x": 1434,
         "y": 199,
-        "w": 322,
+        "w": 492,
         "h": 222
     },
     {
@@ -282,7 +304,7 @@
             "2ee67441b5f24580"
         ],
         "x": 1714,
-        "y": 1479,
+        "y": 759,
         "w": 1032,
         "h": 382
     },
@@ -359,12 +381,234 @@
             "10fa5d05f2ec0ff0",
             "369f25dffefd8073",
             "40c8226e8ca5f2d6",
-            "57dd9f8918756df1"
+            "57dd9f8918756df1",
+            "effc74fb2220faf7",
+            "415a504dbe484b4a",
+            "7a05d90038be05c9",
+            "c6667186b304ce5e",
+            "23c3f0cfe5acb8d4",
+            "595dd8f64eaed67d",
+            "d0cc486bb820607b",
+            "d46aef8e3162f7e9",
+            "24ae1508148fad06",
+            "3edbf3d080348066",
+            "181489778c38375c",
+            "493ae9ac49d505eb",
+            "70f5ec1b792ae645",
+            "73624d539073ff52",
+            "e42ee3aaf992b1b8",
+            "cba96159709bd92f"
         ],
-        "x": 174,
+        "x": 194,
         "y": 819,
-        "w": 782,
+        "w": 952,
         "h": 562
+    },
+    {
+        "id": "7c14193a66e0bb4f",
+        "type": "group",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "35e5f325e3fec2ef",
+            "c7074f34568c1258",
+            "23baf0997e888784",
+            "430dc8b701667e3f",
+            "b6d16825a63e8f49",
+            "9a29e21c18a89529",
+            "dfa0c053391ec6e1",
+            "e3ced482dc20292b",
+            "a57eae2817918b20",
+            "de32c510af55fbfa",
+            "0a1b5dcb40607ccd"
+        ],
+        "x": 1714,
+        "y": 1219,
+        "w": 1032,
+        "h": 382
+    },
+    {
+        "id": "eb981cecb129b0bf",
+        "type": "group",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "d242598c4cb9bbbb",
+            "494ff9799797b104",
+            "0be29e573fb9340e",
+            "e2488a0b4823ad7a",
+            "bdeb4e89da526122",
+            "6f1a5f8421301ec5",
+            "67cf71f5c8a3fb42",
+            "154231bbe5ed429b",
+            "655d473cab676df9",
+            "13e923e07cfbdec1",
+            "5ed1e84d2941c3a0",
+            "710348a3efe9e35f",
+            "5e6d43ae3db3c0eb",
+            "ebb2d564e1f4ae54",
+            "c29569a10cc61833",
+            "1281ca9c58cf7984",
+            "5b586e91c3aa2ed8",
+            "9d20e86fc7a3c211",
+            "5cbcc6c97d2c5814",
+            "8e6cafdc8055efa6",
+            "a3ddcd9199943cc3",
+            "8c389116d6b5dcca",
+            "f14f7ec1731f9315",
+            "7d1ab1659173d756",
+            "17ae2fa9231d8420",
+            "142f6a91f624b253",
+            "d5be07bd71f559dc",
+            "ecdd890c184046fd",
+            "01996d079bc71199",
+            "8c9e25183a944e63",
+            "ea18fc7e709caca7",
+            "ee14c586516b1a47",
+            "a53d4e2a7d3fea1f",
+            "35ad40de2845b3d0",
+            "58b4ec646afcc69b"
+        ],
+        "x": 194,
+        "y": 1479,
+        "w": 1252,
+        "h": 1082
+    },
+    {
+        "id": "36da75d906310769",
+        "type": "group",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "33addb6844c086e6",
+            "a6d1aa8362a9a583",
+            "e5f13b08bd5b5f63",
+            "d164e1d285ffcb5d"
+        ],
+        "x": 2174,
+        "y": 199,
+        "w": 512,
+        "h": 142
+    },
+    {
+        "id": "422bc4dbe5bac0d8",
+        "type": "group",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "e45605f44873cb32",
+            "1d4a22cc7bf0dfe5",
+            "85e7c235ab0cbc14",
+            "593f888b53f61a46"
+        ],
+        "x": 2174,
+        "y": 419,
+        "w": 492,
+        "h": 142
+    },
+    {
+        "id": "79f55226353a0b05",
+        "type": "group",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "1a2f1cca7c93154b",
+            "cb53c2287d3369e5",
+            "dd166559f230253d",
+            "c1eb76e91589ed32"
+        ],
+        "x": 2174,
+        "y": 639,
+        "w": 492,
+        "h": 142
+    },
+    {
+        "id": "dbbce64cb023146b",
+        "type": "group",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "4584e033a0a4202b",
+            "97020c83d6c4c6ef",
+            "1918980fd5e33564",
+            "a2df751506f379fe"
+        ],
+        "x": 2174,
+        "y": 859,
+        "w": 532,
+        "h": 142
+    },
+    {
+        "id": "99ee145619615cc3",
+        "type": "group",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "702c97ace31c9df9",
+            "6b7bbcb564783f81",
+            "18e79930a8e85f36",
+            "18dd3c1744581b8d"
+        ],
+        "x": 2174,
+        "y": 1079,
+        "w": 512,
+        "h": 142
     },
     {
         "id": "aee98873942a1d03",
@@ -617,13 +861,138 @@
         ]
     },
     {
+        "id": "df28b20d7dd49877",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.100.100",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": 2,
+        "cycletime": 1000,
+        "timeout": 2000,
+        "name": "Alarmes",
+        "vartable": [
+            {
+                "addr": "DB6,I30",
+                "name": "Alarmes"
+            }
+        ]
+    },
+    {
+        "id": "f25c451bf8435241",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.100.100",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": 2,
+        "cycletime": 1000,
+        "timeout": 2000,
+        "name": "Avisos",
+        "vartable": [
+            {
+                "addr": "DB6,I26",
+                "name": "Avisos"
+            }
+        ]
+    },
+    {
+        "id": "c4ecc635623be6c9",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.100.100",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": 2,
+        "cycletime": 1000,
+        "timeout": 2000,
+        "name": "Status",
+        "vartable": [
+            {
+                "addr": "DB6,I22",
+                "name": "Status"
+            }
+        ]
+    },
+    {
+        "id": "046cbaebd493b812",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.100.100",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": 2,
+        "cycletime": 1000,
+        "timeout": 2000,
+        "name": "Velocidade",
+        "vartable": [
+            {
+                "addr": "DB6,I34",
+                "name": "Velocidade"
+            }
+        ]
+    },
+    {
+        "id": "2f05f4eb59c1002d",
+        "type": "s7 endpoint",
+        "transport": "iso-on-tcp",
+        "address": "192.168.100.100",
+        "port": "102",
+        "rack": "0",
+        "slot": "1",
+        "localtsaphi": "01",
+        "localtsaplo": "00",
+        "remotetsaphi": "01",
+        "remotetsaplo": "00",
+        "connmode": "rack-slot",
+        "adapter": "",
+        "busaddr": 2,
+        "cycletime": 1000,
+        "timeout": 2000,
+        "name": "Produção",
+        "vartable": [
+            {
+                "addr": "DB6,I38",
+                "name": "Produção"
+            }
+        ]
+    },
+    {
         "id": "8b35a8b5-95af-4bb3-97f4-dfbb6497ff03",
         "type": "comment",
         "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
-        "name": "Legenda - 1 - Comunicação CLP",
-        "info": "Aba destinada à função: 1 - Comunicação CLP",
-        "x": 290,
-        "y": 140,
+        "name": "Legenda - Comunicação CLP -> Node-RED",
+        "info": "",
+        "x": 310,
+        "y": 80,
         "wires": []
     },
     {
@@ -636,45 +1005,9 @@
         "links": [
             "3eb1114138462d15"
         ],
-        "x": 425,
+        "x": 405,
         "y": 300,
         "wires": []
-    },
-    {
-        "id": "967614ec9b97872c",
-        "type": "s7 in",
-        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
-        "g": "503dab05d971424f",
-        "endpoint": "aee98873942a1d03",
-        "mode": "single",
-        "variable": "Q0.0",
-        "diff": true,
-        "name": "Q0.0",
-        "x": 240,
-        "y": 300,
-        "wires": [
-            [
-                "3c4dbc71516bbb4a"
-            ]
-        ]
-    },
-    {
-        "id": "f35a7387f8030050",
-        "type": "s7 in",
-        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
-        "g": "503dab05d971424f",
-        "endpoint": "aee98873942a1d03",
-        "mode": "single",
-        "variable": "Q0.1",
-        "diff": true,
-        "name": "Q0.1",
-        "x": 240,
-        "y": 360,
-        "wires": [
-            [
-                "d96bc84d6e1e1a3e"
-            ]
-        ]
     },
     {
         "id": "d96bc84d6e1e1a3e",
@@ -686,7 +1019,7 @@
         "links": [
             "d903bf2552b4d04e"
         ],
-        "x": 425,
+        "x": 405,
         "y": 360,
         "wires": []
     },
@@ -700,11 +1033,12 @@
         "variable": "Q0.2",
         "diff": true,
         "name": "Q0.2",
-        "x": 240,
+        "x": 250,
         "y": 420,
         "wires": [
             [
-                "fd9bdc07dafa3510"
+                "fd9bdc07dafa3510",
+                "ce040f1d56f6d9ef"
             ]
         ]
     },
@@ -718,11 +1052,12 @@
         "variable": "Q0.3",
         "diff": true,
         "name": "Q0.3",
-        "x": 240,
+        "x": 250,
         "y": 480,
         "wires": [
             [
-                "7cf6ca3f6c127d6b"
+                "7cf6ca3f6c127d6b",
+                "d9999457800441eb"
             ]
         ]
     },
@@ -736,11 +1071,12 @@
         "variable": "Q0.4",
         "diff": true,
         "name": "Q0.4",
-        "x": 240,
+        "x": 250,
         "y": 540,
         "wires": [
             [
-                "180ca450d8615045"
+                "180ca450d8615045",
+                "3d315d8121cb9e0c"
             ]
         ]
     },
@@ -754,11 +1090,12 @@
         "variable": "Q0.5",
         "diff": true,
         "name": "Q0.5",
-        "x": 240,
+        "x": 250,
         "y": 600,
         "wires": [
             [
-                "a9984b55cc1aacab"
+                "a9984b55cc1aacab",
+                "e851620ba4b7ce22"
             ]
         ]
     },
@@ -772,11 +1109,12 @@
         "variable": "Q0.6",
         "diff": true,
         "name": "Q0.6",
-        "x": 240,
+        "x": 250,
         "y": 660,
         "wires": [
             [
-                "8a8c7b39fa0902c2"
+                "8a8c7b39fa0902c2",
+                "9eacb5752e31f85f"
             ]
         ]
     },
@@ -790,11 +1128,12 @@
         "variable": "Q0.7",
         "diff": true,
         "name": "Q0.7",
-        "x": 240,
+        "x": 250,
         "y": 720,
         "wires": [
             [
-                "ae3bbca8950ddaa5"
+                "ae3bbca8950ddaa5",
+                "cae3d5797a147655"
             ]
         ]
     },
@@ -808,7 +1147,7 @@
         "links": [
             "2cc45438110c5bf0"
         ],
-        "x": 425,
+        "x": 405,
         "y": 420,
         "wires": []
     },
@@ -822,7 +1161,7 @@
         "links": [
             "97a9dbc9ef407b30"
         ],
-        "x": 425,
+        "x": 405,
         "y": 480,
         "wires": []
     },
@@ -836,7 +1175,7 @@
         "links": [
             "22b306165af57355"
         ],
-        "x": 425,
+        "x": 405,
         "y": 540,
         "wires": []
     },
@@ -850,7 +1189,7 @@
         "links": [
             "8c3e82141abd04b6"
         ],
-        "x": 425,
+        "x": 405,
         "y": 600,
         "wires": []
     },
@@ -864,7 +1203,7 @@
         "links": [
             "5fa64e2fb33931c2"
         ],
-        "x": 425,
+        "x": 405,
         "y": 660,
         "wires": []
     },
@@ -878,7 +1217,7 @@
         "links": [
             "a3fcc348e736653d"
         ],
-        "x": 425,
+        "x": 405,
         "y": 720,
         "wires": []
     },
@@ -893,7 +1232,7 @@
             "3eb1114138462d15",
             "2fd22538093eb082"
         ],
-        "x": 905,
+        "x": 885,
         "y": 300,
         "wires": []
     },
@@ -907,11 +1246,12 @@
         "variable": "Q1.1",
         "diff": true,
         "name": "Q1.0",
-        "x": 720,
+        "x": 730,
         "y": 300,
         "wires": [
             [
-                "493d02873735b1c3"
+                "493d02873735b1c3",
+                "11e0637650ba5089"
             ]
         ]
     },
@@ -925,11 +1265,12 @@
         "variable": "Q1.1",
         "diff": true,
         "name": "Q1.1",
-        "x": 720,
+        "x": 730,
         "y": 360,
         "wires": [
             [
-                "ab7aec5d4adea838"
+                "ab7aec5d4adea838",
+                "4f6991e08253815e"
             ]
         ]
     },
@@ -941,10 +1282,10 @@
         "name": "link out Q1.1",
         "mode": "link",
         "links": [
-            "d903bf2552b4d04e",
-            "b7d80bfbba8f9de6"
+            "b7d80bfbba8f9de6",
+            "d903bf2552b4d04e"
         ],
-        "x": 905,
+        "x": 885,
         "y": 360,
         "wires": []
     },
@@ -958,11 +1299,12 @@
         "variable": "Q1.2",
         "diff": true,
         "name": "Q1.2",
-        "x": 720,
+        "x": 730,
         "y": 420,
         "wires": [
             [
-                "f4c2276fe794c5ca"
+                "f4c2276fe794c5ca",
+                "3529e3d1acb335d0"
             ]
         ]
     },
@@ -976,11 +1318,12 @@
         "variable": "Q1.3",
         "diff": true,
         "name": "Q1.3",
-        "x": 720,
+        "x": 730,
         "y": 480,
         "wires": [
             [
-                "74b761158efc9834"
+                "74b761158efc9834",
+                "6213c6a0bce73df5"
             ]
         ]
     },
@@ -994,11 +1337,12 @@
         "variable": "Q1.4",
         "diff": true,
         "name": "Q1.4",
-        "x": 720,
+        "x": 730,
         "y": 540,
         "wires": [
             [
-                "6e6ffd7554e62eec"
+                "6e6ffd7554e62eec",
+                "a738bfffe7e68a3a"
             ]
         ]
     },
@@ -1012,11 +1356,12 @@
         "variable": "Q1.5",
         "diff": true,
         "name": "Q1.5",
-        "x": 720,
+        "x": 730,
         "y": 600,
         "wires": [
             [
-                "55be8b6598f0ac15"
+                "55be8b6598f0ac15",
+                "4ed7a1b78ff7ee4b"
             ]
         ]
     },
@@ -1030,11 +1375,12 @@
         "variable": "Q1.6",
         "diff": true,
         "name": "Q1.6",
-        "x": 720,
+        "x": 730,
         "y": 660,
         "wires": [
             [
-                "c8c4cc518ec00b16"
+                "c8c4cc518ec00b16",
+                "5abdc2b25b200c6c"
             ]
         ]
     },
@@ -1048,11 +1394,12 @@
         "variable": "Q1.7",
         "diff": true,
         "name": "Q1.7",
-        "x": 720,
+        "x": 730,
         "y": 720,
         "wires": [
             [
-                "b99b8f4e873ef702"
+                "b99b8f4e873ef702",
+                "e187cc131dd30361"
             ]
         ]
     },
@@ -1067,7 +1414,7 @@
             "2cc45438110c5bf0",
             "e647d465c34aeeb6"
         ],
-        "x": 905,
+        "x": 885,
         "y": 420,
         "wires": []
     },
@@ -1082,7 +1429,7 @@
             "97a9dbc9ef407b30",
             "8c598741420e577c"
         ],
-        "x": 905,
+        "x": 885,
         "y": 480,
         "wires": []
     },
@@ -1097,7 +1444,7 @@
             "22b306165af57355",
             "68d28074074d5b01"
         ],
-        "x": 905,
+        "x": 885,
         "y": 540,
         "wires": []
     },
@@ -1112,7 +1459,7 @@
             "8c3e82141abd04b6",
             "21b748e83d1b0cb8"
         ],
-        "x": 905,
+        "x": 885,
         "y": 600,
         "wires": []
     },
@@ -1127,7 +1474,7 @@
             "5fa64e2fb33931c2",
             "3b531b8d59b6746a"
         ],
-        "x": 905,
+        "x": 885,
         "y": 660,
         "wires": []
     },
@@ -1142,7 +1489,7 @@
             "a3fcc348e736653d",
             "a87d661e50a78d26"
         ],
-        "x": 905,
+        "x": 885,
         "y": 720,
         "wires": []
     },
@@ -1153,7 +1500,7 @@
         "g": "503dab05d971424f",
         "name": "Saidas Digitais ",
         "info": "Saidas Digitais ",
-        "x": 550,
+        "x": 660,
         "y": 240,
         "wires": []
     },
@@ -1167,7 +1514,7 @@
         "links": [
             "d242598c4cb9bbbb"
         ],
-        "x": 435,
+        "x": 425,
         "y": 920,
         "wires": []
     },
@@ -1181,11 +1528,12 @@
         "variable": "I0.0",
         "diff": true,
         "name": "I0.0",
-        "x": 250,
+        "x": 270,
         "y": 920,
         "wires": [
             [
-                "23dbeec0a99e5bff"
+                "23dbeec0a99e5bff",
+                "effc74fb2220faf7"
             ]
         ]
     },
@@ -1199,11 +1547,12 @@
         "variable": "I0.1",
         "diff": true,
         "name": "I0.1",
-        "x": 250,
+        "x": 270,
         "y": 980,
         "wires": [
             [
-                "dd47865b3a96ce8f"
+                "dd47865b3a96ce8f",
+                "415a504dbe484b4a"
             ]
         ]
     },
@@ -1217,7 +1566,7 @@
         "links": [
             "6f1a5f8421301ec5"
         ],
-        "x": 435,
+        "x": 425,
         "y": 980,
         "wires": []
     },
@@ -1231,11 +1580,12 @@
         "variable": "I0.2",
         "diff": true,
         "name": "I0.2",
-        "x": 250,
+        "x": 270,
         "y": 1040,
         "wires": [
             [
-                "e42672fb36f2bd15"
+                "e42672fb36f2bd15",
+                "7a05d90038be05c9"
             ]
         ]
     },
@@ -1249,11 +1599,12 @@
         "variable": "I0.3",
         "diff": true,
         "name": "I0.3",
-        "x": 250,
+        "x": 270,
         "y": 1100,
         "wires": [
             [
-                "e2a151b8840c2eea"
+                "e2a151b8840c2eea",
+                "c6667186b304ce5e"
             ]
         ]
     },
@@ -1267,11 +1618,12 @@
         "variable": "I0.4",
         "diff": true,
         "name": "I0.4",
-        "x": 250,
+        "x": 270,
         "y": 1160,
         "wires": [
             [
-                "35496b1e5f573563"
+                "35496b1e5f573563",
+                "23c3f0cfe5acb8d4"
             ]
         ]
     },
@@ -1285,11 +1637,12 @@
         "variable": "I0.5",
         "diff": true,
         "name": "I0.5",
-        "x": 250,
+        "x": 270,
         "y": 1220,
         "wires": [
             [
-                "008fae7d6407f9c9"
+                "008fae7d6407f9c9",
+                "595dd8f64eaed67d"
             ]
         ]
     },
@@ -1303,11 +1656,12 @@
         "variable": "I0.6",
         "diff": true,
         "name": "I0.6",
-        "x": 250,
+        "x": 270,
         "y": 1280,
         "wires": [
             [
-                "9260773d2da16558"
+                "9260773d2da16558",
+                "d0cc486bb820607b"
             ]
         ]
     },
@@ -1321,11 +1675,12 @@
         "variable": "I0.7",
         "diff": true,
         "name": "I0.7",
-        "x": 250,
+        "x": 270,
         "y": 1340,
         "wires": [
             [
-                "822abba324ec73af"
+                "822abba324ec73af",
+                "d46aef8e3162f7e9"
             ]
         ]
     },
@@ -1337,7 +1692,7 @@
         "name": "link out I0.2",
         "mode": "link",
         "links": [],
-        "x": 435,
+        "x": 425,
         "y": 1040,
         "wires": []
     },
@@ -1351,7 +1706,7 @@
         "links": [
             "13e923e07cfbdec1"
         ],
-        "x": 435,
+        "x": 425,
         "y": 1100,
         "wires": []
     },
@@ -1365,7 +1720,7 @@
         "links": [
             "710348a3efe9e35f"
         ],
-        "x": 435,
+        "x": 425,
         "y": 1160,
         "wires": []
     },
@@ -1379,7 +1734,7 @@
         "links": [
             "ebb2d564e1f4ae54"
         ],
-        "x": 435,
+        "x": 425,
         "y": 1220,
         "wires": []
     },
@@ -1393,7 +1748,7 @@
         "links": [
             "1281ca9c58cf7984"
         ],
-        "x": 435,
+        "x": 425,
         "y": 1280,
         "wires": []
     },
@@ -1407,7 +1762,7 @@
         "links": [
             "9d20e86fc7a3c211"
         ],
-        "x": 435,
+        "x": 425,
         "y": 1340,
         "wires": []
     },
@@ -1435,11 +1790,12 @@
         "variable": "I1.0",
         "diff": true,
         "name": "I1.0",
-        "x": 730,
+        "x": 750,
         "y": 920,
         "wires": [
             [
-                "5c3d30a5dcb5ac93"
+                "5c3d30a5dcb5ac93",
+                "24ae1508148fad06"
             ]
         ]
     },
@@ -1453,11 +1809,12 @@
         "variable": "I1.1",
         "diff": true,
         "name": "I1.1",
-        "x": 730,
+        "x": 750,
         "y": 980,
         "wires": [
             [
-                "d9bf271c7e06ccaa"
+                "d9bf271c7e06ccaa",
+                "3edbf3d080348066"
             ]
         ]
     },
@@ -1485,11 +1842,12 @@
         "variable": "I1.2",
         "diff": true,
         "name": "I1.2",
-        "x": 730,
+        "x": 750,
         "y": 1040,
         "wires": [
             [
-                "fcd693bbd9c83e42"
+                "fcd693bbd9c83e42",
+                "181489778c38375c"
             ]
         ]
     },
@@ -1503,11 +1861,12 @@
         "variable": "I1.3",
         "diff": true,
         "name": "I1.3",
-        "x": 730,
+        "x": 750,
         "y": 1100,
         "wires": [
             [
-                "8021329368182baa"
+                "8021329368182baa",
+                "493ae9ac49d505eb"
             ]
         ]
     },
@@ -1521,11 +1880,12 @@
         "variable": "I1.4",
         "diff": true,
         "name": "I1.4",
-        "x": 730,
+        "x": 750,
         "y": 1160,
         "wires": [
             [
-                "0e84fae51cb0586c"
+                "0e84fae51cb0586c",
+                "70f5ec1b792ae645"
             ]
         ]
     },
@@ -1539,11 +1899,12 @@
         "variable": "I1.5",
         "diff": true,
         "name": "I1.5",
-        "x": 730,
+        "x": 750,
         "y": 1220,
         "wires": [
             [
-                "10fa5d05f2ec0ff0"
+                "10fa5d05f2ec0ff0",
+                "73624d539073ff52"
             ]
         ]
     },
@@ -1557,11 +1918,12 @@
         "variable": "I1.6",
         "diff": true,
         "name": "I1.6",
-        "x": 730,
+        "x": 750,
         "y": 1280,
         "wires": [
             [
-                "369f25dffefd8073"
+                "369f25dffefd8073",
+                "e42ee3aaf992b1b8"
             ]
         ]
     },
@@ -1575,11 +1937,12 @@
         "variable": "I1.7",
         "diff": true,
         "name": "I1.7",
-        "x": 730,
+        "x": 750,
         "y": 1340,
         "wires": [
             [
-                "40c8226e8ca5f2d6"
+                "40c8226e8ca5f2d6",
+                "cba96159709bd92f"
             ]
         ]
     },
@@ -1675,7 +2038,7 @@
         "g": "46efa2b24427216f",
         "name": "Entradas Digitais ",
         "info": "Entradas Digitais ",
-        "x": 560,
+        "x": 680,
         "y": 860,
         "wires": []
     },
@@ -1689,11 +2052,12 @@
         "variable": "IW2",
         "diff": true,
         "name": "IW2",
-        "x": 1110,
-        "y": 600,
+        "x": 1510,
+        "y": 940,
         "wires": [
             [
-                "16c94c9ae6741fda"
+                "16c94c9ae6741fda",
+                "6b815e77193f1439"
             ]
         ]
     },
@@ -1705,10 +2069,11 @@
         "name": "link out IW2",
         "mode": "link",
         "links": [
-            "7d99d5d5579eac61"
+            "7d99d5d5579eac61",
+            "c7074f34568c1258"
         ],
-        "x": 1315,
-        "y": 600,
+        "x": 1675,
+        "y": 940,
         "wires": []
     },
     {
@@ -1721,11 +2086,12 @@
         "variable": "IW4",
         "diff": true,
         "name": "IW4",
-        "x": 1110,
-        "y": 660,
+        "x": 1510,
+        "y": 1000,
         "wires": [
             [
-                "bda91513947130ef"
+                "bda91513947130ef",
+                "d263392f48afbf02"
             ]
         ]
     },
@@ -1737,10 +2103,11 @@
         "name": "link out IW4",
         "mode": "link",
         "links": [
-            "4902ee97d4e3a7b3"
+            "4902ee97d4e3a7b3",
+            "9a29e21c18a89529"
         ],
-        "x": 1315,
-        "y": 660,
+        "x": 1675,
+        "y": 1000,
         "wires": []
     },
     {
@@ -1753,11 +2120,12 @@
         "variable": "IW6",
         "diff": true,
         "name": "IW6",
-        "x": 1110,
-        "y": 720,
+        "x": 1510,
+        "y": 1060,
         "wires": [
             [
-                "f86e6091a5492206"
+                "f86e6091a5492206",
+                "264187a87f54e578"
             ]
         ]
     },
@@ -1769,10 +2137,11 @@
         "name": "link out IW6",
         "mode": "link",
         "links": [
-            "10c3aa6c2bdfbdd7"
+            "10c3aa6c2bdfbdd7",
+            "e3ced482dc20292b"
         ],
-        "x": 1315,
-        "y": 720,
+        "x": 1675,
+        "y": 1060,
         "wires": []
     },
     {
@@ -1785,11 +2154,12 @@
         "variable": "IW8",
         "diff": true,
         "name": "IW8",
-        "x": 1110,
-        "y": 780,
+        "x": 1510,
+        "y": 1120,
         "wires": [
             [
-                "a565ecd9bea0b796"
+                "a565ecd9bea0b796",
+                "450335a11723085c"
             ]
         ]
     },
@@ -1801,10 +2171,11 @@
         "name": "link out IW8",
         "mode": "link",
         "links": [
-            "85950fd53a8e67cd"
+            "85950fd53a8e67cd",
+            "de32c510af55fbfa"
         ],
-        "x": 1315,
-        "y": 780,
+        "x": 1675,
+        "y": 1120,
         "wires": []
     },
     {
@@ -1814,8 +2185,8 @@
         "g": "a40cb1939c2419d6",
         "name": "Entradas Analógicas",
         "info": "Entradas Analógicas",
-        "x": 1210,
-        "y": 520,
+        "x": 1690,
+        "y": 860,
         "wires": []
     },
     {
@@ -1828,11 +2199,12 @@
         "variable": "QW2",
         "diff": true,
         "name": "QW2",
-        "x": 1110,
+        "x": 1510,
         "y": 320,
         "wires": [
             [
-                "92f207c838c2e0e8"
+                "92f207c838c2e0e8",
+                "9dbed78644d98b44"
             ]
         ]
     },
@@ -1846,7 +2218,7 @@
         "links": [
             "1c0fe42750c2b5fa"
         ],
-        "x": 1315,
+        "x": 1665,
         "y": 320,
         "wires": []
     },
@@ -1860,11 +2232,12 @@
         "variable": "QW4",
         "diff": true,
         "name": "QW4",
-        "x": 1110,
+        "x": 1510,
         "y": 380,
         "wires": [
             [
-                "221f22b688c4b0e8"
+                "221f22b688c4b0e8",
+                "9c3dd9ac73c16f5f"
             ]
         ]
     },
@@ -1878,7 +2251,7 @@
         "links": [
             "19221510a54cfabe"
         ],
-        "x": 1315,
+        "x": 1665,
         "y": 380,
         "wires": []
     },
@@ -1889,18 +2262,1046 @@
         "g": "2462a8ae0c6e0370",
         "name": "Saídas Analógicas",
         "info": "Saídas Analógicas",
-        "x": 1210,
+        "x": 1690,
         "y": 240,
         "wires": []
     },
     {
-        "id": "6cf1af64-736c-470c-be82-48117e406d9f",
+        "id": "06170c67154bb961",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q0.0",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "c3eeb83cd53a61fc",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q0.1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "ce040f1d56f6d9ef",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q0.2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "d9999457800441eb",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q0.3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3d315d8121cb9e0c",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q0.4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "e851620ba4b7ce22",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q0.5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "9eacb5752e31f85f",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q0.6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "cae3d5797a147655",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q0.7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "11e0637650ba5089",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q1.0",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4f6991e08253815e",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q1.1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3529e3d1acb335d0",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q1.2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "6213c6a0bce73df5",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q1.3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a738bfffe7e68a3a",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q1.4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "4ed7a1b78ff7ee4b",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q1.5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "5abdc2b25b200c6c",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q1.6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "e187cc131dd30361",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "name": "Q1.7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "effc74fb2220faf7",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I0.0",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "415a504dbe484b4a",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I0.1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "7a05d90038be05c9",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I0.2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "c6667186b304ce5e",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I0.3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "23c3f0cfe5acb8d4",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I0.4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "595dd8f64eaed67d",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I0.5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "d0cc486bb820607b",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I0.6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "d46aef8e3162f7e9",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I0.7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "24ae1508148fad06",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I1.0",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "3edbf3d080348066",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I1.1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "181489778c38375c",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I1.2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "493ae9ac49d505eb",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I1.3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "70f5ec1b792ae645",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I1.4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "73624d539073ff52",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I1.5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "e42ee3aaf992b1b8",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I1.6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "cba96159709bd92f",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "46efa2b24427216f",
+        "name": "I1.7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "9dbed78644d98b44",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "2462a8ae0c6e0370",
+        "name": "QW2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1830,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "9c3dd9ac73c16f5f",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "2462a8ae0c6e0370",
+        "name": "QW4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1830,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "6b815e77193f1439",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "name": "IW2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1830,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "d263392f48afbf02",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "name": "IW4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1830,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "264187a87f54e578",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "name": "IW6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1830,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "450335a11723085c",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "a40cb1939c2419d6",
+        "name": "IW8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1830,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "f35a7387f8030050",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.1",
+        "diff": true,
+        "name": "Q0.1",
+        "x": 250,
+        "y": 360,
+        "wires": [
+            [
+                "d96bc84d6e1e1a3e",
+                "c3eeb83cd53a61fc"
+            ]
+        ]
+    },
+    {
+        "id": "967614ec9b97872c",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "503dab05d971424f",
+        "endpoint": "aee98873942a1d03",
+        "mode": "single",
+        "variable": "Q0.0",
+        "diff": true,
+        "name": "Q0.0",
+        "x": 250,
+        "y": 300,
+        "wires": [
+            [
+                "3c4dbc71516bbb4a",
+                "06170c67154bb961"
+            ]
+        ]
+    },
+    {
+        "id": "33addb6844c086e6",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "36da75d906310769",
+        "endpoint": "df28b20d7dd49877",
+        "mode": "single",
+        "variable": "Alarmes",
+        "diff": true,
+        "name": "Alarmes",
+        "x": 2260,
+        "y": 300,
+        "wires": [
+            [
+                "a6d1aa8362a9a583",
+                "d164e1d285ffcb5d"
+            ]
+        ]
+    },
+    {
+        "id": "a6d1aa8362a9a583",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "36da75d906310769",
+        "name": "link Alarme",
+        "mode": "link",
+        "links": [
+            "e92988c27b38e4f0"
+        ],
+        "x": 2425,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e5f13b08bd5b5f63",
         "type": "comment",
-        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
-        "name": "Legenda - 5 - Dashboard / API",
-        "info": "Aba destinada à função: 5 - Dashboard / API",
-        "x": 300,
-        "y": 80,
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "36da75d906310769",
+        "name": "Alarmes",
+        "info": "",
+        "x": 2310,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "d164e1d285ffcb5d",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "36da75d906310769",
+        "name": "Alarmes",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2580,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e45605f44873cb32",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "422bc4dbe5bac0d8",
+        "endpoint": "f25c451bf8435241",
+        "mode": "single",
+        "variable": "Avisos",
+        "diff": true,
+        "name": "Avisos",
+        "x": 2250,
+        "y": 520,
+        "wires": [
+            [
+                "1d4a22cc7bf0dfe5",
+                "593f888b53f61a46"
+            ]
+        ]
+    },
+    {
+        "id": "1d4a22cc7bf0dfe5",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "422bc4dbe5bac0d8",
+        "name": "link Aviso",
+        "mode": "link",
+        "links": [
+            "b8a23c1f49fad2f5"
+        ],
+        "x": 2425,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "85e7c235ab0cbc14",
+        "type": "comment",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "422bc4dbe5bac0d8",
+        "name": "Avisos",
+        "info": "",
+        "x": 2300,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "593f888b53f61a46",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "422bc4dbe5bac0d8",
+        "name": "Avisos",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2570,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "1a2f1cca7c93154b",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "79f55226353a0b05",
+        "endpoint": "c4ecc635623be6c9",
+        "mode": "single",
+        "variable": "Status",
+        "diff": true,
+        "name": "Avisos",
+        "x": 2250,
+        "y": 740,
+        "wires": [
+            [
+                "cb53c2287d3369e5",
+                "c1eb76e91589ed32"
+            ]
+        ]
+    },
+    {
+        "id": "cb53c2287d3369e5",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "79f55226353a0b05",
+        "name": "link Status",
+        "mode": "link",
+        "links": [
+            "7d99d5d5579eac61",
+            "c7074f34568c1258",
+            "5913d85a1d3f49c2"
+        ],
+        "x": 2425,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "dd166559f230253d",
+        "type": "comment",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "79f55226353a0b05",
+        "name": "Status",
+        "info": "",
+        "x": 2300,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "c1eb76e91589ed32",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "79f55226353a0b05",
+        "name": "Status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2570,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "4584e033a0a4202b",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "dbbce64cb023146b",
+        "endpoint": "046cbaebd493b812",
+        "mode": "single",
+        "variable": "Velocidade",
+        "diff": true,
+        "name": "Velocidade",
+        "x": 2260,
+        "y": 960,
+        "wires": [
+            [
+                "97020c83d6c4c6ef",
+                "a2df751506f379fe"
+            ]
+        ]
+    },
+    {
+        "id": "97020c83d6c4c6ef",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "dbbce64cb023146b",
+        "name": "link Velocidade",
+        "mode": "link",
+        "links": [
+            "7d99d5d5579eac61",
+            "c7074f34568c1258",
+            "3966b0e6ca298391"
+        ],
+        "x": 2425,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "1918980fd5e33564",
+        "type": "comment",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "dbbce64cb023146b",
+        "name": "Velocidade",
+        "info": "",
+        "x": 2310,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "a2df751506f379fe",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "dbbce64cb023146b",
+        "name": "Velocidade",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2590,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "702c97ace31c9df9",
+        "type": "s7 in",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "99ee145619615cc3",
+        "endpoint": "2f05f4eb59c1002d",
+        "mode": "single",
+        "variable": "Produção",
+        "diff": true,
+        "name": "Produção",
+        "x": 2260,
+        "y": 1180,
+        "wires": [
+            [
+                "6b7bbcb564783f81",
+                "18dd3c1744581b8d"
+            ]
+        ]
+    },
+    {
+        "id": "6b7bbcb564783f81",
+        "type": "link out",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "99ee145619615cc3",
+        "name": "link Produção",
+        "mode": "link",
+        "links": [
+            "7d99d5d5579eac61",
+            "c7074f34568c1258",
+            "8ed47c07d616e0c1"
+        ],
+        "x": 2425,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "18e79930a8e85f36",
+        "type": "comment",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "99ee145619615cc3",
+        "name": "Produção",
+        "info": "",
+        "x": 2310,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "18dd3c1744581b8d",
+        "type": "debug",
+        "z": "dc3fc40e-94ed-42e0-8dfc-8e94c6d2f17c",
+        "g": "99ee145619615cc3",
+        "name": "Produção",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2580,
+        "y": 1180,
         "wires": []
     },
     {
@@ -1927,7 +3328,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q0.0)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_0\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n// Informa ao servidor que estamos enviando dados no formato JSON.\n\"Content-Type\": \"application/json\",\n\n// Adiciona autenticação com a chave de API.\n\"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out0_0\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out0_0\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -1969,7 +3370,7 @@
         "method": "POST",
         "ret": "obj",
         "paytoqs": "ignore",
-        "url": "http://localhost:5292/api/mmdba/atualizarIOs",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/IOs",
         "tls": "58c0d6014ed6b2f7",
         "persist": false,
         "proxy": "",
@@ -1991,7 +3392,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q0.1)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_1\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out0_1\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out0_1\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2030,7 +3431,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q0.2)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out0_2\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out0_2\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2069,7 +3470,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q0.3)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_3\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out0_3\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out0_3\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2108,7 +3509,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q0.4)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out0_4\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out0_4\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2147,7 +3548,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q0.5)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_5\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out0_5\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out0_5\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2186,7 +3587,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q0.6)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out0_6\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out0_6\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2225,7 +3626,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q0.7)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out0_7\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out0_7\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out0_7\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2281,7 +3682,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q1.0)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_0\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out1_0\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out1_0\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2302,7 +3703,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q1.1)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_1\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out1_1\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out1_1\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2340,7 +3741,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q1.2)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out1_2\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out1_2\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2378,7 +3779,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q1.3)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_3\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out1_3\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out1_3\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2416,7 +3817,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q1.4)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out1_4\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out1_4\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2454,7 +3855,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q1.5)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_5\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out1_5\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out1_5\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2492,7 +3893,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q1.6)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out1_6\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out1_6\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2530,7 +3931,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "e2c976410bae5973",
         "name": "Montar objeto para API (Q1.7)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"out1_7\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"out1_7\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Digital out1_7\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2577,6 +3978,7 @@
         "id": "d242598c4cb9bbbb",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I0.0",
         "links": [
             "23dbeec0a99e5bff"
@@ -2593,8 +3995,9 @@
         "id": "494ff9799797b104",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I0.0)",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    id: \"Local:1:I.Data.0\",  \n    valor: String(msg.payload), // Converte o valor para string\n    informacao: \"Entrada Digital %I0.0\"\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in0_0\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in0_0\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2613,6 +4016,7 @@
         "id": "0be29e573fb9340e",
         "type": "debug",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Resposta da API",
         "active": true,
         "tosidebar": true,
@@ -2622,19 +4026,20 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1030,
-        "y": 1620,
+        "x": 1310,
+        "y": 2080,
         "wires": []
     },
     {
         "id": "e2488a0b4823ad7a",
         "type": "http request",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Enviar DigitalInputs para API",
         "method": "POST",
         "ret": "obj",
         "paytoqs": "ignore",
-        "url": "http://localhost:5292/api/mmdba/rotuladora/ios",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/IOs",
         "tls": "58c0d6014ed6b2f7",
         "persist": false,
         "proxy": "",
@@ -2642,8 +4047,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 780,
-        "y": 1620,
+        "x": 980,
+        "y": 2080,
         "wires": [
             [
                 "0be29e573fb9340e"
@@ -2654,8 +4059,9 @@
         "id": "bdeb4e89da526122",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I0.1)",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    id: \"Local:1:I.Data.1\",\n    valor: String(msg.payload),\n    informacao: \"Entrada Digital %I0.1\"\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in0_1\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in0_1\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2674,6 +4080,7 @@
         "id": "6f1a5f8421301ec5",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I0.1",
         "links": [
             "dd47865b3a96ce8f"
@@ -2690,8 +4097,9 @@
         "id": "67cf71f5c8a3fb42",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I0.2)",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    id: \"Local:1:I.Data.2\",  \n    valor: String(msg.payload),\n    informacao: \"Entrada Digital %I0.2\"\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in0_2\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in0_2\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2710,6 +4118,7 @@
         "id": "154231bbe5ed429b",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I0.2",
         "links": [
             "fcd693bbd9c83e42"
@@ -2726,8 +4135,9 @@
         "id": "655d473cab676df9",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I0.3)",
-        "func": "msg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_3\",\n    valor: String(msg.payload),\n    informacao: \"Entrada Digital %I0.3\"\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in0_3\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in0_3\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2746,6 +4156,7 @@
         "id": "13e923e07cfbdec1",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I0.3",
         "links": [
             "e2a151b8840c2eea"
@@ -2762,8 +4173,9 @@
         "id": "5ed1e84d2941c3a0",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I0.4)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in0_4\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in0_4\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2782,6 +4194,7 @@
         "id": "710348a3efe9e35f",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I0.4",
         "links": [
             "35496b1e5f573563"
@@ -2798,8 +4211,9 @@
         "id": "5e6d43ae3db3c0eb",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I0.5)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_5\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in0_5\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in0_5\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2818,6 +4232,7 @@
         "id": "ebb2d564e1f4ae54",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I0.5",
         "links": [
             "008fae7d6407f9c9"
@@ -2834,8 +4249,9 @@
         "id": "c29569a10cc61833",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I0.6)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in0_6\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in0_6\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2854,6 +4270,7 @@
         "id": "1281ca9c58cf7984",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I0.6",
         "links": [
             "9260773d2da16558"
@@ -2870,8 +4287,9 @@
         "id": "5b586e91c3aa2ed8",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I0.7)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in0_7\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in0_7\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in0_7\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2890,6 +4308,7 @@
         "id": "9d20e86fc7a3c211",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I0.7",
         "links": [
             "822abba324ec73af"
@@ -2906,6 +4325,7 @@
         "id": "5cbcc6c97d2c5814",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I1.0",
         "links": [
             "5c3d30a5dcb5ac93"
@@ -2922,8 +4342,9 @@
         "id": "8e6cafdc8055efa6",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I1.0)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_0\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in1_0\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in1_0\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2942,8 +4363,9 @@
         "id": "a3ddcd9199943cc3",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I1.1)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_1\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in1_1\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in1_1\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2962,6 +4384,7 @@
         "id": "8c389116d6b5dcca",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I1.1",
         "links": [
             "d9bf271c7e06ccaa"
@@ -2978,8 +4401,9 @@
         "id": "f14f7ec1731f9315",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I1.2)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in1_2\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in1_2\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2998,6 +4422,7 @@
         "id": "7d1ab1659173d756",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I1.2",
         "links": [
             "fcd693bbd9c83e42"
@@ -3014,8 +4439,9 @@
         "id": "17ae2fa9231d8420",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I1.3)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_3\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in1_3\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in1_3\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3034,6 +4460,7 @@
         "id": "142f6a91f624b253",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I1.3",
         "links": [
             "8021329368182baa"
@@ -3050,8 +4477,9 @@
         "id": "d5be07bd71f559dc",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I1.4)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in1_4\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in1_4\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3070,6 +4498,7 @@
         "id": "ecdd890c184046fd",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I1.4",
         "links": [
             "0e84fae51cb0586c"
@@ -3086,8 +4515,9 @@
         "id": "01996d079bc71199",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I1.5)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_5\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in1_5\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in1_5\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3106,6 +4536,7 @@
         "id": "8c9e25183a944e63",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I1.5",
         "links": [
             "10fa5d05f2ec0ff0"
@@ -3122,8 +4553,9 @@
         "id": "ea18fc7e709caca7",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I1.6)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in1_6\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in1_6\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3142,6 +4574,7 @@
         "id": "ee14c586516b1a47",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I1.6",
         "links": [
             "369f25dffefd8073"
@@ -3158,8 +4591,9 @@
         "id": "a53d4e2a7d3fea1f",
         "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Montar objeto para API (I1.7)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"in1_7\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"in1_7\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Digital in1_7\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3178,6 +4612,7 @@
         "id": "35ad40de2845b3d0",
         "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "link in I1.7",
         "links": [
             "40c8226e8ca5f2d6"
@@ -3194,6 +4629,7 @@
         "id": "58b4ec646afcc69b",
         "type": "comment",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "eb981cecb129b0bf",
         "name": "Entradas Digitais ",
         "info": "Entradas Digitais ",
         "x": 810,
@@ -3206,7 +4642,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "65cf911606445133",
         "name": "Montar objeto para API (IW2)",
-        "func": "\nmsg.payload = {\n    id: \"iw2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"inIW2\",\n    Valor: String(msg.payload),\n    Informacao: \"Enrtada Analógica inQW2\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3214,7 +4650,7 @@
         "finalize": "",
         "libs": [],
         "x": 1960,
-        "y": 1640,
+        "y": 920,
         "wires": [
             [
                 "0d2699a84da6efcb"
@@ -3228,10 +4664,14 @@
         "g": "65cf911606445133",
         "name": "link in IW2",
         "links": [
-            "16c94c9ae6741fda"
+            "16c94c9ae6741fda",
+            "cb53c2287d3369e5",
+            "97020c83d6c4c6ef",
+            "6b7bbcb564783f81",
+            "2d3b7291096aea0c"
         ],
         "x": 1755,
-        "y": 1640,
+        "y": 920,
         "wires": [
             [
                 "0f604b9b408fa488"
@@ -3253,7 +4693,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 2610,
-        "y": 1720,
+        "y": 1000,
         "wires": []
     },
     {
@@ -3265,7 +4705,7 @@
         "method": "POST",
         "ret": "obj",
         "paytoqs": "ignore",
-        "url": "http://localhost:5292/api/mmdba/atualizarIOs",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/IOs",
         "tls": "58c0d6014ed6b2f7",
         "persist": false,
         "proxy": "",
@@ -3274,7 +4714,7 @@
         "senderr": false,
         "headers": [],
         "x": 2320,
-        "y": 1720,
+        "y": 1000,
         "wires": [
             [
                 "3dc2a7f9b2b55c09"
@@ -3287,7 +4727,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "65cf911606445133",
         "name": "Montar objeto para API (IW4)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"iw4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"inIW4\",\n    Valor: String(msg.payload),\n    Informacao: \"Enrtada Analógica inQW4\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3295,7 +4735,7 @@
         "finalize": "",
         "libs": [],
         "x": 1960,
-        "y": 1700,
+        "y": 980,
         "wires": [
             [
                 "0d2699a84da6efcb"
@@ -3312,7 +4752,7 @@
             "bda91513947130ef"
         ],
         "x": 1755,
-        "y": 1700,
+        "y": 980,
         "wires": [
             [
                 "f359c0eaebe262a1"
@@ -3325,7 +4765,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "65cf911606445133",
         "name": "Montar objeto para API (IW6)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"iw6\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"inIW6\",\n    Valor: String(msg.payload),\n    Informacao: \"Enrtada Analógica inQW6\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3333,7 +4773,7 @@
         "finalize": "",
         "libs": [],
         "x": 1960,
-        "y": 1760,
+        "y": 1040,
         "wires": [
             [
                 "0d2699a84da6efcb"
@@ -3350,7 +4790,7 @@
             "f86e6091a5492206"
         ],
         "x": 1755,
-        "y": 1760,
+        "y": 1040,
         "wires": [
             [
                 "d9c11c4c0aa7cfbf"
@@ -3363,7 +4803,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "65cf911606445133",
         "name": "Montar objeto para API (IW8)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"iw8\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"inIW8\",\n    Valor: String(msg.payload),\n    Informacao: \"Enrtada Analógica inQW8\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3371,7 +4811,7 @@
         "finalize": "",
         "libs": [],
         "x": 1960,
-        "y": 1820,
+        "y": 1100,
         "wires": [
             [
                 "0d2699a84da6efcb"
@@ -3388,7 +4828,7 @@
             "a565ecd9bea0b796"
         ],
         "x": 1755,
-        "y": 1820,
+        "y": 1100,
         "wires": [
             [
                 "5ff7fb7424252468"
@@ -3403,7 +4843,7 @@
         "name": "Entradas Analógicas",
         "info": "Entradas Analógicas",
         "x": 2310,
-        "y": 1520,
+        "y": 800,
         "wires": []
     },
     {
@@ -3412,7 +4852,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "a7bd69dce71f6fb5",
         "name": "Montar objeto para API (QW2)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"qw2\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"outQW2\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Analógica outQW2\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3471,7 +4911,7 @@
         "method": "POST",
         "ret": "obj",
         "paytoqs": "ignore",
-        "url": "http://localhost:5292/api/mmdba/atualizarIOs",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/IOs",
         "tls": "58c0d6014ed6b2f7",
         "persist": false,
         "proxy": "",
@@ -3493,7 +4933,7 @@
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
         "g": "a7bd69dce71f6fb5",
         "name": "Montar objeto para API (QW4)",
-        "func": "// Exemplo para uma entrada digital I0.0 (representada por id \"in0_0\")\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nmsg.payload = {\n    id: \"qw4\",  // ou out0_0, iw2, qw2\n    valor: msg.payload  // true / false ou int\n};\n\nreturn msg;",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"outQW4\",\n    Valor: String(msg.payload),\n    Informacao: \"Saida Analógica outQW4\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3537,66 +4977,224 @@
         "wires": []
     },
     {
-        "id": "1210653a463bb554",
-        "type": "inject",
+        "id": "35e5f325e3fec2ef",
+        "type": "function",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
-        "name": "true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 130,
-        "y": 1600,
+        "g": "7c14193a66e0bb4f",
+        "name": "Montar objeto para API (HSC00)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"inHSC00\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Rápida HSC00\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1970,
+        "y": 1380,
         "wires": [
             [
-                "494ff9799797b104",
-                "bdeb4e89da526122",
-                "67cf71f5c8a3fb42"
+                "430dc8b701667e3f"
             ]
         ]
     },
     {
-        "id": "9ad7df0364603e59",
-        "type": "inject",
+        "id": "c7074f34568c1258",
+        "type": "link in",
         "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
-        "name": "false",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
+        "g": "7c14193a66e0bb4f",
+        "name": "link in IW2",
+        "links": [
+            "16c94c9ae6741fda",
+            "cb53c2287d3369e5",
+            "97020c83d6c4c6ef",
+            "6b7bbcb564783f81",
+            "2d3b7291096aea0c"
         ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "false",
-        "payloadType": "bool",
-        "x": 130,
-        "y": 1640,
+        "x": 1755,
+        "y": 1380,
         "wires": [
             [
-                "494ff9799797b104",
-                "bdeb4e89da526122",
-                "67cf71f5c8a3fb42"
+                "35e5f325e3fec2ef"
             ]
         ]
+    },
+    {
+        "id": "23baf0997e888784",
+        "type": "debug",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "7c14193a66e0bb4f",
+        "name": "Resposta da API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2610,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "430dc8b701667e3f",
+        "type": "http request",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "7c14193a66e0bb4f",
+        "name": "Enviar AnalogInputs para API",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5292/api/mmdba/rotuladora/IOs",
+        "tls": "58c0d6014ed6b2f7",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2320,
+        "y": 1460,
+        "wires": [
+            [
+                "23baf0997e888784"
+            ]
+        ]
+    },
+    {
+        "id": "b6d16825a63e8f49",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "7c14193a66e0bb4f",
+        "name": "Montar objeto para API (HSC01)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"inHSC01\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Rápida HSC01\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1970,
+        "y": 1440,
+        "wires": [
+            [
+                "430dc8b701667e3f"
+            ]
+        ]
+    },
+    {
+        "id": "9a29e21c18a89529",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "7c14193a66e0bb4f",
+        "name": "link in IW4",
+        "links": [
+            "bda91513947130ef"
+        ],
+        "x": 1755,
+        "y": 1440,
+        "wires": [
+            [
+                "b6d16825a63e8f49"
+            ]
+        ]
+    },
+    {
+        "id": "dfa0c053391ec6e1",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "7c14193a66e0bb4f",
+        "name": "Montar objeto para API (HSC02)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"inHSC02\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Rápida HSC02\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1970,
+        "y": 1500,
+        "wires": [
+            [
+                "430dc8b701667e3f"
+            ]
+        ]
+    },
+    {
+        "id": "e3ced482dc20292b",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "7c14193a66e0bb4f",
+        "name": "link in IW6",
+        "links": [
+            "f86e6091a5492206"
+        ],
+        "x": 1755,
+        "y": 1500,
+        "wires": [
+            [
+                "dfa0c053391ec6e1"
+            ]
+        ]
+    },
+    {
+        "id": "a57eae2817918b20",
+        "type": "function",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "7c14193a66e0bb4f",
+        "name": "Montar objeto para API (HSC03)",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"inHSC03\",\n    Valor: String(msg.payload),\n    Informacao: \"Entrada Rápida HSC03\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"IOs\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1970,
+        "y": 1560,
+        "wires": [
+            [
+                "430dc8b701667e3f"
+            ]
+        ]
+    },
+    {
+        "id": "de32c510af55fbfa",
+        "type": "link in",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "7c14193a66e0bb4f",
+        "name": "link in IW8",
+        "links": [
+            "a565ecd9bea0b796"
+        ],
+        "x": 1755,
+        "y": 1560,
+        "wires": [
+            [
+                "a57eae2817918b20"
+            ]
+        ]
+    },
+    {
+        "id": "0a1b5dcb40607ccd",
+        "type": "comment",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "g": "7c14193a66e0bb4f",
+        "name": "Entradas HSC",
+        "info": "Entradas HSC",
+        "x": 2290,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "248bd40145ccdb60",
+        "type": "comment",
+        "z": "10f380e0-f078-4f69-9340-bb780d15b1a4",
+        "name": "HTTP POST IOs Node-RED -> API",
+        "info": "",
+        "x": 280,
+        "y": 100,
+        "wires": []
     },
     {
         "id": "ee1999b2eec1b94d",
@@ -3614,8 +5212,8 @@
         "authType": "basic",
         "senderr": false,
         "headers": [],
-        "x": 750,
-        "y": 680,
+        "x": 1010,
+        "y": 360,
         "wires": [
             [
                 "d90ea1914a1a0582"
@@ -3635,8 +5233,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1050,
-        "y": 680,
+        "x": 1290,
+        "y": 360,
         "wires": []
     },
     {
@@ -3660,8 +5258,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 390,
-        "y": 700,
+        "x": 310,
+        "y": 240,
         "wires": [
             [
                 "e21aa95687038ce4"
@@ -3672,16 +5270,16 @@
         "id": "e21aa95687038ce4",
         "type": "function",
         "z": "b7c2f397fdbb5ba7",
-        "name": "Montar objeto para API (I0.0)",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"alarmeON\",\n    //Valor: \"Emergência Ativa\",\n    //Informacao: \"Botão de Emergência foi acionado.\"\n    CodigoEvento: \"alarmeON\",\n    Valor: \"Emergência Ativa\",\n    Informacao: \"Botão de Emergência foi acionado.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Alarme\"\n};\n\nreturn msg;",
+        "name": "Montar objeto para API - Teste Alarme ON",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"alarmeON\",\n    Valor: \"Emergência Ativa\",\n    Informacao: \"Botão de Emergência foi acionado.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Alarme\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 460,
-        "y": 780,
+        "x": 580,
+        "y": 240,
         "wires": [
             [
                 "ee1999b2eec1b94d"
@@ -3692,16 +5290,16 @@
         "id": "af7d81ec75f8d411",
         "type": "function",
         "z": "b7c2f397fdbb5ba7",
-        "name": "Montar objeto para API (I0.0)",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"alarmeOFF\",\n    //Valor: \"Sem Alarmes\",\n    //Informacao: \"Sem Alarmes\"\n    CodigoEvento: \"alarmeOFF\",\n    Valor: \"Sem Alarmes\",\n    Informacao: \"Sem Alarmes.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Alarme\"\n};\n\nreturn msg;",
+        "name": "Montar objeto para API - Teste Alarme OFF",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"alarmeOFF\",\n    Valor: \"Sem Alarmes\",\n    Informacao: \"Sem Alarmes.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Alarme\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 900,
+        "x": 570,
+        "y": 360,
         "wires": [
             [
                 "ee1999b2eec1b94d"
@@ -3729,11 +5327,57 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 210,
-        "y": 980,
+        "x": 310,
+        "y": 360,
         "wires": [
             [
                 "af7d81ec75f8d411"
+            ]
+        ]
+    },
+    {
+        "id": "14932b875d8456c1",
+        "type": "comment",
+        "z": "b7c2f397fdbb5ba7",
+        "name": "HTTP POST Alarmes Node-RED -> API",
+        "info": "",
+        "x": 290,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d03370e9c3783efc",
+        "type": "function",
+        "z": "b7c2f397fdbb5ba7",
+        "name": "Montar objeto para API - Alarmes",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nlet codigo = msg.payload;\n\nlet alarme = {\n    0: {\n        CodigoEvento: \"alarmeOFF\",\n        Valor: \"Sem Alarmes\",\n        Informacao: \"Sistema normal\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Alarme\"\n    },\n    1: {\n        CodigoEvento: \"alarme01\",\n        Valor: \"Emergência Ativa\",\n        Informacao: \"Botão de Emergência foi acionado\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Alarme\"\n    },\n    2: {\n        CodigoEvento: \"alarme02\",\n        Valor: \"Porta Aberta\",\n        Informacao: \"Sensor de porta detectou abertura\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Alarme\"\n    },\n    3: {\n        CodigoEvento: \"alarme03\",\n        Valor: \"Sobrecorrente\",\n        Informacao: \"Motor principal em sobrecorrente\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Alarme\"\n    }\n};\n\nif (alarme[codigo]) {\n    msg.payload = alarme[codigo];\n} else {\n    msg.payload = {\n        CodigoEvento: \"alarmeDesconhecido\",\n        Valor: \"Código não mapeado\",\n        Informacao: `Recebido código ${codigo} do PLC`,\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Alarme\"\n    };\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 500,
+        "wires": [
+            [
+                "ee1999b2eec1b94d"
+            ]
+        ]
+    },
+    {
+        "id": "e92988c27b38e4f0",
+        "type": "link in",
+        "z": "b7c2f397fdbb5ba7",
+        "name": "link Alarme",
+        "links": [
+            "a6d1aa8362a9a583"
+        ],
+        "x": 255,
+        "y": 500,
+        "wires": [
+            [
+                "d03370e9c3783efc"
             ]
         ]
     },
@@ -3753,8 +5397,8 @@
         "authType": "basic",
         "senderr": false,
         "headers": [],
-        "x": 780,
-        "y": 340,
+        "x": 960,
+        "y": 400,
         "wires": [
             [
                 "bc454b3d73a95929"
@@ -3774,8 +5418,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1090,
-        "y": 340,
+        "x": 1210,
+        "y": 400,
         "wires": []
     },
     {
@@ -3799,8 +5443,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 430,
-        "y": 360,
+        "x": 330,
+        "y": 280,
         "wires": [
             [
                 "97ce2f8fc9b36bfa"
@@ -3811,16 +5455,16 @@
         "id": "97ce2f8fc9b36bfa",
         "type": "function",
         "z": "82177b4cf60ced3f",
-        "name": "Montar objeto para API (I0.0)",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"avisoON\",\n    //Valor: \"Aviso Enviado!\",\n    //Informacao: \"Aviso Enviado\"\n    CodigoEvento: \"avisoON\",\n    Valor: \"Aviso Enviado\",\n    Informacao: \"Aviso Enviado.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Aviso\"\n};\n\nreturn msg;",
+        "name": "Montar objeto para API - Teste Aviso ON",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"avisoON\",\n    Valor: \"Aviso Enviado\",\n    Informacao: \"Aviso Enviado.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Aviso\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 440,
+        "x": 580,
+        "y": 280,
         "wires": [
             [
                 "0527a91057c4164c"
@@ -3831,16 +5475,16 @@
         "id": "f89789e67f90499b",
         "type": "function",
         "z": "82177b4cf60ced3f",
-        "name": "Montar objeto para API (I0.0)",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"avisosOFF\",\n    //Valor: \"Sem Avisos!\",\n    //Informacao: \"Sem Avisos\"\n    CodigoEvento: \"avisosOFF\",\n    Valor: \"Sem Avisos\",\n    Informacao: \"ASem Avisos.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Aviso\"\n};\n\nreturn msg;",
+        "name": "Montar objeto para API - Teste Aviso OFF",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"avisosOFF\",\n    Valor: \"Sem Avisos\",\n    Informacao: \"ASem Avisos.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Aviso\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 540,
-        "y": 560,
+        "x": 580,
+        "y": 400,
         "wires": [
             [
                 "0527a91057c4164c"
@@ -3868,11 +5512,57 @@
         "topic": "",
         "payload": "false",
         "payloadType": "bool",
-        "x": 250,
-        "y": 640,
+        "x": 330,
+        "y": 400,
         "wires": [
             [
                 "f89789e67f90499b"
+            ]
+        ]
+    },
+    {
+        "id": "412fd6aae64332d5",
+        "type": "comment",
+        "z": "82177b4cf60ced3f",
+        "name": "HTTP POST Avisos Node-RED -> API",
+        "info": "",
+        "x": 270,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "963e8bf6becc86a1",
+        "type": "function",
+        "z": "82177b4cf60ced3f",
+        "name": "Montar objeto para API - Avisos",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nlet codigo = msg.payload;\n\nlet aviso = {\n    0: {\n        CodigoEvento: \"avisoOFF\",\n        Valor: \"Sem Avisos\",\n        Informacao: \"Sistema Normal\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Aviso\"\n    },\n    1: {\n        CodigoEvento: \"aviso01\",\n        Valor: \"Velocidade Reduzida\",\n        Informacao: \"Velocidade Reduzida\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Aviso\"\n    },\n    2: {\n        CodigoEvento: \"aviso02\",\n        Valor: \"Máquina Não Referenciada\",\n        Informacao: \"Máquina Não Referenciada\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Aviso\"\n    },\n    3: {\n        CodigoEvento: \"aviso03\",\n        Valor: \"Verificar Sensor 01\",\n        Informacao: \"Verificar Sensor 01\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Aviso\"\n    }\n};\n\nif (aviso[codigo]) {\n    msg.payload = aviso[codigo];\n} else {\n    msg.payload = {\n        CodigoEvento: \"avisoDesconhecido\",\n        Valor: \"Código não mapeado\",\n        Informacao: `Recebido código ${codigo} do PLC`,\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Aviso\"\n    };\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 520,
+        "wires": [
+            [
+                "0527a91057c4164c"
+            ]
+        ]
+    },
+    {
+        "id": "b8a23c1f49fad2f5",
+        "type": "link in",
+        "z": "82177b4cf60ced3f",
+        "name": "link Aviso",
+        "links": [
+            "1d4a22cc7bf0dfe5"
+        ],
+        "x": 285,
+        "y": 520,
+        "wires": [
+            [
+                "963e8bf6becc86a1"
             ]
         ]
     },
@@ -3892,8 +5582,8 @@
         "authType": "basic",
         "senderr": false,
         "headers": [],
-        "x": 1040,
-        "y": 340,
+        "x": 940,
+        "y": 360,
         "wires": [
             [
                 "0b3484a0667b74b8"
@@ -3913,8 +5603,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1270,
-        "y": 340,
+        "x": 1190,
+        "y": 360,
         "wires": []
     },
     {
@@ -3938,8 +5628,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 470,
-        "y": 260,
+        "x": 210,
+        "y": 240,
         "wires": [
             [
                 "ae82ae0355c42e57"
@@ -3950,16 +5640,16 @@
         "id": "ae82ae0355c42e57",
         "type": "function",
         "z": "52ad4f8017343188",
-        "name": "Montar objeto para API  id: \"statusAutomatico\"",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"statusAutomatico\",\n    //Valor: \"Máquina Automático\",\n    //Informacao: \"Máquina em modo automático.\"\n    CodigoEvento: \"statusAutomatico\",\n    Valor: \"Máquina Automático\",\n    Informacao: \"Máquina em modo automático.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Status\"\n};\n\nreturn msg;",
+        "name": "Montar objeto para API - Teste \"statusAutomatico\"",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"statusAutomatico\",\n    Valor: \"Máquina Automático\",\n    Informacao: \"Máquina em modo automático.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Status\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 750,
-        "y": 260,
+        "x": 530,
+        "y": 240,
         "wires": [
             [
                 "811424e5e099ecb4"
@@ -3970,16 +5660,16 @@
         "id": "53c0d388c15f3248",
         "type": "function",
         "z": "52ad4f8017343188",
-        "name": "Montar objeto para API \"statusManual\"",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"statusManual\",\n    //Valor: \"Máquina Manual\",\n    //Informacao: \"Máquina em modo manual.\"\n    CodigoEvento: \"statusManual\",\n    Valor: \"Máquina Manual\",\n    Informacao: \"Máquina em modo manual.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Status\"\n};\n\nreturn msg;",
+        "name": "Montar objeto para API - Teste \"statusManual\"",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"statusManual\",\n    Valor: \"Máquina Manual\",\n    Informacao: \"Máquina em modo manual.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Status\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 730,
-        "y": 340,
+        "x": 540,
+        "y": 320,
         "wires": [
             [
                 "811424e5e099ecb4"
@@ -4007,8 +5697,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 450,
-        "y": 360,
+        "x": 210,
+        "y": 320,
         "wires": [
             [
                 "53c0d388c15f3248"
@@ -4019,16 +5709,16 @@
         "id": "f9a818d1742ae31c",
         "type": "function",
         "z": "52ad4f8017343188",
-        "name": "Montar objeto para API statusDesativada",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"statusDesativada\",\n    //Valor: \"Máquina Desativada\",\n    //Informacao: \"Máquina desativada.\"\n    //CodigoEvento: \"statusManual\",\n    CodigoEvento: \"statusDesativada\",\n    Valor: \"Máquina Desativada\",\n    Informacao: \"Máquina desativada.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Status\"\n};\n\nreturn msg;",
+        "name": "Montar objeto para API - Teste \"statusDesativada\"",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"statusDesativada\",\n    Valor: \"Máquina Desativada\",\n    Informacao: \"Máquina desativada.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Status\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 740,
-        "y": 460,
+        "x": 530,
+        "y": 400,
         "wires": [
             [
                 "811424e5e099ecb4"
@@ -4056,11 +5746,57 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 470,
-        "y": 520,
+        "x": 210,
+        "y": 400,
         "wires": [
             [
                 "f9a818d1742ae31c"
+            ]
+        ]
+    },
+    {
+        "id": "eebc5c5f585d6e3f",
+        "type": "comment",
+        "z": "52ad4f8017343188",
+        "name": "HTTP POST Status Node-RED -> API",
+        "info": "",
+        "x": 290,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "6a8ae6aca813db7f",
+        "type": "function",
+        "z": "52ad4f8017343188",
+        "name": "Montar objeto para API - Status",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nlet codigo = msg.payload;\n\nlet status = {\n    0: {       \n        CodigoEvento: \"statusDesativada\",\n        Valor: \"Máquina Desativada\",\n        Informacao: \"Máquina desativada.\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Status\"\n    },\n    \n    1: {\n        CodigoEvento: \"statusManual\",\n        Valor: \"Máquina Manual\",\n        Informacao: \"Máquina em modo manual.\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Status\"\n    },\n    \n    2: {\n        CodigoEvento: \"statusAutomatico\",\n        Valor: \"Máquina Automático\",\n        Informacao: \"Máquina em modo automático.\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Status\"\n    },\n    \n};\n\nif (status[codigo]) {\n    msg.payload = status[codigo];\n} else {\n    msg.payload = {\n        CodigoEvento: \"statusDesconhecido\",\n        Valor: \"Código não mapeado\",\n        Informacao: `Recebido código ${codigo} do PLC`,\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Status\"\n    };\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 480,
+        "wires": [
+            [
+                "811424e5e099ecb4"
+            ]
+        ]
+    },
+    {
+        "id": "5913d85a1d3f49c2",
+        "type": "link in",
+        "z": "52ad4f8017343188",
+        "name": "link Status",
+        "links": [
+            "cb53c2287d3369e5"
+        ],
+        "x": 235,
+        "y": 480,
+        "wires": [
+            [
+                "6a8ae6aca813db7f"
             ]
         ]
     },
@@ -4080,8 +5816,8 @@
         "authType": "basic",
         "senderr": false,
         "headers": [],
-        "x": 1060,
-        "y": 440,
+        "x": 1000,
+        "y": 320,
         "wires": [
             [
                 "2b5e7b759fb1a896"
@@ -4101,8 +5837,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1370,
-        "y": 440,
+        "x": 1290,
+        "y": 320,
         "wires": []
     },
     {
@@ -4126,8 +5862,8 @@
         "topic": "",
         "payload": "7500",
         "payloadType": "num",
-        "x": 450,
-        "y": 440,
+        "x": 290,
+        "y": 300,
         "wires": [
             [
                 "3414df6e508ec5fe"
@@ -4138,16 +5874,16 @@
         "id": "3414df6e508ec5fe",
         "type": "function",
         "z": "1178555e0391a6a5",
-        "name": "Montar objeto para API ",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\n// Monta o corpo (payload) da requisição com os dados a serem enviados.\nmsg.payload = {\n    //Id: \"velocidadeAtual\",\n    //Valor: String(msg.payload),\n    //Informacao: \"Velocidade Atual.\"\n\n    CodigoEvento: \"velocidadeAtual\",\n    Valor: String(msg.payload),\n    Informacao: \"Velocidade Atual.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Velocidade\"\n};\n\n// Retorna o objeto 'msg' modificado para o próximo nó do fluxo.\nreturn msg;",
+        "name": "Montar objeto para API - Velocidade",
+        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\n// Monta o corpo (payload) da requisição com os dados a serem enviados.\nmsg.payload = {\n    CodigoEvento: \"velocidadeAtual\",\n    Valor: String(msg.payload),\n    Informacao: \"Velocidade Atual.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Velocidade\"\n};\n\n// Retorna o objeto 'msg' modificado para o próximo nó do fluxo.\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 720,
-        "y": 440,
+        "x": 630,
+        "y": 320,
         "wires": [
             [
                 "6d2afef730b78af3"
@@ -4175,8 +5911,8 @@
         "topic": "",
         "payload": "3250",
         "payloadType": "num",
-        "x": 450,
-        "y": 400,
+        "x": 290,
+        "y": 260,
         "wires": [
             [
                 "3414df6e508ec5fe"
@@ -4204,8 +5940,8 @@
         "topic": "",
         "payload": "0",
         "payloadType": "num",
-        "x": 450,
-        "y": 360,
+        "x": 290,
+        "y": 220,
         "wires": [
             [
                 "3414df6e508ec5fe"
@@ -4233,8 +5969,8 @@
         "topic": "",
         "payload": "10750",
         "payloadType": "num",
-        "x": 450,
-        "y": 480,
+        "x": 290,
+        "y": 340,
         "wires": [
             [
                 "3414df6e508ec5fe"
@@ -4262,8 +5998,8 @@
         "topic": "",
         "payload": "15000",
         "payloadType": "num",
-        "x": 450,
-        "y": 520,
+        "x": 290,
+        "y": 380,
         "wires": [
             [
                 "3414df6e508ec5fe"
@@ -4271,102 +6007,30 @@
         ]
     },
     {
-        "id": "inject_speed_loop",
-        "type": "inject",
+        "id": "0e1ae708fe6f3634",
+        "type": "comment",
         "z": "1178555e0391a6a5",
-        "name": "Disparar a cada 1s",
-        "props": [],
-        "repeat": "30",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 420,
-        "y": 640,
-        "wires": [
-            [
-                "function_generate_speed"
-            ]
-        ]
-    },
-    {
-        "id": "function_generate_speed",
-        "type": "function",
-        "z": "1178555e0391a6a5",
-        "name": "Gerar velocidade 0-15000",
-        "func": "// Recupera valor salvo no contexto do flow\nlet currentSpeed = flow.get('currentSpeed') || 0;\nconst step = 500;\n\ncurrentSpeed += step;\nif (currentSpeed > 15000) {\n    currentSpeed = 0;\n}\nflow.set('currentSpeed', currentSpeed);\n\nmsg.payload = currentSpeed;\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 740,
-        "y": 660,
-        "wires": [
-            [
-                "function_montar_objeto_api"
-            ]
-        ]
-    },
-    {
-        "id": "function_montar_objeto_api",
-        "type": "function",
-        "z": "1178555e0391a6a5",
-        "name": "Montar objeto para API",
-        "func": "// Define os cabeçalhos da requisição HTTP.\nmsg.headers = {\n    // Informa ao servidor que estamos enviando dados no formato JSON.\n    \"Content-Type\": \"application/json\",\n\n    // Adiciona autenticação com a chave de API.\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    Id: \"velocidadeAtual\",\n    Valor: String(msg.payload),\n    Informacao: \"Velocidade Atual.\"\n};\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 970,
-        "y": 660,
-        "wires": [
-            [
-                "http_request_enviar_velocidade"
-            ]
-        ]
-    },
-    {
-        "id": "http_request_enviar_velocidade",
-        "type": "http request",
-        "z": "1178555e0391a6a5",
-        "name": "Enviar Velocidade Atual para API",
-        "method": "POST",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "http://localhost:5292/api/mmdba/rotuladora/velocidade",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "basic",
-        "senderr": false,
-        "headers": [],
-        "x": 1240,
-        "y": 660,
-        "wires": [
-            [
-                "debug_resposta_api"
-            ]
-        ]
-    },
-    {
-        "id": "debug_resposta_api",
-        "type": "debug",
-        "z": "1178555e0391a6a5",
-        "name": "Resposta da API",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1460,
-        "y": 660,
+        "name": "HTTP POST Velocidade Node-RED -> API",
+        "info": "",
+        "x": 280,
+        "y": 140,
         "wires": []
+    },
+    {
+        "id": "3966b0e6ca298391",
+        "type": "link in",
+        "z": "1178555e0391a6a5",
+        "name": "link Velocidade",
+        "links": [
+            "97020c83d6c4c6ef"
+        ],
+        "x": 325,
+        "y": 440,
+        "wires": [
+            [
+                "3414df6e508ec5fe"
+            ]
+        ]
     },
     {
         "id": "a1b2c3d4.e5f6g7",
@@ -4389,8 +6053,8 @@
         "topic": "",
         "payload": "1",
         "payloadType": "num",
-        "x": 330,
-        "y": 260,
+        "x": 250,
+        "y": 280,
         "wires": [
             [
                 "b2c3d4e5.f6g7h8"
@@ -4401,16 +6065,16 @@
         "id": "b2c3d4e5.f6g7h8",
         "type": "function",
         "z": "5f0cc578e3a7799a",
-        "name": "Incrementar e Montar Objeto",
-        "func": "// Tenta buscar o valor atual do contador da 'memória' do fluxo.\n// Se não existir (primeira vez), define como 0.\nlet contador = flow.get('contadorPecas') || 0;\n\n// VERIFICA SE É UM COMANDO DE RESET\nif (msg.topic === 'reset') {\n    contador = 0;\n    flow.set('contadorPecas', contador); // Salva o valor zerado na memória\n    node.status({fill:\"red\", shape:\"dot\", text:\"Contador resetado para 0\"});\n    return null; // Para a execução, não envia nada para a API\n}\n\n// Se não for reset, incrementa o contador.\ncontador++;\n\n// Salva o novo valor do contador na 'memória' do fluxo para a próxima vez.\nflow.set('contadorPecas', contador);\n\n// Exibe o valor atual no status do nó para fácil visualização.\nnode.status({fill:\"green\", shape:\"dot\", text:\"Peças: \" + contador});\n\n// --- Monta a mensagem para a API ---\nmsg.headers = {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    //Id: \"pecasProduzidas\",\n    //Valor: String(contador), // Usa o valor do contador incrementado\n    //Informacao: \"Total de Peças Produzidas na Rotuladora\"\n    CodigoEvento: \"pecasProduzidas\",\n    Valor: String(contador),\n    Informacao: \"Contator de Produção Atual.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Contador\"\n\n\n};\n\nreturn msg;\n\n",
+        "name": "Incrementar e Montar Objeto para API - Produção",
+        "func": "let contador = flow.get('contadorPecas') || 0;\n\n// VERIFICA SE É UM COMANDO DE RESET\nif (msg.topic === 'reset') {\n    contador = 0;\n    flow.set('contadorPecas', contador); // Salva o valor zerado na memória\n    node.status({ fill: \"red\", shape: \"dot\", text: \"Contador resetado para 0\" });\n\n    // --- Monta a mensagem para a API também no reset ---\n    msg.headers = {\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n    };\n\n    msg.payload = {\n        CodigoEvento: \"pecasProduzidas\",\n        Valor: String(contador),   // envia \"0\"\n        Informacao: \"Contador resetado para 0.\",\n        Origem: \"Rotuladora\",\n        TipoEvento: \"Contador\"\n    };\n\n    return msg;\n}\n\n// Se não for reset, incrementa o contador normalmente\ncontador++;\nflow.set('contadorPecas', contador);\n\nnode.status({ fill: \"green\", shape: \"dot\", text: \"Peças: \" + contador });\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"cu@AXP}6+2ik<j!{24WaxL,z0es%|8Bh\"\n};\n\nmsg.payload = {\n    CodigoEvento: \"pecasProduzidas\",\n    Valor: String(contador),\n    Informacao: \"Contator de Produção Atual.\",\n    Origem: \"Rotuladora\",\n    TipoEvento: \"Contador\"\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
-        "y": 260,
+        "x": 650,
+        "y": 360,
         "wires": [
             [
                 "c3d4e5f6.g7h8i9"
@@ -4421,7 +6085,7 @@
         "id": "c3d4e5f6.g7h8i9",
         "type": "http request",
         "z": "5f0cc578e3a7799a",
-        "name": "Enviar Contagem para API",
+        "name": "Enviar Contagem de Produção para API",
         "method": "POST",
         "ret": "obj",
         "paytoqs": "ignore",
@@ -4433,8 +6097,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 870,
-        "y": 260,
+        "x": 1060,
+        "y": 360,
         "wires": [
             [
                 "d4e5f6g7.h8i9j0"
@@ -4445,7 +6109,7 @@
         "id": "d4e5f6g7.h8i9j0",
         "type": "debug",
         "z": "5f0cc578e3a7799a",
-        "name": "Resposta da API (Contagem)",
+        "name": "Resposta da API",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -4454,22 +6118,21 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1120,
-        "y": 260,
+        "x": 1370,
+        "y": 360,
         "wires": []
     },
     {
         "id": "e5f6g7h8.i9j0k1",
         "type": "inject",
         "z": "5f0cc578e3a7799a",
-        "name": "⏹ Resetar Contagem",
+        "name": "⏹ Resetar Produção",
         "props": [
             {
                 "p": "payload"
             },
             {
                 "p": "topic",
-                "v": "reset",
                 "vt": "str"
             }
         ],
@@ -4480,8 +6143,34 @@
         "topic": "reset",
         "payload": "",
         "payloadType": "date",
+        "x": 270,
+        "y": 360,
+        "wires": [
+            [
+                "b2c3d4e5.f6g7h8"
+            ]
+        ]
+    },
+    {
+        "id": "250771773cb85d9f",
+        "type": "comment",
+        "z": "5f0cc578e3a7799a",
+        "name": "HTTP POST Contagem de Produção Node-RED -> API",
+        "info": "",
         "x": 340,
-        "y": 300,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "8ed47c07d616e0c1",
+        "type": "link in",
+        "z": "5f0cc578e3a7799a",
+        "name": "link in 1",
+        "links": [
+            "6b7bbcb564783f81"
+        ],
+        "x": 355,
+        "y": 440,
         "wires": [
             [
                 "b2c3d4e5.f6g7h8"

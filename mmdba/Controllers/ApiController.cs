@@ -64,7 +64,7 @@ public class ApiController : ControllerBase
             _context.EventosMaquina.Add(novoStatus);
             await _context.SaveChangesAsync();
             await _statusHub.Clients.All.SendAsync("postStatus", novoStatus);
-            return Ok(new { message = "Status da Rotuladora salvo e enviado com sucesso." });
+            return Ok(new { message = "Status da máquina recebido e salvo com sucesso." });
         }
         catch (Exception ex)
         {
@@ -91,7 +91,7 @@ public class ApiController : ControllerBase
             _context.EventosMaquina.Add(novoAlarme);
             await _context.SaveChangesAsync(); 
             await _alarmesHub.Clients.All.SendAsync("postAlarmes", novoAlarme);
-            return Ok(new { message = "Alarme da Rotuladora salvo e enviado com sucesso." });
+            return Ok(new { message = "Alarme da máquina recebido e salvo com sucesso." });
         }
 
         catch (Exception ex)
@@ -119,7 +119,7 @@ public class ApiController : ControllerBase
             _context.EventosMaquina.Add(novoAviso);
             await _context.SaveChangesAsync();
             await _avisosHub.Clients.All.SendAsync("postAvisos", (novoAviso));
-            return Ok(new { message = "Aviso da Rotuladora salvo e enviado com sucesso." });
+            return Ok(new { message = "Aviso da máquina recebido e salvo com sucesso." });
         }
         catch (Exception ex)
         {
@@ -143,7 +143,7 @@ public class ApiController : ControllerBase
                 Timestamp = DateTime.UtcNow
             };
             await _iosHub.Clients.All.SendAsync("postIOs", novoIOs);
-            return Ok(new { message = "IOs da Rotuladora enviado com sucesso." });
+            return Ok(new { message = "Evento de IO da máquina recebido com sucesso." });
         }
         catch (Exception ex)
         {
@@ -169,7 +169,7 @@ public class ApiController : ControllerBase
             _context.VelocidadeInstMaquina.Add(novaVelocidade);
             await _context.SaveChangesAsync();
             await _velocidadeHub.Clients.All.SendAsync("postVelocidade", novaVelocidade);
-            return Ok(new { message = "Velocidade da Rotuladora salva e enviada com sucesso." });
+            return Ok(new { message = "Velocidade da máquina recebido e salvo com sucesso." });
         }
         catch (Exception ex)
         {
@@ -196,7 +196,7 @@ public class ApiController : ControllerBase
             _context.ProducaoInstMaquina.Add(novaContagem);
             await _context.SaveChangesAsync();
             await _contagemHub.Clients.All.SendAsync("postContagem", novaContagem);
-            return Ok(new { message = "Contagem da Rotuladora salva e enviada com sucesso." });
+            return Ok(new { message = "Contagem de produção da máquina recebido e salvo com sucesso." });
         }
         catch (Exception ex)
         {
@@ -223,8 +223,8 @@ public class ApiController : ControllerBase
             _context.EventosMaquina.Add(novoDado);
 
             await _context.SaveChangesAsync();
-            await _dadosHub.Clients.All.SendAsync("postContagem", (novoDado));
-            return Ok(new { message = "Contagem da Rotuladora salva e enviada com sucesso." });
+            await _dadosHub.Clients.All.SendAsync("postDados", (novoDado));
+            return Ok(new { message = "Dado da maquina recebido e salvo com sucesso." });
         }
         catch (Exception ex)
         {
