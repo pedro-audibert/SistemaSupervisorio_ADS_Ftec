@@ -1,6 +1,6 @@
-# Sistema Supervisório Industrial MMDBA
+# Sistema Supervisório MMDBA
 
-**Projeto de Conclusão de Curso (TCC) em Análise e Desenvolvimento de Sistemas.**
+**Projeto de Conclusão de Curso em Análise e Desenvolvimento de Sistemas.**
 
    
 
