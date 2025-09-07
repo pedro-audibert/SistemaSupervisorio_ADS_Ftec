@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DownloadTask>
+  <ProjectInfo
+    DeviceVersion="17.0.0.0"
+    CreationTime="2025-09-01 01:34:06 (UTC)"
+    Runtime="SMART"
+    RtProjectName="SistemaSupervisorio.HMI_1[KTP700 Basic PN]"
+    RtProjectFolderName="SistemaSupervisorio.HMI_1[KTP700 Basic PN]"
+    DeviceType="KTP700_Basic"
+    DisplayOrientation="0"
+    RTReleaseNo="17.0.0.5"
+    ImageReleaseNo="17.0.0.5"
+    RTCV="17.0.0.0"
+    PRCV="17.0.0.0"
+    FirmwareFileName="KTP700\17.0.0.5\KTP700_V17_00_00_05.fwf"
+    RuntimeFileName="KTP700\17.0.0.5\KTP700_V17_00_00_05.fwf"
+    RuntimeAddonFolderName="KTP700" />
+  <FullDownload>pdata.srt</FullDownload>
+  <FullDownload
+    type="ADMINDATA">pdata.pwx</FullDownload>
+  <FullDownload>pdata.ORIE.cnk</FullDownload>
+  <FullDownload>pdata.ETH0.cnk</FullDownload>
+</DownloadTask>
