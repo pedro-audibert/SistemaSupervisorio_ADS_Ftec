@@ -2,7 +2,9 @@
 /* ESTILOS GERAIS - site.css                                                */
 /* ========================================================================= */
 
-/* Layout principal */
+/* ----------------------------- */
+/* Layout principal              */
+/* ----------------------------- */
 html, body {
     height: 100%;
     margin: 0;
@@ -14,13 +16,14 @@ html, body {
     flex-direction: column;
 }
 
+/* Ajuste de fonte em telas maiores */
 @media (min-width: 768px) {
     html {
         font-size: 16px;
     }
 }
 
-/* Conteúdo principal deve ocupar a altura entre header e footer */
+/* Conteúdo principal entre header e footer */
 .main-content {
     flex: 1;
     display: flex;
@@ -29,7 +32,7 @@ html, body {
     padding: 1rem;
 }
 
-/* Rodapé sempre na parte inferior */
+/* Rodapé fixo na parte inferior */
 .footer {
     flex-shrink: 0;
     background-color: #ffffff;
@@ -38,9 +41,11 @@ html, body {
     font-size: 0.9rem;
 }
 
-/* Cartões visuais */
+/* ----------------------------- */
+/* Cartões visuais               */
+/* ----------------------------- */
 .card {
-    height: 100%;
+    /* Altura automática */
 }
 
 .card-hover:hover {
@@ -49,7 +54,9 @@ html, body {
     transition: all 0.2s ease-in-out;
 }
 
-/* Gauge circular (Painel de Supervisão) */
+/* ----------------------------- */
+/* Gauge circular (Painel)       */
+/* ----------------------------- */
 .gauge {
     width: 100%;
     max-width: 200px;
@@ -95,21 +102,189 @@ html, body {
     text-shadow: 0px 0px 5px rgba(44, 62, 80, 0.2);
 }
 
-.cover small {
-    font-size: clamp(0.7rem, 4vw, 1rem);
-    font-weight: normal;
-    color: #34495e;
-}
+    .cover small {
+        font-size: clamp(0.7rem, 4vw, 1rem);
+        font-weight: normal;
+        color: #34495e;
+    }
 
-/* Tabela e alertas */
+/* ----------------------------- */
+/* Tabela e alertas              */
+/* ----------------------------- */
 .alert-status {
     border: 2px solid #6c757d;
     border-radius: 0.5rem;
 }
 
-/* Responsivo no mobile */
+/* ----------------------------- */
+/* Responsivo mobile             */
+/* ----------------------------- */
 @media (max-width: 767.98px) {
     .main-content {
         padding: 0.5rem;
     }
+}
+
+/* ----------------------------- */
+/* Botões de filtro              */
+/* ----------------------------- */
+.event-filter-group .btn {
+    border: 2px solid #000;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.95rem;
+    color: #000;
+}
+
+/* Remover fundo padrão dos outline buttons */
+.event-filter-group .btn-outline-primary,
+.event-filter-group .btn-outline-danger,
+.event-filter-group .btn-outline-warning,
+.event-filter-group .btn-outline-info {
+    --bs-btn-bg: transparent;
+    --bs-btn-hover-bg: #f0f0f0;
+    --bs-btn-hover-border-color: #000;
+    --bs-btn-hover-color: #000;
+}
+
+/* Botão ativo/selecionado */
+.event-filter-group .btn-check:checked + .btn {
+    background-color: #343a40;
+    color: #fff;
+    border-color: #000;
+    box-shadow: none !important;
+}
+
+/* Remover brilho azul ao focar/ativar */
+.event-filter-group .btn:focus,
+.event-filter-group .btn:active {
+    box-shadow: none !important;
+}
+
+/* ========================================================================= */
+/* FILTROS DE DATA                                                           */
+/* ========================================================================= */
+
+/* Card de filtros */
+.card-filtros {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dee2e6;
+    height: auto !important;
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+    .card-filtros:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-filtros .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        padding: 0.75rem 1rem;
+    }
+
+        .card-filtros .card-header h6 {
+            color: #495057;
+            font-weight: 600;
+        }
+
+    .card-filtros .card-body {
+        padding: 1rem;
+    }
+
+/* Inputs de data */
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Botões de filtro rápido */
+.filtro-rapido {
+    transition: all 0.15s ease-in-out;
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+    .filtro-rapido:hover {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    .filtro-rapido:active {
+        transform: translateY(0);
+    }
+
+/* Botões pequenos */
+.btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 0.375rem;
+}
+
+/* Info do filtro aplicado */
+#info-filtro-aplicado {
+    background-color: #e7f3ff;
+    border: 1px solid #b8daff;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    color: #004085;
+}
+
+/* ----------------------------- */
+/* Responsividade filtros         */
+/* ----------------------------- */
+@media (max-width: 767.98px) {
+    .d-flex.gap-2 {
+        flex-direction: column;
+    }
+
+    .btn-sm {
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+
+    .filtro-rapido {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .card-body {
+        padding: 1rem 0.75rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .d-flex.justify-content-center.gap-2 {
+        flex-wrap: wrap;
+        gap: 0.5rem !important;
+    }
+
+    .filtro-rapido {
+        flex: 1;
+        min-width: calc(50% - 0.25rem);
+    }
+}
+
+/* ----------------------------- */
+/* Animações e ícones            */
+/* ----------------------------- */
+.card, .btn, .form-control {
+    transition: all 0.15s ease-in-out;
+}
+
+.bi {
+    font-size: 0.875rem;
+}
+
+/* Estado loading/disabled */
+.btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* Campos obrigatórios */
+.form-label.required::after {
+    content: " *";
+    color: #dc3545;
 }

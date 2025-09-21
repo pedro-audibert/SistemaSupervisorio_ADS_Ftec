@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\Index1.cshtml" />
+    <Content Remove="wwwroot\js\atualizarStatusSignalR.js" />
   </ItemGroup>
 
   <ItemGroup>

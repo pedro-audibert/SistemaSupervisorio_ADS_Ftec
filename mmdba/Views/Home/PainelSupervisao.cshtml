@@ -1,4 +1,17 @@
-﻿@{
+﻿@*
+=========================================================================================================
+ARQUIVO: Views/Home/PainelSupervisao.cshtml
+FUNÇÃO: Exibe o painel de supervisão em tempo real da máquina, incluindo:
+         - Status de conexão com o servidor
+         - Status geral da máquina
+         - Alarme atual e tempo decorrido
+         - Velocidade instantânea
+         - Gráficos de histórico de velocidade e produção (última hora)
+         Mantém atualização contínua via SignalR e carregamento de dados iniciais via API.
+=========================================================================================================
+*@
+
+@{
     // Define o título da aba do navegador
     ViewData["Title"] = "Painel de Supervisão";
 }
@@ -8,7 +21,7 @@
     <h1 class="mb-3 text-center">Painel de Supervisão</h1>
     <p class="text-center text-muted">Status Geral da Máquina em Tempo Real.</p>
 
-    <!-- Painéis de Status -->
+    <!-- Painéis de Status de Conexão e Máquina -->
     <div id="statusConexao" class="alert alert-info alert-status text-center">
         Conectando ao servidor...
     </div>
@@ -16,7 +29,7 @@
         Carregando...
     </div>
 
-    <!-- Linha 1: Alarme e Velocidade -->
+    <!-- Linha 1: Alarme Atual e Velocidade Instantânea -->
     <div class="row g-4 mb-4">
         <!-- Card: Alarme Atual -->
         <div class="col-lg-6 d-flex">
@@ -51,8 +64,9 @@
         </div>
     </div>
 
-    <!-- Linha 2: Gráficos de Histórico -->
+    <!-- Linha 2: Gráficos de Histórico de Velocidade e Produção -->
     <div class="row g-4 mb-4">
+        <!-- Gráfico de Velocidade -->
         <div class="col-lg-6 d-flex">
             <div class="card border-secondary w-100">
                 <div class="card-header fw-bold">Histórico de Velocidade (Última Hora)</div>
@@ -63,6 +77,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Gráfico de Produção -->
         <div class="col-lg-6 d-flex">
             <div class="card border-secondary w-100">
                 <div class="card-header fw-bold">Histórico de Produção (Última Hora)</div>
@@ -77,6 +93,7 @@
 </div>
 
 @section Scripts {
+    <!-- Bibliotecas Externas -->
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
@@ -117,9 +134,8 @@
             }
 
             // =========================================================================
-            // III. LÓGICA DE DADOS E GRÁFICOS (ARQUITETURA FINAL)
+            // III. LÓGICA DE DADOS E GRÁFICOS
             // =========================================================================
-
             async function carregarHistoricoGraficos() {
                 let velocidade = [];
                 let producao = [];
@@ -128,6 +144,7 @@
                         fetch('/api/dashboard/rotuladora/velocidade/historico'),
                         fetch('/api/dashboard/rotuladora/producao/historico')
                     ]);
+
                     if (respVel.ok) {
                         const dados = await respVel.json();
                         velocidade = dados.map(p => ({ x: new Date(p.timestamp).getTime(), y: p.valor }));
@@ -187,7 +204,6 @@
             // =========================================================================
             // IV. FUNÇÕES DE UI E CONFIGURAÇÃO
             // =========================================================================
-
             async function iniciarConexoesSignalR(atualizadorCallback) {
                 const hubs = {
                     alarmes: new signalR.HubConnectionBuilder().withUrl("/alarmesHub").withAutomaticReconnect().build(),
@@ -196,18 +212,18 @@
                     contagem: new signalR.HubConnectionBuilder().withUrl("/contagemHub").withAutomaticReconnect().build()
                 };
 
-                // Handlers para os painéis que não são gráficos (lógica inalterada)
+                // Handlers para painéis não-gráficos
                 hubs.alarmes.on("postAlarmes", atualizarPainelAlarme);
                 hubs.status.on("postStatus", atualizarPainelStatus);
 
-                // Handlers para os gráficos
+                // Handlers para gráficos
                 hubs.velocidade.on("postVelocidade", (data) => {
                     atualizarGaugeVelocidade(data.valor);
-                    atualizadorCallback('velocidade', data); // Atualiza o array mestre
+                    atualizadorCallback('velocidade', data);
                 });
 
                 hubs.contagem.on("postContagem", (data) => {
-                    atualizadorCallback('producao', data); // Atualiza o array mestre
+                    atualizadorCallback('producao', data);
                 });
 
                 try {
@@ -231,17 +247,35 @@
             }
 
             function criarConfiguracaoGrafico(label, color, options = {}) {
-                const datasetConfig = { label, data: [], borderColor: color.border, backgroundColor: color.background, borderWidth: 2, pointRadius: 0, fill: true, ...options };
+                const datasetConfig = {
+                    label,
+                    data: [],
+                    borderColor: color.border,
+                    backgroundColor: color.background,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    fill: true,
+                    ...options
+                };
                 return {
-                    type: 'line', data: { datasets: [datasetConfig] },
+                    type: 'line',
+                    data: { datasets: [datasetConfig] },
                     options: {
-                        responsive: true, maintainAspectRatio: false, animation: false,
-                        scales: { x: { type: 'time', time: { unit: 'minute', tooltipFormat: 'HH:mm:ss', displayFormats: { minute: 'HH:mm' } } }, y: { beginAtZero: true } },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: false,
+                        scales: {
+                            x: { type: 'time', time: { unit: 'minute', tooltipFormat: 'HH:mm:ss', displayFormats: { minute: 'HH:mm' } } },
+                            y: { beginAtZero: true }
+                        },
                         plugins: { legend: { display: false } }
                     }
                 };
             }
 
+            // =========================================================================
+            // Funções para carregar dados iniciais
+            // =========================================================================
             async function carregarUltimoStatus() {
                 try {
                     const response = await fetch('/api/dashboard/rotuladora/status/ultimo');
@@ -281,6 +315,9 @@
                 }
             }
 
+            // =========================================================================
+            // Funções de atualização de UI
+            // =========================================================================
             function atualizarPainelStatus(ultimoStatus) {
                 if (!statusMaquinaElement || !ultimoStatus) return;
                 statusMaquinaElement.textContent = ultimoStatus.valor;
@@ -316,8 +353,10 @@
             function iniciarContador(timestampISO, estadoAtual) {
                 if (!alarmeTempoDecorridoElement) return;
                 if (intervaloAlarme) clearInterval(intervaloAlarme);
+
                 const inicio = new Date(timestampISO);
                 if (isNaN(inicio.getTime())) return;
+
                 const prefixo = estadoAtual === "Sem Alarmes" ? "Sistema OK há: " : "Alarme ativo há: ";
                 const atualizar = () => {
                     const diff = Math.floor((Date.now() - inicio) / 1000);
@@ -327,6 +366,7 @@
                     const s = String(diff % 60).padStart(2, '0');
                     alarmeTempoDecorridoElement.textContent = `${prefixo}${h}h ${m}m ${s}s`;
                 };
+
                 atualizar();
                 intervaloAlarme = setInterval(atualizar, 1000);
             }
@@ -336,17 +376,20 @@
                     valorVelocidadeAtualElement.textContent = String(Math.round(valor)).padStart(2, '0');
                 }
                 if (!dialElement) return;
+
                 const max = 15000;
                 let valorNumerico = Math.min(Math.max(Number(valor) || 0, 0), max);
                 const prop = valorNumerico / max;
                 const angulo = prop * 270;
                 const hue = 120 - (120 * prop);
                 const cor = `hsla(${hue}, 80%, 55%, 1)`;
+
                 const fill = dialElement.querySelector(".fill");
                 if (fill) {
                     fill.style.background = `conic-gradient(from -135deg, ${cor} ${angulo}deg, #f0f0f0 ${angulo}deg 270deg)`;
                     fill.style.filter = `drop-shadow(0 0 4px ${cor})`;
                 }
+
                 dialElement.style.boxShadow = `inset 0px 10px 15px -3px rgba(0,0,0,0.2), inset 0px 4px 6px -2px rgba(0,0,0,0.15), 0 0 12px -2px ${cor}`;
                 if (valorVelocidadeAtualElement) {
                     valorVelocidadeAtualElement.style.color = cor;
@@ -354,7 +397,7 @@
             }
 
             // =========================================================================
-            // V. EXECUÇÃO
+            // V. EXECUÇÃO PRINCIPAL
             // =========================================================================
             iniciarPagina();
         });

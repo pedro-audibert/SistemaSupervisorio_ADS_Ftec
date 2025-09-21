@@ -46,56 +46,28 @@ namespace mmdba.Areas.Identity.Pages.Account
             _emailSender = emailSender;
         }
 
-        /// <summary>
-        ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
-        ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
-        ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
-        /// </summary>
         public string ReturnUrl { get; set; }
 
-        /// <summary>
-        ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
-        ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
-        /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        /// <summary>
-        ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
-        ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
-            ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
-            /// </summary>
-            [Required(ErrorMessage = "O campo Email é obrigatório.")]
-            [EmailAddress(ErrorMessage = "O campo Email não é um endereço de e-mail válido.")]
-            [Display(Name = "Email")]
+            [Required(ErrorMessage = "O campo E-mail é obrigatório.")]
+            [EmailAddress(ErrorMessage = "O campo E-mail não é um endereço de e-mail válido.")]
+            [Display(Name = "E-mail")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
-            ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
-            /// </summary>
             [Required(ErrorMessage = "O campo Senha é obrigatório.")]
             [StringLength(100, ErrorMessage = "A {0} deve ter no mínimo {2} e no máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Senha")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     Esta API oferece suporte à infraestrutura de interface do usuário padrão do ASP.NET Core Identity e não se destina a ser usada
-            ///     diretamente do seu código. Esta API pode ser alterada ou removida em versões futuras.
-            /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirme a senha")]
+            [Display(Name = "Confirmar senha")]
             [Compare("Password", ErrorMessage = "A senha e a confirmação de senha não correspondem.")]
             public string ConfirmPassword { get; set; }
         }
@@ -132,7 +104,7 @@ namespace mmdba.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirme seu email",
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirme seu e-mail",
                         $"Por favor, confirme sua conta <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicando aqui</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
@@ -173,7 +145,7 @@ namespace mmdba.Areas.Identity.Pages.Account
         {
             if (!_userManager.SupportsUserEmail)
             {
-                throw new NotSupportedException("A interface de usuário padrão requer um armazenamento de usuário com suporte a email.");
+                throw new NotSupportedException("A interface de usuário padrão requer um armazenamento de usuário com suporte a e-mail.");
             }
             return (IUserEmailStore<ApplicationUser>)_userStore;
         }

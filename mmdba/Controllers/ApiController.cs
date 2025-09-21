@@ -1,4 +1,48 @@
-﻿
+﻿/*
+=========================================================================================================
+ARQUIVO: Controllers/ApiController.cs
+FUNÇÃO: Fornece endpoints da API para receber dados em tempo real da Rotuladora.
+         Cada endpoint processa a requisição, persiste os dados no banco de dados e envia
+         atualizações via SignalR para todos os clientes conectados.
+
+ENDPOINTS:
+
+1. POST /api/mmdba/rotuladora/status
+   - Recebe o status atual da máquina.
+   - Persiste no banco (EventosMaquina) e envia via StatusHub.
+
+2. POST /api/mmdba/rotuladora/alarmes
+   - Recebe alarmes ativos ou desativados.
+   - Persiste no banco (EventosMaquina) e envia via AlarmesHub.
+
+3. POST /api/mmdba/rotuladora/avisos
+   - Recebe avisos da máquina (informativos).
+   - Persiste no banco (EventosMaquina) e envia via AvisosHub.
+
+4. POST /api/mmdba/rotuladora/IOs
+   - Recebe eventos de entradas e saídas (IOs) digitais/analógicas.
+   - Não persiste no banco (somente envio via IOsHub para atualização em tempo real).
+
+5. POST /api/mmdba/rotuladora/velocidade
+   - Recebe velocidade instantânea da máquina.
+   - Persiste no banco (VelocidadeInstMaquina) e envia via VelocidadeHub.
+
+6. POST /api/mmdba/rotuladora/contagem
+   - Recebe contagem de produção.
+   - Persiste no banco (ProducaoInstMaquina) e envia via ContagemHub.
+
+7. POST /api/mmdba/rotuladora/dados
+   - Recebe dados gerais ou métricas adicionais da máquina.
+   - Persiste no banco (EventosMaquina) e envia via DadosHub.
+
+OBSERVAÇÕES:
+- Todos os endpoints utilizam o atributo [ApiKey] para validação de chave de API.
+- Todos os timestamps são registrados em UTC.
+- O controller registra logs de erro detalhados via ILogger.
+- SignalR é utilizado para atualizar todos os clientes conectados em tempo real.
+=========================================================================================================
+*/
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;

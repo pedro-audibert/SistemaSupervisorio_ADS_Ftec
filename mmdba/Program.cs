@@ -1,5 +1,15 @@
+/*
+================================================================================================
+ARQUIVO: Program.cs
+FUNÇÃO:  Configuração principal da aplicação ASP.NET Core 6+, incluindo:
+         1. Serviços (DB, Identity, MVC, Razor Pages, SignalR, MQTT, Localização, Sessão)
+         2. Pipeline de Middlewares
+         3. Rotas MVC/Razor Pages
+         4. Hubs SignalR
+================================================================================================
+*/
 
-
+#region NAMESPACES
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -14,46 +24,44 @@ using mmdba.Hubs;
 using mmdba.Models;
 using System;
 using System.Globalization;
+#endregion
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Configuração de Serviços
 
-// --- 1. CONFIGURAÇÃO DE LOCALIZAÇÃO (IDIOMA) ---
-// Adiciona o serviço principal de localização.
+// --- 1. LOCALIZAÇÃO ---
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-// --- 2. CONFIGURAÇÃO DO BANCO DE DADOS E IDENTITY ---
+// --- 2. BANCO DE DADOS E IDENTITY ---
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' não encontrada.");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddErrorDescriber<IdentityErrorDescriberPtBr>();
 
-// Registra o serviço de email personalizado.
 builder.Services.AddTransient<IEmailSender, mmdba.Services.EmailSender>();
 
-// --- 3. CONFIGURAÇÃO DE MVC, RAZOR PAGES E VALIDAÇÕES TRADUZIDAS ---
-// Adiciona os serviços de Controllers e Views, já habilitando a tradução nas Views.
+// --- 3. MVC E RAZOR PAGES COM LOCALIZAÇÃO ---
 var mvcBuilder = builder.Services.AddControllersWithViews()
     .AddViewLocalization();
 
-// Adiciona os serviços de Razor Pages, habilitando a tradução nas Views e nas mensagens de validação (Data Annotations).
 var razorBuilder = builder.Services.AddRazorPages()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization();
 
-// Adiciona a compilação em tempo de execução APENAS se estiver em modo de Desenvolvimento.
+// Runtime compilation em desenvolvimento
 if (builder.Environment.IsDevelopment())
 {
     mvcBuilder.AddRazorRuntimeCompilation();
     razorBuilder.AddRazorRuntimeCompilation();
 }
 
-// --- 4. OUTROS SERVIÇOS (SIGNALR, SESSÃO) ---
+// --- 4. OUTROS SERVIÇOS ---
 builder.Services.AddSignalR();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -71,9 +79,7 @@ var app = builder.Build();
 
 #region Configuração do Pipeline (Middlewares)
 
-// --- CONFIGURAÇÃO DE LOCALIZAÇÃO (MIDDLEWARE) ---
-// Define a cultura pt-BR como padrão e suportada pela aplicação.
-// IMPORTANTE: Este bloco deve vir antes de outros middlewares que dependem de cultura, como o de Autenticação.
+// --- LOCALIZAÇÃO ---
 var supportedCultures = new[] { new CultureInfo("pt-BR") };
 app.UseRequestLocalization(new RequestLocalizationOptions
 {
@@ -82,7 +88,7 @@ app.UseRequestLocalization(new RequestLocalizationOptions
     SupportedUICultures = supportedCultures
 });
 
-
+// --- TRATAMENTO DE ERROS ---
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -94,21 +100,23 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
-// --- Sequência Crítica de Autenticação e Autorização ---
+// --- AUTENTICAÇÃO E AUTORIZAÇÃO ---
 app.UseAuthentication();
 app.UseAuthorization();
 
 #endregion
 
-#region Mapeamento de Rotas
+#region Rotas MVC, Razor Pages e Hubs SignalR
 
+// Razor Pages
 app.MapRazorPages();
 
+// Rotas MVC
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Mapeamento dos Hubs SignalR
+// Hubs SignalR
 app.MapHub<AlarmesHub>("/alarmesHub");
 app.MapHub<IOsHub>("/iosHub");
 app.MapHub<AvisosHub>("/avisosHub");

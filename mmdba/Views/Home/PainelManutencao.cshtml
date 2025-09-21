@@ -1,7 +1,7 @@
 ﻿@*
 =========================================================================================================
 ARQUIVO: Views/Home/PainelManutencao.cshtml
-FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do sistema,
+FUNÇÃO: Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do sistema,
          com persistência de dados para manter o estado após recarregar a página.
 =========================================================================================================
 *@
@@ -12,7 +12,7 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
 
 <div class="container-fluid my-4">
     <h1 class="mb-3 text-center">Painel de Manutenção</h1>
-    <p class="text-center">Painel de Manutenção - Status de IOs e dados em Tempo Real.</p>
+    <p class="text-center">Status de IOs e dados em Tempo Real.</p>
 
     <div id="statusConexao" class="alert alert-info alert-status text-center">
         Conectando ao servidor...
@@ -34,13 +34,10 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
 @section Scripts {
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script>
-        // O script é envolvido por uma IIFE (Immediately Invoked Function Expression)
-        // para criar um escopo privado e seguro, evitando poluir o escopo global.
         (function () {
-            // ===================================================================================
-            // BLOCO 1: CONFIGURAÇÃO CENTRAL DE IOs
-            // Esta seção para adicionar ou remover um IO.
-            // ===================================================================================
+            // =========================
+            // BLOCO 1: CONFIGURAÇÃO DE IOs
+            // =========================
             const entradasDigitais = [
                 { id: 'in0_0', endereco: 'I00', descricao: 'Chave de Segurança' },
                 { id: 'in0_1', endereco: 'I01', descricao: 'Botão de Emergência' },
@@ -98,76 +95,52 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
                 { id: 'inHSC03', endereco: 'HSC03', descricao: 'Entrada Rápida Reserva HSC03' },
             ];
 
-            // ===================================================================================
-            // BLOCO 2: LÓGICA DE PERSISTÊNCIA DE DADOS (LocalStorage)
-            // Funções para salvar e recuperar o estado dos IOs, garantindo que os dados
-            // não se percam ao recarregar a página.
-            // ===================================================================================
+            // =========================
+            // BLOCO 2: PERSISTÊNCIA COM LOCALSTORAGE
+            // =========================
             const LOCAL_STORAGE_KEY = 'painelIOsStatus';
 
-            /**
-             * Recupera todos os estados de IOs salvos no localStorage.
-             * returns {object} Um objeto contendo os estados de todos os IOs, ou um objeto vazio se não houver dados ou ocorrer um erro.
-             */
             function carregarTodosOsEstados() {
                 try {
                     const dadosSalvos = localStorage.getItem(LOCAL_STORAGE_KEY);
                     return dadosSalvos ? JSON.parse(dadosSalvos) : {};
                 } catch (e) {
-                    console.error("Erro ao carregar dados do localStorage. A persistência pode não funcionar.", e);
-                    return {}; // Retorna um objeto vazio para a aplicação não quebrar.
+                    console.error("Erro ao carregar dados do localStorage.", e);
+                    return {};
                 }
             }
 
-            /**
-             * Salva o estado de um IO específico no localStorage.
-             * param {string} id - O ID do elemento do IO (ex: 'in0_0').
-             * param {object} estado - Um objeto contendo o {texto, className} a ser salvo.
-             */
             function salvarEstado(id, estado) {
                 try {
-                    const todosOsEstados = carregarTodosOsEstados();
-                    todosOsEstados[id] = estado;
-                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todosOsEstados));
+                    const todos = carregarTodosOsEstados();
+                    todos[id] = estado;
+                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
                 } catch (e) {
-                    console.error(`Erro ao salvar o estado para o IO '${id}' no localStorage.`, e);
+                    console.error(`Erro ao salvar o estado do IO '${id}'.`, e);
                 }
             }
 
-            // ===================================================================================
-            // BLOCO 3: FUNÇÕES DE GERAÇÃO E ATUALIZAÇÃO DA INTERFACE (UI)
-            // Funções responsáveis por manipular o DOM (Document Object Model).
-            // ===================================================================================
-
-            /** * Gera uma tabela completa de IOs, recuperando os valores do localStorage para exibição inicial.
-             */
+            // =========================
+            // BLOCO 3: GERAÇÃO E ATUALIZAÇÃO DA UI
+            // =========================
             function gerarTabela(containerId, titulo, cabecalhos, dados) {
                 const container = document.getElementById(containerId);
-                if (!container) {
-                    console.error(`Container com ID '${containerId}' não encontrado.`);
-                    return;
-                }
+                if (!container) return console.error(`Container '${containerId}' não encontrado.`);
 
-                // Carrega todos os estados salvos de uma vez para otimizar a leitura.
                 const estadosSalvos = carregarTodosOsEstados();
 
-                // Mapeia o array de dados para um string de HTML com as linhas da tabela.
                 const linhasHtml = dados.map(item => {
-                    // Verifica se existe um estado salvo para o item atual.
-                    const estadoSalvo = estadosSalvos[item.id];
-                    const textoInicial = estadoSalvo ? estadoSalvo.texto : 'Desconhecido';
-                    const classeInicial = estadoSalvo ? estadoSalvo.className : 'fw-bold';
+                    const estado = estadosSalvos[item.id] || {};
+                    const texto = estado.texto || 'Desconhecido';
+                    const classe = estado.className || 'fw-bold';
 
-                    return `
-                        <tr>
-                            <td>${item.endereco}</td>
-                            <td>${item.descricao}</td>
-                            <td id="${item.id}" class="${classeInicial}">${textoInicial}</td>
-                        </tr>
-                    `;
+                    return `<tr>
+                                <td>${item.endereco}</td>
+                                <td>${item.descricao}</td>
+                                <td id="${item.id}" class="${classe}">${texto}</td>
+                            </tr>`;
                 }).join('');
 
-                // Injeta o HTML completo da tabela no container.
                 container.innerHTML = `
                     <h4 class="text-center">${titulo}</h4>
                     <table class="table table-bordered table-sm">
@@ -178,44 +151,31 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
                     </table>`;
             }
 
-            /**
-             * Atualiza um IO na tela e salva seu novo estado no localStorage.
-             */
             function atualizarIOs(ultimoIOs) {
                 const { codigoEvento, valor } = ultimoIOs;
+                if (!codigoEvento) return;
 
-                if (!codigoEvento) {
-                    console.warn("IO recebido sem um 'codigoEvento' para identificar o elemento.", ultimoIOs);
-                    return;
-                }
+                const el = document.getElementById(codigoEvento);
+                if (!el) return;
 
-                const elemento = document.getElementById(codigoEvento);
-                if (!elemento) {
-                    // Não é um erro, pode ser um IO que não está nesta tela.
-                    return;
-                }
-
-                let texto, className;
+                let texto, classe;
                 if (valor === 'true' || valor === 'false') {
-                    const estaAtivo = (valor === 'true');
-                    texto = estaAtivo ? "ON" : "OFF";
-                    className = estaAtivo ? "bg-success text-white fw-bold" : "bg-danger text-white fw-bold";
+                    const ativo = valor === 'true';
+                    texto = ativo ? "ON" : "OFF";
+                    classe = ativo ? "bg-success text-white fw-bold" : "bg-danger text-white fw-bold";
                 } else {
                     texto = valor;
-                    className = "fw-bold";
+                    classe = "fw-bold";
                 }
 
-                // Atualiza a interface
-                elemento.textContent = texto;
-                elemento.className = className;
-
-                // Salva o novo estado no localStorage
-                salvarEstado(codigoEvento, { texto, className });
+                el.textContent = texto;
+                el.className = classe;
+                salvarEstado(codigoEvento, { texto, className: classe });
             }
 
-            // ===================================================================================
-            // BLOCO 4: LÓGICA DE CONEXÃO E INICIALIZAÇÃO DO SIGNALR
-            // ===================================================================================
+            // =========================
+            // BLOCO 4: SIGNALR - CONEXÃO E INICIALIZAÇÃO
+            // =========================
             async function iniciarConexaoSignalR() {
                 const statusDiv = document.getElementById("statusConexao");
                 const connection = new signalR.HubConnectionBuilder()
@@ -223,11 +183,8 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
                     .withAutomaticReconnect()
                     .build();
 
-                connection.on("postIOs", (ultimoIOs) => {
-                    atualizarIOs(ultimoIOs);
-                });
+                connection.on("postIOs", atualizarIOs);
 
-                // Handlers para feedback visual do estado da conexão.
                 connection.onreconnecting(() => {
                     statusDiv.className = "alert alert-warning alert-status text-center";
                     statusDiv.textContent = "Conexão perdida. Tentando reconectar…";
@@ -242,19 +199,17 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
                     setTimeout(iniciarConexaoSignalR, 5000);
                 });
 
-                // Tenta iniciar a conexão com o servidor.
                 try {
                     await connection.start();
                     statusDiv.className = "alert alert-success alert-status text-center";
                     statusDiv.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
 
-                    // Após a conexão, gera as tabelas. A função `gerarTabela` já cuida de carregar os dados persistidos.
+                    // Gera as tabelas após conexão
                     gerarTabela('containerEntradasDigitais', 'Entradas Digitais', ['Endereço', 'Descrição', 'Status'], entradasDigitais);
                     gerarTabela('containerSaidasDigitais', 'Saídas Digitais', ['Endereço', 'Descrição', 'Status'], saidasDigitais);
                     gerarTabela('containerEntradasAnalogicas', 'Entradas Analógicas', ['Canal', 'Descrição', 'Valor'], entradasAnalogicas);
                     gerarTabela('containerSaidasAnalogicas', 'Saídas Analógicas', ['Canal', 'Descrição', 'Valor'], saidasAnalogicas);
                     gerarTabela('containerEntradasRapidas', 'Entradas Rápidas (HSC)', ['Canal', 'Descrição', 'Valor'], entradasRapidas);
-
                 } catch (err) {
                     console.error("Falha na conexão com o iosHub:", err);
                     statusDiv.className = "alert alert-danger alert-status text-center";
@@ -263,7 +218,6 @@ FUNÇÃO:  Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do 
                 }
             }
 
-            // Inicia todo o processo.
             iniciarConexaoSignalR();
         })();
     </script>

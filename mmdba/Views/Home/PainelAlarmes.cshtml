@@ -1,65 +1,111 @@
 ﻿@*
 =========================================================================================================
-ARQUIVO: Views/Home/PainelAlarmes.cshtml (VERSÃO FINAL COM HISTÓRICO DO BANCO)
-FUNÇÃO:  Exibe uma tabela com o histórico de alarmes, que é carregado do banco de dados
-         na inicialização e atualizado em tempo real via SignalR.
+ARQUIVO: Views/Home/PainelAlarmes.cshtml
+FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Avisos e Status),
+         com filtros para o usuário selecionar o que deseja ver, incluindo filtros de data.
 =========================================================================================================
 *@
 @{
-    ViewData["Title"] = "Histórico de Notificações";
+    ViewData["Title"] = "Histórico de Eventos";
 }
 
 <div class="container-fluid my-4">
-    <h1 class="mb-3 text-center">Painel de Notificações</h1>
-    <p class="text-center">Painel de Notificações - Histórico de Notificações.</p>
+    <h1 class="mb-3 text-center">Painel de Eventos</h1>
+    <p class="text-center text-muted">Visualize o histórico completo de eventos da máquina.</p>
 
+    <!-- Status da conexão com o servidor -->
     <div id="statusConexao" class="alert alert-info alert-status text-center">
         Conectando ao servidor...
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h4 class="text-center">Histórico de Alarmes</h4>
+        <div class="col-md-10 col-lg-8">
 
-            <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
-                <div>
-                    <label for="filtro-limite-alarmes" class="col-form-label">Exibir últimos:</label>
-                </div>
-                <div>
-                    <select class="form-select form-select-sm" id="filtro-limite-alarmes">
-                        <option value="10" selected>10 alarmes</option>
-                        <option value="25">25 alarmes</option>
-                        <option value="50">50 alarmes</option>
-                        <option value="100">100 alarmes</option>
-                    </select>
-                </div>
-                <div>
-                    <button class="btn btn-sm btn-outline-danger" id="btn-limpar-alarmes">Limpar Histórico</button>
+            <!-- Título do histórico -->
+            <h4 class="text-center" id="titulo-historico">Histórico de Eventos</h4>
+
+            <!-- Filtro por tipo de evento -->
+            <div class="d-flex justify-content-center mb-3">
+                <div class="btn-group event-filter-group" role="group" aria-label="Filtro de tipo de evento">
+                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-todos" autocomplete="off" value="Alarme,Aviso,Status" checked>
+                    <label class="btn btn-outline-primary" for="btn-todos">Todos</label>
+
+                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-alarmes" autocomplete="off" value="Alarme">
+                    <label class="btn btn-outline-danger" for="btn-alarmes">Alarmes</label>
+
+                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-avisos" autocomplete="off" value="Aviso">
+                    <label class="btn btn-outline-warning" for="btn-avisos">Avisos</label>
+
+                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-status" autocomplete="off" value="Status">
+                    <label class="btn btn-outline-info" for="btn-status">Status</label>
                 </div>
             </div>
 
-            <table class="table table-bordered table-striped table-sm text-center" id="tblHistoricoAlarmes">
+            <!-- Filtro "Exibir últimos X eventos" -->
+            <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
+                <div>
+                    <label for="filtro-limite-eventos" class="col-form-label">Exibir últimos:</label>
+                </div>
+                <div>
+                    <select class="form-select form-select-sm" id="filtro-limite-eventos">
+                        <option value="10">10 eventos</option>
+                        <option value="25" selected>25 eventos</option>
+                        <option value="50">50 eventos</option>
+                        <option value="100">100 eventos</option>
+                        <option value="500">500 eventos</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Card de filtros de data -->
+            <div class="card card-filtros mb-3">
+                <div class="card-header">
+                    <h6 class="mb-0 d-flex align-items-center">Filtros de Data</h6>
+                </div>
+                <div class="card-body py-3">
+
+                    <!-- Inputs de data inicial e final -->
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-4">
+                            <label for="filtro-data-inicial" class="form-label">Data Inicial:</label>
+                            <input type="date" class="form-control form-control-sm" id="filtro-data-inicial">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="filtro-data-final" class="form-label">Data Final:</label>
+                            <input type="date" class="form-control form-control-sm" id="filtro-data-final">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-primary btn-sm" id="btn-aplicar-filtro-data">Filtrar</button>
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-limpar-filtro-data">Limpar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filtros rápidos de datas -->
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-center gap-2">
+                                <button type="button" class="btn btn-outline-secondary btn-sm filtro-rapido" data-dias="1">Hoje</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm filtro-rapido" data-dias="7">Últimos 7 dias</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm filtro-rapido" data-dias="30">Últimos 30 dias</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informação sobre filtro aplicado -->
+                    <div id="info-filtro-aplicado" class="mt-2 text-center text-muted small" style="display: none;">
+                        ℹ️ <span id="texto-filtro-aplicado"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Tabela de histórico de eventos -->
+            <table class="table table-bordered table-striped table-sm text-center" id="tblHistoricoEventos">
                 <thead class="thead-dark"></thead>
                 <tbody></tbody>
             </table>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="confirmacaoLimparModal" tabindex="-1" aria-labelledby="confirmacaoLimparModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmacaoLimparModalLabel">Confirmar Ação</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                Você tem certeza que deseja limpar todo o histórico de alarmes da tela?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="btn-confirmar-limpeza">Sim, Limpar</button>
-            </div>
         </div>
     </div>
 </div>
@@ -68,130 +114,201 @@ FUNÇÃO:  Exibe uma tabela com o histórico de alarmes, que é carregado do ban
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script>
         (function () {
-            // --- ELEMENTOS E ESTADO ---
-            const statusDiv = document.getElementById("statusConexao");
-            const tabelaBody = document.querySelector("#tblHistoricoAlarmes tbody");
-            const tabelaHead = document.querySelector("#tblHistoricoAlarmes thead");
-            const filtroLimiteEl = document.getElementById("filtro-limite-alarmes");
-            const btnLimparAlarmes = document.getElementById("btn-limpar-alarmes");
-            const confirmacaoLimparModalEl = document.getElementById('confirmacaoLimparModal');
-            const confirmacaoLimparModal = new bootstrap.Modal(confirmacaoLimparModalEl);
-            const btnConfirmarLimpeza = document.getElementById('btn-confirmar-limpeza');
-            let historicoDeAlarmes = [];
 
-            // --- FUNÇÕES DE UI ---
+            // ---------------------------
+            // ELEMENTOS DO DOM
+            // ---------------------------
+            const statusDiv = document.getElementById("statusConexao");
+            const tabelaBody = document.querySelector("#tblHistoricoEventos tbody");
+            const tabelaHead = document.querySelector("#tblHistoricoEventos thead");
+            const filtroLimiteEl = document.getElementById("filtro-limite-eventos");
+            const tipoFiltroRadios = document.querySelectorAll('input[name="filtro-tipo"]');
+            const dataInicialEl = document.getElementById("filtro-data-inicial");
+            const dataFinalEl = document.getElementById("filtro-data-final");
+            const btnAplicarFiltroData = document.getElementById("btn-aplicar-filtro-data");
+            const btnLimparFiltroData = document.getElementById("btn-limpar-filtro-data");
+            const botoesRapidos = document.querySelectorAll(".filtro-rapido");
+            const infoFiltroEl = document.getElementById("info-filtro-aplicado");
+            const textoFiltroEl = document.getElementById("texto-filtro-aplicado");
+
+            let historicoDeEventos = [];
+            let filtroDataAtivo = false;
+
+            // ---------------------------
+            // FUNÇÕES DE UI
+            // ---------------------------
+            function criarCabecalhoTabela() {
+                tabelaHead.innerHTML = `<tr><th>Tipo</th><th>Descrição</th><th>Código</th><th>Horário</th></tr>`;
+            }
 
             function renderizarTabela() {
                 tabelaBody.innerHTML = '';
                 const limite = parseInt(filtroLimiteEl.value, 10);
 
-                
-        if (!historicoDeAlarmes || historicoDeAlarmes.length === 0) {
-            const linhaMensagem = tabelaBody.insertRow();
-            const celulaMensagem = linhaMensagem.insertCell();
-            celulaMensagem.colSpan = 2;
-            celulaMensagem.textContent = "Nenhum alarme no histórico para exibir.";
-            celulaMensagem.style.textAlign = 'center';
-
-            return;
-        }
-                
-
-                const alarmesParaExibir = historicoDeAlarmes.slice(0, limite);
-                alarmesParaExibir.forEach(alarme => {
+                if (!historicoDeEventos || historicoDeEventos.length === 0) {
                     const linha = tabelaBody.insertRow();
-                    const valor = alarme.valor || alarme.Valor || "";
-                    const timestamp = alarme.timestamp || alarme.Timestamp;
+                    const celula = linha.insertCell();
+                    celula.colSpan = 4;
+                    celula.textContent = "Nenhum evento no histórico para exibir.";
+                    celula.style.textAlign = 'center';
+                    return;
+                }
 
-                    linha.insertCell().textContent = valor;
-                    linha.insertCell().textContent = timestamp ? new Date(timestamp).toLocaleString("pt-BR") : "Data inválida";
-                });
+                // Se filtro de data ativo → ignora limite
+                const eventosParaExibir = filtroDataAtivo
+                    ? historicoDeEventos
+                    : historicoDeEventos.slice(0, limite);
+
+                for (let i = eventosParaExibir.length - 1; i >= 0; i--) {
+                    const e = eventosParaExibir[i];
+                    const linha = tabelaBody.insertRow(0);
+
+                    switch (e.tipoEvento.toLowerCase()) {
+                        case 'alarme': linha.classList.add('table-danger'); break;
+                        case 'aviso': linha.classList.add('table-warning'); break;
+                        case 'status': linha.classList.add('table-info'); break;
+                    }
+
+                    linha.insertCell().textContent = e.tipoEvento;
+                    linha.insertCell().textContent = e.valor || "";
+                    linha.insertCell().textContent = e.codigoEvento;
+                    linha.insertCell().textContent = e.timestamp ? new Date(e.timestamp).toLocaleString("pt-BR") : "Data inválida";
+                }
+
+                atualizarInfoFiltro();
             }
 
-            function adicionarAlarme(alarme) {
-                historicoDeAlarmes.unshift(alarme);
-                renderizarTabela();
+            function atualizarInfoFiltro() {
+                if (filtroDataAtivo) {
+                    infoFiltroEl.style.display = 'block';
+                    textoFiltroEl.textContent = `Filtro de data ativo: ${historicoDeEventos.length} eventos encontrados.`;
+                } else {
+                    infoFiltroEl.style.display = 'none';
+                }
             }
 
-            function criarCabecalhoTabela() {
-                tabelaHead.innerHTML = `<tr><th>Descrição do Alarme</th><th>Horário</th></tr>`;
+            // ---------------------------
+            // FUNÇÕES DE FILTRO
+            // ---------------------------
+            function aplicarFiltroData() {
+                const dataInicial = dataInicialEl.value;
+                const dataFinal = dataFinalEl.value;
+
+                if (!dataInicial && !dataFinal) {
+                    alert('Por favor, selecione ao menos uma data (inicial ou final).');
+                    return;
+                }
+                if (dataInicial && dataFinal && dataInicial > dataFinal) {
+                    alert('A data inicial não pode ser posterior à data final.');
+                    return;
+                }
+
+                filtroDataAtivo = true;
+                carregarHistoricoDoBanco();
             }
 
-            // --- LÓGICA DE DADOS E EVENTOS ---
+            function limparFiltrosData() {
+                dataInicialEl.value = '';
+                dataFinalEl.value = '';
+                filtroDataAtivo = false;
+                carregarHistoricoDoBanco();
+            }
 
+            function definirDataRapida(dias) {
+                const hoje = new Date();
+                const dataInicial = new Date();
+                dataInicial.setDate(hoje.getDate() - (dias === 1 ? 0 : dias - 1));
+
+                const formatarData = (data) => `${data.getFullYear()}-${String(data.getMonth()+1).padStart(2,'0')}-${String(data.getDate()).padStart(2,'0')}`;
+
+                dataInicialEl.value = formatarData(dataInicial);
+                dataFinalEl.value = formatarData(hoje);
+
+                filtroDataAtivo = true;
+                carregarHistoricoDoBanco();
+            }
+
+            // ---------------------------
+            // FUNÇÃO DE CARREGAMENTO DE DADOS
+            // ---------------------------
             async function carregarHistoricoDoBanco() {
                 const limite = filtroLimiteEl.value;
+                const tipoSelecionado = document.querySelector('input[name="filtro-tipo"]:checked').value;
+
+                let url = `/api/dashboard/rotuladora/eventos/historico?tipos=${tipoSelecionado}&limite=${limite}`;
+
+                if (dataInicialEl.value) url += `&dataInicial=${dataInicialEl.value}`;
+                if (dataFinalEl.value) url += `&dataFinal=${dataFinalEl.value}`;
+
                 try {
-                    const response = await fetch(`/api/dashboard/rotuladora/alarmes/historico?limite=${limite}`);
-                    if (!response.ok) {
-                        throw new Error(`Erro de rede: ${response.status}`);
-                    }
-                    historicoDeAlarmes = await response.json();
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Erro de rede: ${response.status}`);
+                    historicoDeEventos = await response.json();
                     renderizarTabela();
                 } catch (err) {
+                    tabelaBody.innerHTML = '<tr><td colspan="4" class="text-danger">Falha ao carregar histórico.</td></tr>';
                     console.error("Falha ao carregar histórico do banco:", err);
-                    tabelaBody.innerHTML = '<tr><td colspan="2" class="text-danger">Falha ao carregar histórico.</td></tr>';
                 }
             }
 
-        filtroLimiteEl.addEventListener('change', carregarHistoricoDoBanco);
-                    btnConfirmarLimpeza.addEventListener('click', () => {
-                historicoDeAlarmes = [];
-                renderizarTabela();
-                confirmacaoLimparModal.hide();
-            });
-            btnLimparAlarmes.addEventListener('click', () => confirmacaoLimparModal.show());
-
-            // --- INICIALIZAÇÃO DA PÁGINA ---
-
+            // ---------------------------
+            // FUNÇÕES SIGNALR
+            // ---------------------------
             async function iniciarConexaoSignalR() {
-                const connection = new signalR.HubConnectionBuilder()
-                    .withUrl("/alarmesHub")
-                    .withAutomaticReconnect()
-                    .build();
+                const hubs = ["/alarmesHub", "/avisosHub", "/statusHub"];
 
-                connection.on("postAlarmes", (ultimoAlarme) => {
-                    const codigoEvento = ultimoAlarme.codigoEvento;
-                    const valor = ultimoAlarme.valor;
-                    const informacao = ultimoAlarme.informacao;
-                    const origem = ultimoAlarme.origem;
-                    const tipoEvento = ultimoAlarme.tipoEvento;
-                    const timeStamp = ultimoAlarme.timestamp;
-                   console.log("Dados recebidos via SignalR Painel Historico:", ultimoAlarme);
+                hubs.forEach(hubUrl => {
+                    const connection = new signalR.HubConnectionBuilder()
+                        .withUrl(hubUrl)
+                        .withAutomaticReconnect()
+                        .build();
 
-                    if (codigoEvento !== "alarmeOFF") {
-                        adicionarAlarme(ultimoAlarme);
-                    }
+                    connection.onreconnecting(() => {
+                        statusDiv.className = "alert alert-warning alert-status text-center";
+                        statusDiv.textContent = "Conexão perdida. Tentando reconectar…";
+                    });
+
+                    connection.onreconnected(() => {
+                        statusDiv.className = "alert alert-success alert-status text-center";
+                        statusDiv.textContent = "Reconectado com sucesso!";
+                    });
+
+                    connection.on("postAlarmes", handleEventoRealTime);
+                    connection.on("postAvisos", handleEventoRealTime);
+                    connection.on("postStatus", handleEventoRealTime);
+
+                    connection.start().catch(err => console.error(`Falha na conexão com o Hub ${hubUrl}:`, err));
                 });
 
-                connection.onreconnecting(() => {
-                    statusDiv.className = "alert alert-warning alert-status text-center";
-                    statusDiv.textContent = "Conexão perdida. Tentando reconectar…";
-                });
+                statusDiv.className = "alert alert-success alert-status text-center";
+                statusDiv.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
 
-                connection.onreconnected(() => {
-                    statusDiv.className = "alert alert-success alert-status text-center";
-                    statusDiv.textContent = "Reconectado com sucesso!";
-                });
-
-                try {
-                    await connection.start();
-                    statusDiv.className = "alert alert-success alert-status text-center";
-                    statusDiv.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
-
-                    // Logo após conectar, busca o histórico do banco.
-                    await carregarHistoricoDoBanco();
-
-                    criarCabecalhoTabela();
-                } catch (err) {
-                    console.error("Falha na conexão com o Hub de Alarmes:", err);
-                    statusDiv.className = "alert alert-danger alert-status text-center";
-                    statusDiv.textContent = "Falha na conexão. Verifique o console para mais detalhes.";
-                }
+                await carregarHistoricoDoBanco();
+                criarCabecalhoTabela();
             }
 
-            // Inicia todo o processo.
+            function handleEventoRealTime(evento) {
+                historicoDeEventos.unshift(evento);
+                const tipos = document.querySelector('input[name="filtro-tipo"]:checked').value.split(',');
+                if (tipos.includes(evento.tipoEvento)) renderizarTabela();
+            }
+
+            // ---------------------------
+            // EVENT LISTENERS
+            // ---------------------------
+            filtroLimiteEl.addEventListener('change', carregarHistoricoDoBanco);
+            tipoFiltroRadios.forEach(radio => radio.addEventListener('change', carregarHistoricoDoBanco));
+            btnAplicarFiltroData.addEventListener('click', aplicarFiltroData);
+            btnLimparFiltroData.addEventListener('click', limparFiltrosData);
+            botoesRapidos.forEach(botao => {
+                botao.addEventListener('click', e => definirDataRapida(parseInt(e.target.dataset.dias)));
+            });
+
+            // ---------------------------
+            // INICIALIZAÇÃO
+            // ---------------------------
             iniciarConexaoSignalR();
+
         })();
     </script>
 }

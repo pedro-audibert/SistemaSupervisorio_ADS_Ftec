@@ -1,7 +1,7 @@
 ﻿@*
 =========================================================================================================
 ARQUIVO: Views/Home/Index.cshtml
-FUNÇÃO:  Portal principal da aplicação.
+FUNÇÃO: Portal principal da aplicação.
 =========================================================================================================
 *@
 @{
@@ -9,7 +9,7 @@ FUNÇÃO:  Portal principal da aplicação.
     ViewData["IsPortalPage"] = true;
 }
 
-<div class="text-center">
+<div class="text-center mb-4">
     <h1 class="display-4">Portal de Supervisão</h1>
     <p class="lead text-muted">Selecione um equipamento abaixo para iniciar o monitoramento em tempo real.</p>
 </div>
@@ -21,6 +21,7 @@ FUNÇÃO:  Portal principal da aplicação.
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
+            <!-- Cartão Rotuladora -->
             <div class="col">
                 <div class="card h-100 shadow-sm card-hover">
                     <a asp-controller="Home" asp-action="PainelSupervisao">
@@ -32,6 +33,7 @@ FUNÇÃO:  Portal principal da aplicação.
                 </div>
             </div>
 
+            <!-- Cartão Enchedora (em breve) -->
             <div class="col">
                 <div class="card h-100 shadow-sm">
                     <img src="~/images/icone_enchedora.png" class="card-img-top" alt="Enchedora">
@@ -41,6 +43,7 @@ FUNÇÃO:  Portal principal da aplicação.
                 </div>
             </div>
 
+            <!-- Cartão Empacotadora (em breve) -->
             <div class="col">
                 <div class="card h-100 shadow-sm">
                     <img src="~/images/icone_empacotadora.png" class="card-img-top" alt="Empacotadora">
@@ -55,12 +58,12 @@ FUNÇÃO:  Portal principal da aplicação.
     </div>
 </div>
 
-
 @section Scripts {
     <style>
+        /* Hover efeito para cartões */
         .card-hover:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
             transition: all 0.2s ease-in-out;
         }
     </style>

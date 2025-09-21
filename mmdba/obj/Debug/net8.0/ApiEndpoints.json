@@ -1,28 +1,43 @@
 [
   {
     "ContainingType": "mmdba.Controllers.DashboardController",
-    "Method": "GetHistoricoAlarmes",
-    "RelativePath": "api/dashboard/rotuladora/alarmes/historico",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "limite",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "mmdba.Controllers.DashboardController",
     "Method": "GetUltimoAlarmeRotuladora",
     "RelativePath": "api/dashboard/rotuladora/alarmes/ultimo",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mmdba.Controllers.DashboardController",
+    "Method": "GetHistoricoEventos",
+    "RelativePath": "api/dashboard/rotuladora/eventos/historico",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tipos",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "limite",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "dataInicial",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "dataFinal",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
