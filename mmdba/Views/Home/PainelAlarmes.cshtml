@@ -48,8 +48,8 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 </div>
                 <div>
                     <select class="form-select form-select-sm" id="filtro-limite-eventos">
-                        <option value="10">10 eventos</option>
-                        <option value="25" selected>25 eventos</option>
+                        <option value="10" selected>10 eventos</option>
+                        <option value="25">25 eventos</option>
                         <option value="50">50 eventos</option>
                         <option value="100">100 eventos</option>
                         <option value="500">500 eventos</option>
@@ -110,6 +110,24 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
     </div>
 </div>
 
+<!-- Modal de Alerta -->
+<div class="modal fade" id="modalAlerta" tabindex="-1" aria-labelledby="modalAlertaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="modalAlertaLabel">⚠️ Atenção</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body" id="modalAlertaMensagem">
+                <!-- Mensagem será injetada via JS -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script>
@@ -151,6 +169,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                     celula.colSpan = 4;
                     celula.textContent = "Nenhum evento no histórico para exibir.";
                     celula.style.textAlign = 'center';
+                    atualizarInfoFiltro(); // garante exibição "0 eventos encontrados"
                     return;
                 }
 
@@ -195,11 +214,11 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 const dataFinal = dataFinalEl.value;
 
                 if (!dataInicial && !dataFinal) {
-                    alert('Por favor, selecione ao menos uma data (inicial ou final).');
+                    exibirModalAlerta('Por favor, selecione ao menos uma data (inicial ou final).');
                     return;
                 }
                 if (dataInicial && dataFinal && dataInicial > dataFinal) {
-                    alert('A data inicial não pode ser posterior à data final.');
+                    exibirModalAlerta('A data inicial não pode ser posterior à data final.');
                     return;
                 }
 
@@ -249,6 +268,16 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                     tabelaBody.innerHTML = '<tr><td colspan="4" class="text-danger">Falha ao carregar histórico.</td></tr>';
                     console.error("Falha ao carregar histórico do banco:", err);
                 }
+            }
+
+            // ---------------------------
+            // FUNÇÕES DE MODAL
+            // ---------------------------
+            function exibirModalAlerta(mensagem) {
+                const modalMensagem = document.getElementById("modalAlertaMensagem");
+                modalMensagem.textContent = mensagem;
+                const modal = new bootstrap.Modal(document.getElementById("modalAlerta"));
+                modal.show();
             }
 
             // ---------------------------

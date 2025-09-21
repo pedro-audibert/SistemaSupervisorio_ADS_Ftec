@@ -109,13 +109,29 @@
         </main>
     </div>
 
+    <div class="modal fade" id="modalAlerta" tabindex="-1" aria-labelledby="modalAlertaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAlertaLabel">Atenção</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body" id="modalAlertaCorpo">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="border-top footer text-muted mt-5 py-3">
         <div class="container-fluid">
             &copy; 2025 - MMDBA - <a asp-controller="Home" asp-action="Privacy">Política de Privacidade</a>
         </div>
     </footer>
 
-    @* Sscripts JavaScript principais (jQuery e Bootstrap). *@
+    @* Scripts JavaScript principais (jQuery e Bootstrap). *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -136,7 +152,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="document.querySelector('form[asp-page=\" /Account/Logout\"]').submit();">Sim, Sair</button>
+                    <button type="button" class="btn btn-primary" onclick="document.querySelector('form[asp-page=\'/Account/Logout\']').submit();">Sim, Sair</button>
                 </div>
             </div>
         </div>
