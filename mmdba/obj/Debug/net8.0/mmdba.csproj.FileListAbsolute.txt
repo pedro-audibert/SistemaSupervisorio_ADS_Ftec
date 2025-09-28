@@ -1206,6 +1206,7 @@ C:\Users\Pedro Audibert\Documents\Pedro Audibert\mmdbaProject\VisualStudio\Old\m
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\mmdbaProject\VisualStudio\Old\mmdba\mmdba\obj\Debug\net8.0\ref\mmdba.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\appsettings.json
+C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\appsettings.Production.json
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\libman.json
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\mmdba.staticwebassets.runtime.json
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\mmdba.staticwebassets.endpoints.json
@@ -1802,10 +1803,10 @@ C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\P
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\mmdba.csproj.Up2Date
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\mmdba.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\refint\mmdba.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\mmdba.pdb
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\mmdba.genruntimeconfig.cache
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\ref\mmdba.dll
+C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

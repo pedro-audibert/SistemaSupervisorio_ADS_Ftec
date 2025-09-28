@@ -50,7 +50,7 @@ namespace mmdba.Areas.Identity.Pages.Account
             Email = email;
             // No seu código, você está forçando a exibição do link de confirmação.
             // Quando o sistema de e-mail estiver 100% configurado, o ideal é mudar a linha abaixo para 'false'.
-            DisplayConfirmAccountLink = false;
+            DisplayConfirmAccountLink = true;
             if (DisplayConfirmAccountLink)
             {
                 var userId = await _userManager.GetUserIdAsync(user);

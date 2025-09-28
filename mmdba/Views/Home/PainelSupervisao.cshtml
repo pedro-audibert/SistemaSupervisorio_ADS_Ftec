@@ -1,405 +1,861 @@
 ﻿@*
-=========================================================================================================
-ARQUIVO: Views/Home/PainelSupervisao.cshtml
-FUNÇÃO: Exibe o painel de supervisão em tempo real da máquina, incluindo:
-         - Status de conexão com o servidor
-         - Status geral da máquina
-         - Alarme atual e tempo decorrido
-         - Velocidade instantânea
-         - Gráficos de histórico de velocidade e produção (última hora)
-         Mantém atualização contínua via SignalR e carregamento de dados iniciais via API.
-=========================================================================================================
+
+    =========================================================================================================
+
+    ARQUIVO:  Views/Home/PainelSupervisao.cshtml
+
+    FUNÇÃO:   Exibe o painel de supervisão em tempo real da máquina.
+
+    AUTOR:    Equipe de Desenvolvimento
+
+    DATA:     27/09/2025
+
+    ---------------------------------------------------------------------------------------------------------
+
+    DETALHES:
+
+    - Exibe status de conexão, status da máquina, alarme atual, velocidade e gráficos de produção.
+
+    - Utiliza SignalR para atualizações em tempo real e Chart.js para visualização de dados.
+
+    =========================================================================================================
+
 *@
 
+
+
 @{
-    // Define o título da aba do navegador
-    ViewData["Title"] = "Painel de Supervisão";
+
+    // Define o título que aparecerá na aba do navegador.
+
+    ViewData["Title"] = "Painel de Supervisão";
+
 }
 
-<div class="container my-4">
-    <!-- Título da Página -->
+
+
+@*
+
+    =================================================
+
+    ESTRUTURA PRINCIPAL DA PÁGINA (HTML)
+
+    =================================================
+
+    - A classe "container-fluid" foi utilizada para que o conteúdo ocupe toda a largura da tela,
+
+      melhorando a visualização em desktops e a responsividade em dispositivos móveis.
+
+*@
+
+<div class="container-fluid my-4">
+
+
+
     <h1 class="mb-3 text-center">Painel de Supervisão</h1>
+
     <p class="text-center text-muted">Status Geral da Máquina em Tempo Real.</p>
 
-    <!-- Painéis de Status de Conexão e Máquina -->
-    <div id="statusConexao" class="alert alert-info alert-status text-center">
-        Conectando ao servidor...
-    </div>
-    <div id="statusMaquina" class="alert alert-secondary alert-status text-center mb-4">
-        Carregando...
-    </div>
 
-    <!-- Linha 1: Alarme Atual e Velocidade Instantânea -->
+
+    <div id="statusConexao" class="alert alert-info alert-status text-center">Conectando ao servidor...</div>
+
+    <div id="statusMaquina" class="alert alert-secondary alert-status text-center mb-4">Carregando...</div>
+
+
+
     <div class="row g-4 mb-4">
-        <!-- Card: Alarme Atual -->
+
         <div class="col-lg-6 d-flex">
+
             <div id="cardAlarme" class="card border-secondary w-100">
-                <div id="cardHeaderAlarmeAtual" class="card-header bg-light text-dark fw-bold">
-                    Alarme Atual
-                </div>
+
+                <div id="cardHeaderAlarmeAtual" class="card-header bg-light text-dark fw-bold">Alarme Atual</div>
+
                 <div id="cardBodyAlarmeAtual" class="card-body d-flex flex-column justify-content-center align-items-center text-center p-3">
+
                     <h5 id="alarmeAtual" class="card-title mb-2">Carregando...</h5>
+
                     <p id="timestampAlarmeAtual" class="card-text text-muted small"></p>
+
                     <p id="tempoDecorrido" class="card-text text-muted small"></p>
+
                 </div>
+
             </div>
+
         </div>
 
-        <!-- Card: Velocidade Instantânea -->
+
+
         <div class="col-lg-6 d-flex">
+
             <div class="card border-secondary w-100">
+
                 <div class="card-header fw-bold">Velocidade Instantânea</div>
+
                 <div class="card-body d-flex justify-content-center align-items-center p-2">
+
                     <div id="velocidadeGauge" class="gauge">
+
                         <div class="dial">
+
                             <div class="fill"></div>
+
                             <div class="cover">
+
                                 <span id="valorVelocidadeAtual">00</span>
+
                                 <small>Grf/h</small>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- Linha 2: Gráficos de Histórico de Velocidade e Produção -->
+
+
     <div class="row g-4 mb-4">
-        <!-- Gráfico de Velocidade -->
+
         <div class="col-lg-6 d-flex">
+
             <div class="card border-secondary w-100">
+
                 <div class="card-header fw-bold">Histórico de Velocidade (Última Hora)</div>
+
                 <div class="card-body">
+
                     <div class="chart-container">
+
                         <canvas id="graficoVelocidade"></canvas>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
 
-        <!-- Gráfico de Produção -->
+
+
         <div class="col-lg-6 d-flex">
+
             <div class="card border-secondary w-100">
+
                 <div class="card-header fw-bold">Histórico de Produção (Última Hora)</div>
+
                 <div class="card-body">
+
                     <div class="chart-container">
+
                         <canvas id="graficoProducao"></canvas>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
+
+
 @section Scripts {
-    <!-- Bibliotecas Externas -->
+
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
+
+
     <script>
+
+        // Executa o script quando o DOM (estrutura da página) estiver totalmente carregado.
+
         document.addEventListener("DOMContentLoaded", () => {
 
+
+
             // =========================================================================
-            // I. ESTADO DA APLICAÇÃO E SELETORES DE ELEMENTOS DOM
+
+            // I. SELETORES DE ELEMENTOS DO DOM E ESTADO DA APLICAÇÃO
+
+            // Mapeia os elementos HTML para variáveis JavaScript para fácil manipulação.
+
             // =========================================================================
+
             const statusConexaoElement = document.getElementById("statusConexao");
+
             const statusMaquinaElement = document.getElementById("statusMaquina");
+
             const alarmeValorElement = document.getElementById("alarmeAtual");
+
             const alarmeTimestampElement = document.getElementById("timestampAlarmeAtual");
+
             const alarmeTempoDecorridoElement = document.getElementById("tempoDecorrido");
+
             const alarmeCardHeader = document.getElementById("cardHeaderAlarmeAtual");
+
             const valorVelocidadeAtualElement = document.getElementById("valorVelocidadeAtual");
+
             const dialElement = document.querySelector(".dial");
 
+
+
+            // Variáveis para armazenar as instâncias dos gráficos e o controle do timer.
+
             let graficoVelocidade, graficoProducao;
+
             let intervaloAlarme = null;
-            const UMA_HORA_EM_MS = 3600000;
+
+            const UMA_HORA_EM_MS = 3600000; // Constante para 1 hora em milissegundos.
+
+
 
             // =========================================================================
+
             // II. INICIALIZAÇÃO E FLUXO PRINCIPAL
+
+            // Função principal que orquestra o carregamento da página.
+
             // =========================================================================
+
             async function iniciarPagina() {
-                inicializarGraficos();
 
-                const dadosIniciais = await carregarHistoricoGraficos();
-                const atualizadorGraficos = iniciarAtualizacaoContinuaGraficos(dadosIniciais.velocidade, dadosIniciais.producao);
-                await iniciarConexoesSignalR(atualizadorGraficos.atualizarHistorico);
+                inicializarGraficos(); // Cria os gráficos vazios.
 
-                // Carrega os painéis não-gráficos
+                const dadosIniciais = await carregarHistoricoGraficos(); // Busca os dados da última hora.
+
+                const atualizadorGraficos = iniciarAtualizacaoContinuaGraficos(dadosIniciais.velocidade, dadosIniciais.producao); // Inicia a renderização contínua.
+
+                await iniciarConexoesSignalR(atualizadorGraficos.atualizarHistorico); // Conecta aos hubs SignalR.
+
+
+
+                // Carrega os dados iniciais dos painéis que não são gráficos.
+
                 carregarUltimoAlarme();
+
                 carregarUltimoStatus();
+
                 carregarUltimaVelocidade();
+
             }
 
+
+
             // =========================================================================
+
             // III. LÓGICA DE DADOS E GRÁFICOS
+
+            // Funções responsáveis por buscar e processar os dados para os gráficos.
+
             // =========================================================================
+
+
+
+            /**
+
+             * Busca o histórico inicial (última hora) de velocidade e produção via API.
+
+             */
+
             async function carregarHistoricoGraficos() {
-                let velocidade = [];
-                let producao = [];
+
+                let velocidade = [], producao = [];
+
                 try {
+
                     const [respVel, respProd] = await Promise.all([
+
                         fetch('/api/dashboard/rotuladora/velocidade/historico'),
+
                         fetch('/api/dashboard/rotuladora/producao/historico')
+
                     ]);
 
+
+
                     if (respVel.ok) {
+
                         const dados = await respVel.json();
+
                         velocidade = dados.map(p => ({ x: new Date(p.timestamp).getTime(), y: p.valor }));
+
                     }
+
                     if (respProd.ok) {
+
                         const dados = await respProd.json();
+
                         producao = dados.map(p => ({ x: new Date(p.timestamp).getTime(), y: p.valor }));
+
                     }
+
                 } catch (error) {
-                    console.error("Erro ao carregar histórico:", error);
+
+                    console.error("Erro ao carregar histórico para gráficos:", error);
+
                 }
+
                 return { velocidade, producao };
+
             }
 
+
+
+            /**
+
+             * Inicia um intervalo que atualiza os gráficos a cada segundo para criar
+
+             * a sensação de um gráfico que se move continuamente no tempo.
+
+             */
+
             function iniciarAtualizacaoContinuaGraficos(historicoInicialVel, historicoInicialProd) {
+
                 let historicoVelocidade = historicoInicialVel;
+
                 let historicoProducao = historicoInicialProd;
 
-                const intervalId = setInterval(() => {
+
+
+                setInterval(() => {
+
                     const agora = Date.now();
+
                     const limiteInicio = agora - UMA_HORA_EM_MS;
 
                     renderizarGrafico(graficoVelocidade, historicoVelocidade, limiteInicio, agora);
+
                     renderizarGrafico(graficoProducao, historicoProducao, limiteInicio, agora);
-                }, 1000);
+
+                }, 1000); // Atualiza a cada segundo.
+
+
+
+                // Função exposta para que o SignalR possa adicionar novos pontos de dados.
 
                 const atualizarHistorico = (tipo, data) => {
+
                     if (tipo === 'velocidade') {
+
                         historicoVelocidade.push({ x: new Date(data.timestamp).getTime(), y: data.valor });
+
                     } else if (tipo === 'producao') {
+
                         const valorNum = parseInt(data.valor, 10);
+
                         if (!isNaN(valorNum)) {
+
                             historicoProducao.push({ x: new Date(data.timestamp).getTime(), y: valorNum });
+
                         }
+
                     }
+
                 };
 
                 return { atualizarHistorico };
+
             }
 
+
+
+            /**
+
+             * Atualiza os dados e a janela de visualização de um gráfico específico.
+
+             */
+
             function renderizarGrafico(chart, historicoCompleto, inicio, fim) {
+
                 if (!chart) return;
 
+
+
+                // Adiciona um ponto final "fantasma" para que a linha do gráfico sempre chegue até o final do eixo X.
+
                 let dadosParaRenderizar = [...historicoCompleto];
+
                 const ultimoPonto = historicoCompleto.length > 0 ? historicoCompleto[historicoCompleto.length - 1] : null;
 
                 if (ultimoPonto && ultimoPonto.x < fim) {
+
                     dadosParaRenderizar.push({ x: fim, y: ultimoPonto.y });
+
                 }
 
+
+
+                // Atualiza os dados e os limites do eixo X do gráfico.
+
                 chart.data.datasets[0].data = dadosParaRenderizar;
+
                 chart.options.scales.x.min = inicio;
+
                 chart.options.scales.x.max = fim;
-                chart.update('none');
+
+                chart.update('none'); // 'none' para evitar animações piscando.
+
             }
 
+
+
             // =========================================================================
+
             // IV. FUNÇÕES DE UI E CONFIGURAÇÃO
+
+            // Funções que gerenciam a interface do usuário, incluindo SignalR e inicialização dos gráficos.
+
             // =========================================================================
+
+
+
+            /**
+
+             * Configura e inicia as conexões com todos os Hubs SignalR necessários.
+
+             */
+
             async function iniciarConexoesSignalR(atualizadorCallback) {
+
                 const hubs = {
+
                     alarmes: new signalR.HubConnectionBuilder().withUrl("/alarmesHub").withAutomaticReconnect().build(),
+
                     status: new signalR.HubConnectionBuilder().withUrl("/statusHub").withAutomaticReconnect().build(),
+
                     velocidade: new signalR.HubConnectionBuilder().withUrl("/velocidadeHub").withAutomaticReconnect().build(),
+
                     contagem: new signalR.HubConnectionBuilder().withUrl("/contagemHub").withAutomaticReconnect().build()
+
                 };
 
-                // Handlers para painéis não-gráficos
+
+
+                // Associa eventos recebidos do servidor a funções de atualização da UI.
+
                 hubs.alarmes.on("postAlarmes", atualizarPainelAlarme);
+
                 hubs.status.on("postStatus", atualizarPainelStatus);
 
-                // Handlers para gráficos
                 hubs.velocidade.on("postVelocidade", (data) => {
+
                     atualizarGaugeVelocidade(data.valor);
-                    atualizadorCallback('velocidade', data);
+
+                    atualizadorCallback('velocidade', data); // Atualiza também o gráfico
+
                 });
 
                 hubs.contagem.on("postContagem", (data) => {
-                    atualizadorCallback('producao', data);
+
+                    atualizadorCallback('producao', data); // Atualiza o gráfico de produção
+
                 });
 
+
+
+                // Tenta conectar a todos os hubs.
+
                 try {
+
                     await Promise.all(Object.values(hubs).map(hub => hub.start()));
+
                     if(statusConexaoElement) statusConexaoElement.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
+
                 } catch (err) {
+
                     console.error(`Falha ao conectar nos hubs:`, err);
+
                     if(statusConexaoElement) statusConexaoElement.textContent = "Falha na conexão.";
+
                 }
+
             }
+
+
+
+            /**
+
+             * Cria as instâncias dos gráficos Chart.js com configurações padrão.
+
+             */
 
             function inicializarGraficos() {
+
                 const vCtx = document.getElementById('graficoVelocidade')?.getContext('2d');
+
                 if (vCtx) {
+
                     graficoVelocidade = new Chart(vCtx, criarConfiguracaoGrafico('Velocidade', { border: '#4bc0c0', background: 'rgba(75,192,192,0.2)' }, { stepped: true }));
+
                 }
+
                 const pCtx = document.getElementById('graficoProducao')?.getContext('2d');
+
                 if (pCtx) {
+
                     graficoProducao = new Chart(pCtx, criarConfiguracaoGrafico('Produção', { border: '#36a2eb', background: 'rgba(54,162,235,0.2)' }, { stepped: true }));
+
                 }
+
             }
+
+
+
+            /**
+
+             * Função fábrica para criar objetos de configuração do Chart.js, evitando repetição de código.
+
+             */
 
             function criarConfiguracaoGrafico(label, color, options = {}) {
-                const datasetConfig = {
-                    label,
-                    data: [],
-                    borderColor: color.border,
-                    backgroundColor: color.background,
-                    borderWidth: 2,
-                    pointRadius: 0,
-                    fill: true,
-                    ...options
-                };
+
                 return {
+
                     type: 'line',
-                    data: { datasets: [datasetConfig] },
+
+                    data: {
+
+                        datasets: [{
+
+                            label,
+
+                            data: [],
+
+                            borderColor: color.border,
+
+                            backgroundColor: color.background,
+
+                            borderWidth: 2,
+
+                            pointRadius: 0, // Não mostra pontos nos dados
+
+                            fill: true,
+
+                            ...options
+
+                        }]
+
+                    },
+
                     options: {
+
                         responsive: true,
+
                         maintainAspectRatio: false,
-                        animation: false,
+
+                        animation: false, // Desativa animações para melhor performance
+
                         scales: {
+
                             x: { type: 'time', time: { unit: 'minute', tooltipFormat: 'HH:mm:ss', displayFormats: { minute: 'HH:mm' } } },
+
                             y: { beginAtZero: true }
+
                         },
+
                         plugins: { legend: { display: false } }
+
                     }
+
                 };
+
             }
 
+
+
             // =========================================================================
-            // Funções para carregar dados iniciais
+
+            // V. FUNÇÕES PARA CARREGAR DADOS INICIAIS (FALLBACK)
+
+            // Carregam o último estado conhecido da máquina para que a tela não comece vazia.
+
             // =========================================================================
+
             async function carregarUltimoStatus() {
+
                 try {
+
                     const response = await fetch('/api/dashboard/rotuladora/status/ultimo');
+
                     if (response.ok) {
+
                         const ultimoStatus = await response.json();
+
                         atualizarPainelStatus(ultimoStatus);
+
                     }
+
                 } catch (error) {
+
                     console.error("Erro ao carregar último status:", error);
+
                     atualizarPainelStatus({ valor: "Status Desconhecido" });
+
                 }
+
             }
+
+
 
             async function carregarUltimoAlarme() {
+
                 try {
+
                     const response = await fetch('/api/dashboard/rotuladora/alarmes/ultimo');
+
                     if (response.ok) {
+
                         const ultimoAlarme = await response.json();
+
                         atualizarPainelAlarme(ultimoAlarme);
+
                     }
+
                 } catch (error) {
+
                     console.error("Erro ao carregar último alarme:", error);
+
                     if(alarmeValorElement) alarmeValorElement.textContent = "Erro ao carregar";
+
                     if(alarmeCardHeader) alarmeCardHeader.className = "card-header text-white bg-warning fw-bold";
+
                 }
+
             }
+
+
 
             async function carregarUltimaVelocidade() {
+
                 try {
+
                     const response = await fetch('/api/dashboard/rotuladora/velocidade/ultima');
+
                     if (response.ok) {
+
                         const ultimaVelocidade = await response.json();
+
                         atualizarGaugeVelocidade(ultimaVelocidade.valor);
+
                     }
+
                 } catch (error) {
+
                     console.error("Erro ao carregar último valor de velocidade para o gauge:", error);
+
                 }
+
             }
 
+
+
             // =========================================================================
-            // Funções de atualização de UI
+
+            // VI. FUNÇÕES DE ATUALIZAÇÃO DA UI
+
+            // Funções que manipulam diretamente o DOM para refletir novos dados.
+
             // =========================================================================
+
             function atualizarPainelStatus(ultimoStatus) {
+
                 if (!statusMaquinaElement || !ultimoStatus) return;
+
                 statusMaquinaElement.textContent = ultimoStatus.valor;
+
                 atualizarCorStatusMaquina(ultimoStatus.codigoEvento);
+
             }
+
+
 
             function atualizarCorStatusMaquina(codigoEvento) {
+
                 if (!statusMaquinaElement) return;
-                statusMaquinaElement.classList.remove('alert-success', 'alert-primary', 'alert-danger', 'alert-secondary');
+
+                statusMaquinaElement.className = 'alert alert-status text-center'; // Limpa classes antigas
+
                 switch (codigoEvento) {
+
                     case "statusAutomatico": statusMaquinaElement.classList.add('alert-success'); break;
-                    case "statusManual": statusMaquinaElement.classList.add('alert-primary'); break;
+
+                    case "statusManual":     statusMaquinaElement.classList.add('alert-primary'); break;
+
                     case "statusDesativada": statusMaquinaElement.classList.add('alert-danger'); break;
-                    default: statusMaquinaElement.classList.add('alert-secondary'); break;
+
+                    default:                 statusMaquinaElement.classList.add('alert-secondary'); break;
+
                 }
+
             }
+
+
 
             function atualizarPainelAlarme(ultimoAlarme) {
+
                 if (!alarmeValorElement || !alarmeTimestampElement || !ultimoAlarme || !ultimoAlarme.timestamp) return;
+
                 alarmeValorElement.textContent = ultimoAlarme.valor;
+
                 alarmeTimestampElement.textContent = new Date(ultimoAlarme.timestamp).toLocaleString("pt-BR");
+
                 iniciarContador(ultimoAlarme.timestamp, ultimoAlarme.valor);
+
                 atualizaCorPainelAlarme(ultimoAlarme.codigoEvento);
+
             }
+
+
 
             function atualizaCorPainelAlarme(codigoEvento) {
+
                 if (!alarmeCardHeader) return;
+
                 alarmeCardHeader.className = (codigoEvento === "alarmeON")
+
                     ? "card-header text-white bg-danger fw-bold"
+
                     : "card-header text-white bg-success fw-bold";
+
             }
+
+
+
+            /**
+
+             * Inicia ou reinicia o contador de tempo decorrido para o painel de alarme.
+
+             */
 
             function iniciarContador(timestampISO, estadoAtual) {
+
                 if (!alarmeTempoDecorridoElement) return;
+
                 if (intervaloAlarme) clearInterval(intervaloAlarme);
 
+
+
                 const inicio = new Date(timestampISO);
+
                 if (isNaN(inicio.getTime())) return;
 
+
+
                 const prefixo = estadoAtual === "Sem Alarmes" ? "Sistema OK há: " : "Alarme ativo há: ";
+
                 const atualizar = () => {
+
                     const diff = Math.floor((Date.now() - inicio) / 1000);
+
                     if (diff < 0) { alarmeTempoDecorridoElement.textContent = ""; return; }
+
                     const h = String(Math.floor(diff / 3600)).padStart(2, '0');
+
                     const m = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
+
                     const s = String(diff % 60).padStart(2, '0');
+
                     alarmeTempoDecorridoElement.textContent = `${prefixo}${h}h ${m}m ${s}s`;
+
                 };
 
+
+
                 atualizar();
+
                 intervaloAlarme = setInterval(atualizar, 1000);
+
             }
+
+
+
+            /**
+
+             * Atualiza o visual do gauge de velocidade com base em um valor numérico.
+
+             */
 
             function atualizarGaugeVelocidade(valor) {
+
                 if (valorVelocidadeAtualElement) {
+
                     valorVelocidadeAtualElement.textContent = String(Math.round(valor)).padStart(2, '0');
+
                 }
+
                 if (!dialElement) return;
 
+
+
                 const max = 15000;
+
                 let valorNumerico = Math.min(Math.max(Number(valor) || 0, 0), max);
+
                 const prop = valorNumerico / max;
+
                 const angulo = prop * 270;
-                const hue = 120 - (120 * prop);
+
+                const hue = 120 - (120 * prop); // Muda de verde (120) para vermelho (0)
+
                 const cor = `hsla(${hue}, 80%, 55%, 1)`;
 
+
+
                 const fill = dialElement.querySelector(".fill");
+
                 if (fill) {
+
                     fill.style.background = `conic-gradient(from -135deg, ${cor} ${angulo}deg, #f0f0f0 ${angulo}deg 270deg)`;
+
                     fill.style.filter = `drop-shadow(0 0 4px ${cor})`;
+
                 }
+
+
 
                 dialElement.style.boxShadow = `inset 0px 10px 15px -3px rgba(0,0,0,0.2), inset 0px 4px 6px -2px rgba(0,0,0,0.15), 0 0 12px -2px ${cor}`;
+
                 if (valorVelocidadeAtualElement) {
+
                     valorVelocidadeAtualElement.style.color = cor;
+
                 }
+
             }
 
+
+
             // =========================================================================
-            // V. EXECUÇÃO PRINCIPAL
+
+            // VII. EXECUÇÃO PRINCIPAL
+
+            // Ponto de entrada que inicia todo o processo.
+
             // =========================================================================
+
             iniciarPagina();
+
         });
+
     </script>
+
 }

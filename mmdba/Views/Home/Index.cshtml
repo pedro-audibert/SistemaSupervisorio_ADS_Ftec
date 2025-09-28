@@ -1,11 +1,18 @@
 ﻿@*
 =========================================================================================================
 ARQUIVO: Views/Home/Index.cshtml
-FUNÇÃO: Portal principal da aplicação.
+FUNÇÃO: Criei esta página para ser o portal principal da aplicação.
+        Minha intenção é que ela sirva como um menu central onde o usuário pode escolher qual
+        equipamento deseja monitorar.
 =========================================================================================================
 *@
 @{
+    // Aqui, eu defino o título que vai aparecer na aba do navegador.
     ViewData["Title"] = "Seleção de Máquina";
+
+    // Criei esta flag 'IsPortalPage' para poder, se necessário, aplicar alguma lógica
+    // ou estilo específico no meu arquivo de layout principal (_Layout.cshtml)
+    // apenas quando esta página de portal estiver sendo exibida.
     ViewData["IsPortalPage"] = true;
 }
 
@@ -21,7 +28,6 @@ FUNÇÃO: Portal principal da aplicação.
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
-            <!-- Cartão Rotuladora -->
             <div class="col">
                 <div class="card h-100 shadow-sm card-hover">
                     <a asp-controller="Home" asp-action="PainelSupervisao">
@@ -33,7 +39,6 @@ FUNÇÃO: Portal principal da aplicação.
                 </div>
             </div>
 
-            <!-- Cartão Enchedora (em breve) -->
             <div class="col">
                 <div class="card h-100 shadow-sm">
                     <img src="~/images/icone_enchedora.png" class="card-img-top" alt="Enchedora">
@@ -43,7 +48,6 @@ FUNÇÃO: Portal principal da aplicação.
                 </div>
             </div>
 
-            <!-- Cartão Empacotadora (em breve) -->
             <div class="col">
                 <div class="card h-100 shadow-sm">
                     <img src="~/images/icone_empacotadora.png" class="card-img-top" alt="Empacotadora">
@@ -60,10 +64,14 @@ FUNÇÃO: Portal principal da aplicação.
 
 @section Scripts {
     <style>
-        /* Hover efeito para cartões */
+        /* Criei este efeito de hover para dar um feedback visual ao usuário quando ele passar o mouse
+                   sobre os cartões que são clicáveis. */
         .card-hover:hover {
+            /* 'transform' eleva o card sutilmente no eixo Y. */
             transform: translateY(-5px);
+            /* A sombra ('box-shadow') fica um pouco mais pronunciada para dar a sensação de profundidade. */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+            /* 'transition' suaviza a animação, tornando-a mais agradável. */
             transition: all 0.2s ease-in-out;
         }
     </style>

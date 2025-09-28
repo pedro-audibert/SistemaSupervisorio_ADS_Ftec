@@ -1,40 +1,46 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options; // Importante: Adicionar este using
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
-using System.Diagnostics; // Adicionado para depuração
-using System; // Adicionado para Exception
+using System.Diagnostics;
+using System;
 
 namespace mmdba.Services
 {
     public class EmailSender : IEmailSender
     {
+        // Iremos receber as opções de configuração já "empacotadas" aqui.
+        private readonly AuthMessageSenderOptions _options;
         private readonly IConfiguration _configuration;
 
-        public EmailSender(IConfiguration configuration)
+        // O construtor agora recebe IOptions<AuthMessageSenderOptions> injetado.
+        public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor, IConfiguration configuration)
         {
+            _options = optionsAccessor.Value;
             _configuration = configuration;
         }
 
-        // Mude a assinatura do método para async Task para podermos usar await e ver a resposta
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             try
             {
-                // 1. Busca a chave da API
-                var apiKey = _configuration["SendGridKey"];
+                // 1. Busca a chave da API a partir das opções injetadas. É mais seguro e fiável.
+                var apiKey = _options.SendGridKey;
+
                 if (string.IsNullOrEmpty(apiKey))
                 {
-                    Debug.WriteLine("ERRO: A chave 'SendGridKey' não foi encontrada. Verifique seus User Secrets.");
-                    return;
+                    Debug.WriteLine("ERRO: A chave 'SendGridKey' dentro de 'AuthMessageSenderOptions' não foi encontrada. Verifique os seus ficheiros appsettings.");
+                    // Lança uma exceção para que o erro seja visível nos logs de produção.
+                    throw new Exception("A chave 'SendGridKey' não está configurada.");
                 }
 
-                // 2. Busca o remetente
+                // 2. Busca o remetente (continua a funcionar da mesma forma).
                 var fromEmail = _configuration["SendGrid:FromEmail"];
                 var fromName = _configuration["SendGrid:FromName"];
 
-                // 3. Cria o cliente e a mensagem
+                // 3. Cria o cliente e a mensagem (sem alterações).
                 var client = new SendGridClient(apiKey);
                 var msg = new SendGridMessage()
                 {
@@ -45,17 +51,16 @@ namespace mmdba.Services
                 };
                 msg.AddTo(new EmailAddress(email));
 
-                // 4. Envia o email e AGUARDA a resposta do SendGrid
+                // 4. Envia o e-mail e aguarda a resposta (sem alterações).
                 var response = await client.SendEmailAsync(msg);
 
-                // 5. Verifica se o SendGrid aceitou o email e nos informa o resultado
+                // 5. Verifica se o SendGrid aceitou o e-mail (sem alterações).
                 if (response.IsSuccessStatusCode)
                 {
-                    Debug.WriteLine($"Email para {email} foi aceito pelo SendGrid e está na fila de envio.");
+                    Debug.WriteLine($"Email para {email} foi aceite pelo SendGrid e está na fila de envio.");
                 }
                 else
                 {
-                    // Se o SendGrid retornou um erro, vamos ver qual foi.
                     var errorBody = await response.Body.ReadAsStringAsync();
                     Debug.WriteLine($"============= FALHA AO ENVIAR EMAIL =============");
                     Debug.WriteLine($"Status Code: {response.StatusCode}");
@@ -65,8 +70,7 @@ namespace mmdba.Services
             }
             catch (Exception ex)
             {
-                // Se ocorreu um erro antes mesmo de falar com o SendGrid (ex: rede)
-                Debug.WriteLine($"Ocorreu uma exceção ao tentar enviar o email: {ex.Message}");
+                Debug.WriteLine($"Ocorreu uma exceção ao tentar enviar o e-mail: {ex.Message}");
             }
         }
     }

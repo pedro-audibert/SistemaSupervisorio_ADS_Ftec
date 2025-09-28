@@ -1,8 +1,8 @@
 ﻿@*
 =========================================================================================================
-ARQUIVO: Views/Home/PainelAlarmes.cshtml
+ARQUIVO: Views/Home/PainelAlarmes.cshtml (VERSÃO FINAL COM REFINO VISUAL)
 FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Avisos e Status),
-         com filtros para o usuário selecionar o que deseja ver, incluindo filtros de data.
+         com uma área de filtros moderna, profissional e padronizada.
 =========================================================================================================
 *@
 @{
@@ -13,41 +13,76 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
     <h1 class="mb-3 text-center">Painel de Eventos</h1>
     <p class="text-center text-muted">Visualize o histórico completo de eventos da máquina.</p>
 
-    <!-- Status da conexão com o servidor -->
     <div id="statusConexao" class="alert alert-info alert-status text-center">
         Conectando ao servidor...
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
+        <div class="col-xl-10 col-lg-11">
 
-            <!-- Título do histórico -->
-            <h4 class="text-center" id="titulo-historico">Histórico de Eventos</h4>
+            <div class="accordion mb-4" id="accordionFiltros">
+                <div class="accordion-item border-secondary">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFiltros" aria-expanded="false" aria-controls="collapseFiltros">
+                            <strong class="me-2">Filtros de Eventos</strong>
+                            <small class="text-muted">(Clique para expandir)</small>
+                        </button>
+                    </h2>
+                    <div id="collapseFiltros" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionFiltros">
+                        <div class="accordion-body">
+                            <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mb-4">
+                                <label class="form-label fw-bold mb-0">Tipo de Evento:</label>
+                                <div class="btn-group event-filter-buttons" role="group" aria-label="Filtro de tipo de evento">
+                                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-todos" autocomplete="off" value="Alarme,Aviso,Status" checked>
+                                    <label class="btn btn-outline-secondary" for="btn-todos">Todos</label>
 
-            <!-- Filtro por tipo de evento -->
-            <div class="d-flex justify-content-center mb-3">
-                <div class="btn-group event-filter-group" role="group" aria-label="Filtro de tipo de evento">
-                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-todos" autocomplete="off" value="Alarme,Aviso,Status" checked>
-                    <label class="btn btn-outline-primary" for="btn-todos">Todos</label>
+                                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-alarmes" autocomplete="off" value="Alarme">
+                                    <label class="btn btn-outline-secondary" for="btn-alarmes">Alarmes</label>
 
-                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-alarmes" autocomplete="off" value="Alarme">
-                    <label class="btn btn-outline-danger" for="btn-alarmes">Alarmes</label>
+                                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-avisos" autocomplete="off" value="Aviso">
+                                    <label class="btn btn-outline-secondary" for="btn-avisos">Avisos</label>
 
-                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-avisos" autocomplete="off" value="Aviso">
-                    <label class="btn btn-outline-warning" for="btn-avisos">Avisos</label>
-
-                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-status" autocomplete="off" value="Status">
-                    <label class="btn btn-outline-info" for="btn-status">Status</label>
+                                    <input type="radio" class="btn-check" name="filtro-tipo" id="btn-status" autocomplete="off" value="Status">
+                                    <label class="btn btn-outline-secondary" for="btn-status">Status</label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="mt-3">
+                                <div class="row g-3 justify-content-center">
+                                    <div class="col-md-auto">
+                                        <label for="filtro-data-inicial" class="form-label">Data Inicial:</label>
+                                        <input type="date" class="form-control" id="filtro-data-inicial">
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <label for="filtro-data-final" class="form-label">Data Final:</label>
+                                        <input type="date" class="form-control" id="filtro-data-final">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12 d-flex justify-content-center gap-2">
+                                        <button type="button" class="btn btn-primary" id="btn-aplicar-filtro-data">Filtrar</button>
+                                        <button type="button" class="btn btn-outline-secondary" id="btn-limpar-filtro-data">Limpar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary filtro-rapido" data-dias="1">Hoje</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary filtro-rapido" data-dias="7">Últimos 7 dias</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary filtro-rapido" data-dias="30">Últimos 30 dias</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Filtro "Exibir últimos X eventos" -->
-            <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
+            <div class="d-flex flex-column align-items-center mb-3">
+                <h4 id="titulo-historico" class="mb-2">Histórico de Eventos</h4>
                 <div>
-                    <label for="filtro-limite-eventos" class="col-form-label">Exibir últimos:</label>
-                </div>
-                <div>
-                    <select class="form-select form-select-sm" id="filtro-limite-eventos">
+                    <select class="form-select" id="filtro-limite-eventos" style="width: auto;">
                         <option value="10" selected>10 eventos</option>
                         <option value="25">25 eventos</option>
                         <option value="50">50 eventos</option>
@@ -57,60 +92,20 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 </div>
             </div>
 
-            <!-- Card de filtros de data -->
-            <div class="card card-filtros mb-3">
-                <div class="card-header">
-                    <h6 class="mb-0 d-flex align-items-center">Filtros de Data</h6>
-                </div>
-                <div class="card-body py-3">
-
-                    <!-- Inputs de data inicial e final -->
-                    <div class="row g-3 align-items-end">
-                        <div class="col-md-4">
-                            <label for="filtro-data-inicial" class="form-label">Data Inicial:</label>
-                            <input type="date" class="form-control form-control-sm" id="filtro-data-inicial">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="filtro-data-final" class="form-label">Data Final:</label>
-                            <input type="date" class="form-control form-control-sm" id="filtro-data-final">
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-primary btn-sm" id="btn-aplicar-filtro-data">Filtrar</button>
-                                <button type="button" class="btn btn-secondary btn-sm" id="btn-limpar-filtro-data">Limpar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Filtros rápidos de datas -->
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <div class="d-flex justify-content-center gap-2">
-                                <button type="button" class="btn btn-outline-secondary btn-sm filtro-rapido" data-dias="1">Hoje</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm filtro-rapido" data-dias="7">Últimos 7 dias</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm filtro-rapido" data-dias="30">Últimos 30 dias</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Informação sobre filtro aplicado -->
-                    <div id="info-filtro-aplicado" class="mt-2 text-center text-muted small" style="display: none;">
-                        ℹ️ <span id="texto-filtro-aplicado"></span>
-                    </div>
-
-                </div>
+            <div id="info-filtro-aplicado" class="alert alert-primary text-center small" style="display: none;" role="alert">
+                ℹ️ <span id="texto-filtro-aplicado"></span>
             </div>
 
-            <!-- Tabela de histórico de eventos -->
-            <table class="table table-bordered table-striped table-sm text-center" id="tblHistoricoEventos">
-                <thead class="thead-dark"></thead>
-                <tbody></tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-sm text-center" id="tblHistoricoEventos">
+                    <thead class="thead-dark"></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Modal de Alerta -->
 <div class="modal fade" id="modalAlerta" tabindex="-1" aria-labelledby="modalAlertaLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -119,8 +114,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body" id="modalAlertaMensagem">
-                <!-- Mensagem será injetada via JS -->
-            </div>
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
@@ -169,11 +163,10 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                     celula.colSpan = 4;
                     celula.textContent = "Nenhum evento no histórico para exibir.";
                     celula.style.textAlign = 'center';
-                    atualizarInfoFiltro(); // garante exibição "0 eventos encontrados"
+                    atualizarInfoFiltro();
                     return;
                 }
 
-                // Se filtro de data ativo → ignora limite
                 const eventosParaExibir = filtroDataAtivo
                     ? historicoDeEventos
                     : historicoDeEventos.slice(0, limite);
@@ -238,7 +231,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 const dataInicial = new Date();
                 dataInicial.setDate(hoje.getDate() - (dias === 1 ? 0 : dias - 1));
 
-                const formatarData = (data) => `${data.getFullYear()}-${String(data.getMonth()+1).padStart(2,'0')}-${String(data.getDate()).padStart(2,'0')}`;
+                const formatarData = (data) => `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}-${String(data.getDate()).padStart(2, '0')}`;
 
                 dataInicialEl.value = formatarData(dataInicial);
                 dataFinalEl.value = formatarData(hoje);
@@ -317,9 +310,13 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
             }
 
             function handleEventoRealTime(evento) {
-                historicoDeEventos.unshift(evento);
-                const tipos = document.querySelector('input[name="filtro-tipo"]:checked').value.split(',');
-                if (tipos.includes(evento.tipoEvento)) renderizarTabela();
+                if (!filtroDataAtivo) {
+                    historicoDeEventos.unshift(evento);
+                    const tipos = document.querySelector('input[name="filtro-tipo"]:checked').value.split(',');
+                    if (tipos.includes(evento.tipoEvento)) {
+                        renderizarTabela();
+                    }
+                }
             }
 
             // ---------------------------

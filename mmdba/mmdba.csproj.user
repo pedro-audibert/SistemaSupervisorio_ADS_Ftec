@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>http</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\Users\Pedro Audibert\Documents\Pedro Audibert\mmdbaProject\VisualStudio\mmdba\mmdba\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
     <_SelectedScaffolderID>IdentityScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Identity</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ViewDialogWidth>800</WebStackScaffolding_ViewDialogWidth>

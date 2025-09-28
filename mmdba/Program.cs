@@ -11,6 +11,7 @@ FUNÇÃO:  Configuração principal da aplicação ASP.NET Core 6+, incluindo:
 
 #region NAMESPACES
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -28,6 +29,12 @@ using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Adiciona a configuração de Data Protection para persistir as chaves em produção
+var dataProtectionPath = Path.Combine(builder.Environment.ContentRootPath, ".dp_keys");
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(dataProtectionPath));
+
+
 #region Configuração de Serviços
 
 // --- 1. LOCALIZAÇÃO ---
@@ -43,6 +50,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddErrorDescriber<IdentityErrorDescriberPtBr>();
+
+///TESTEEEEE
+// Configura o "Options Pattern" para as configurações do SendGrid
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration.GetSection("AuthMessageSenderOptions"));
+
 
 builder.Services.AddTransient<IEmailSender, mmdba.Services.EmailSender>();
 
@@ -71,11 +83,30 @@ builder.Services.AddSession(options =>
 });
 
 // --- 5. MOSQUITTO (MQTT) ---
-builder.Services.AddHostedService<MqttSubscriberService>();
+//builder.Services.AddHostedService<MqttSubscriberService>();
 
 #endregion
 
+
+// ===================================================================
+// TESTE DE DIAGNÓSTICO PARA VERIFICAR A CHAVE DO SENDGRID
+var tempConfig = builder.Configuration;
+var sendGridKeyFromConfig = tempConfig["AuthMessageSenderOptions:SendGridKey"];
+Console.WriteLine("===================================================================");
+Console.WriteLine(">>> CHAVE SENDGRID LIDA DA CONFIGURAÇÃO: " + (string.IsNullOrEmpty(sendGridKeyFromConfig) ? "NULA OU VAZIA!" : "ENCONTRADA!"));
+Console.WriteLine("===================================================================");
+// FIM DO TESTE DE DIAGNÓSTICO
+// ===================================================================
+
+
 var app = builder.Build();
+
+// Aplica as migrations do Entity Framework na inicialização
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.Migrate();
+}
 
 #region Configuração do Pipeline (Middlewares)
 
