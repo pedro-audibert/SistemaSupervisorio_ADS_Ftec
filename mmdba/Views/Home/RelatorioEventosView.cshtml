@@ -1,0 +1,110 @@
+﻿@model IEnumerable<EventoMaquina>
+@{
+    // ESSENCIAL: Impede o uso do layout padrão do site
+    Layout = null;
+
+    // FUNÇÃO AUXILIAR EM RAZOR: Retorna a cor de fundo CSS com base no TipoEvento
+    string GetRowColor(string tipoEvento)
+    {
+        return tipoEvento.ToLower() switch
+        {
+            // Corrigido para definir a cor do texto (color) como preto (#000000)
+            "alarme" => "background-color: #f8d7da; color: #000000;",   // Vermelho Claro | Texto Preto
+            "aviso" => "background-color: #fff3cd; color: #000000;",    // Amarelo Claro | Texto Preto
+            "status" => "background-color: #d1ecf1; color: #000000;",  // Ciano Claro/Azul | Texto Preto
+            _ => "background-color: #ffffff; color: #000000;"          // Padrão Branco | Texto Preto
+        };
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Relatório de Eventos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            margin: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .header h1 {
+                margin: 0;
+                color: #dc3545;
+                font-size: 16pt;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 5px 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .info {
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Relatório de Eventos do Sistema Supervisório</h1>
+        <div class="info">
+            @if (Model != null && Model.Any())
+            {
+                <p>Período: <strong>@Model.Min(m => m.Timestamp).ToString("dd/MM/yyyy HH:mm:ss")</strong> a <strong>@Model.Max(m => m.Timestamp).ToString("dd/MM/yyyy HH:mm:ss")</strong></p>
+                <p>Total de Eventos: <strong>@Model.Count()</strong></p>
+            }
+            else
+            {
+                <p>Nenhum evento encontrado para o período especificado.</p>
+            }
+        </div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Origem</th>
+                    <th>Tipo</th>
+                    <th>Código</th>
+                    <th>Informação</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="@GetRowColor(item.TipoEvento)">
+                        <td>@item.Timestamp.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                        <td>@item.Origem</td>
+                        <td>@item.TipoEvento</td>
+                        <td>@item.CodigoEvento</td>
+                        <td>@item.Informacao</td>
+                        <td>@item.Valor</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</body>
+</html>

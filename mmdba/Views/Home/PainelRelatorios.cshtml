@@ -1,0 +1,159 @@
+﻿@*
+=========================================================================================================
+ARQUIVO: Views/Home/PainelRelatorios.cshtml (VERSÃO FINAL COM PAINEL DE FILTROS FIXO e FILTRO DE LIMITE)
+FUNÇÃO: Exibe os filtros de eventos com layout padronizado para geração de relatório em PDF.
+=========================================================================================================
+*@
+@{
+    ViewData["Title"] = "Geração de Relatórios";
+}
+
+<div class="container-fluid my-4">
+    <h1 class="mb-3 text-center">Geração de Relatórios de Eventos</h1>
+    <p class="text-center text-muted">Defina os filtros desejados e gere o relatório em formato PDF.</p>
+
+    <div id="statusConexao" class="alert alert-info alert-status text-center">
+        Conectando ao servidor...
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-11">
+
+            <form asp-controller="Home" asp-action="GerarRelatorioEventosPDF" method="get" target="_blank" id="formRelatorio">
+
+                <div class="mb-4 border border-secondary rounded">
+
+                    <div class="p-3 bg-light border-bottom rounded-top">
+                        <strong class="me-2">Filtros de Eventos</strong>
+                        <small class="text-muted">(Painel Fixo)</small>
+                    </div>
+
+                    <div class="p-4">
+
+                        <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mb-4">
+                            <label class="form-label fw-bold mb-0">Tipo de Evento:</label>
+                            <div class="btn-group event-filter-buttons" role="group" aria-label="Filtro de tipo de evento">
+                                <input type="radio" class="btn-check" name="tipoEvento" id="btn-todos" autocomplete="off" value="Todos" checked>
+                                <label class="btn btn-outline-secondary" for="btn-todos">Todos</label>
+                                <input type="radio" class="btn-check" name="tipoEvento" id="btn-alarmes" autocomplete="off" value="Alarme">
+                                <label class="btn btn-outline-secondary" for="btn-alarmes">Alarmes</label>
+                                <input type="radio" class="btn-check" name="tipoEvento" id="btn-avisos" autocomplete="off" value="Aviso">
+                                <label class="btn btn-outline-secondary" for="btn-avisos">Avisos</label>
+                                <input type="radio" class="btn-check" name="tipoEvento" id="btn-status" autocomplete="off" value="Status">
+                                <label class="btn btn-outline-secondary" for="btn-status">Status</label>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="mt-3">
+                            <div class="row g-3 justify-content-center">
+                                <div class="col-md-auto">
+                                    <label for="filtro-data-inicial" class="form-label">Data Inicial:</label>
+                                    <input type="date" class="form-control" name="dataInicio" id="filtro-data-inicial" required>
+                                </div>
+                                <div class="col-md-auto">
+                                    <label for="filtro-data-final" class="form-label">Data Final:</label>
+                                    <input type="date" class="form-control" name="dataFim" id="filtro-data-final" required>
+                                </div>
+                                <div class="col-md-auto">
+                                    <label for="filtro-origem" class="form-label">Origem (Máquina):</label>
+                                    <input type="text" class="form-control" name="origem" id="filtro-origem" placeholder="Ex: Rotuladora">
+                                </div>
+                            </div>
+
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-auto text-center">
+                                    <h5 class="mb-2">Limite de Eventos no Relatório</h5>
+                                    <select class="form-select" id="filtro-limite-eventos" name="limite" style="width: auto; display: inline-block;">
+                                        <option value="100">100 eventos</option>
+                                        <option value="500">500 eventos</option>
+                                        <option value="1000" selected>1.000 eventos (Padrão)</option>
+                                        <option value="5000">5.000 eventos</option>
+                                        <option value="0">Todos (Sem Limite)</option>
+                                    </select>
+                                    <small class="form-text text-muted d-block mt-2">O filtro de data sempre prevalece sobre o limite.</small>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary filtro-rapido" data-dias="1">Hoje</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary filtro-rapido" data-dias="7">Últimos 7 dias</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary filtro-rapido" data-dias="30">Últimos 30 dias</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4 pt-3 border-top">
+                                <div class="col-12 d-flex justify-content-center gap-2">
+
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-file-pdf"></i> Gerar Relatório PDF
+                                    </button>
+
+                                    <button type="reset" class="btn btn-outline-secondary">Limpar Filtros</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            // ELEMENTOS DO DOM
+            const dataInicialEl = document.getElementById("filtro-data-inicial");
+            const dataFinalEl = document.getElementById("filtro-data-final");
+            const botoesRapidos = document.querySelectorAll(".filtro-rapido");
+            const form = document.getElementById("formRelatorio");
+            const statusDiv = document.getElementById("statusConexao");
+
+            // --- 1. LÓGICA DO CARD DE CONEXÃO (Simulação Exata) ---
+            setTimeout(() => {
+                statusDiv.className = "alert alert-success alert-status text-center";
+                statusDiv.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString("pt-BR");
+            }, 500);
+
+
+            // --- 2. LÓGICA DE FILTRO RÁPIDO ---
+            function formatarData(data) {
+                return `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}-${String(data.getDate()).padStart(2, '0')}`;
+            }
+
+            function definirDataRapida(dias) {
+                const hoje = new Date();
+                const dataInicial = new Date();
+                dataInicial.setDate(hoje.getDate() - (dias === 1 ? 0 : dias - 1));
+
+                dataInicialEl.value = formatarData(dataInicial);
+                dataFinalEl.value = formatarData(hoje);
+
+                // Opção: Submeter automaticamente após filtro rápido?
+                // Por enquanto, apenas preenche as datas. O usuário clica em Gerar.
+            }
+
+            botoesRapidos.forEach(botao => {
+                botao.addEventListener('click', e => definirDataRapida(parseInt(e.target.dataset.dias)));
+            });
+
+            // --- 3. VALIDAÇÃO ANTES DE SUBMETER O FORMULÁRIO ---
+            form.addEventListener('submit', function(event) {
+                if (!dataInicialEl.value || !dataFinalEl.value) {
+                    alert('Por favor, defina a Data Inicial e a Data Final antes de gerar o relatório.');
+                    event.preventDefault();
+                } else if (dataInicialEl.value > dataFinalEl.value) {
+                    alert('A Data Inicial não pode ser posterior à Data Final.');
+                    event.preventDefault();
+                }
+            });
+        })();
+    </script>
+}

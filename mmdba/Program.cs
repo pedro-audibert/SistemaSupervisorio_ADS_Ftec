@@ -48,15 +48,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddErrorDescriber<IdentityErrorDescriberPtBr>();
 
-///TESTEEEEE
 // Configura o "Options Pattern" para as configurações do SendGrid
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration.GetSection("AuthMessageSenderOptions"));
 
 
 builder.Services.AddTransient<IEmailSender, mmdba.Services.EmailSender>();
+
+// --- Configuração do Telegram (Opções) ---
+builder.Services.Configure<mmdba.Models.TelegramSettings>(builder.Configuration.GetSection("TelegramSettings"));
+
+// --- Regista o Serviço Telegram (Singleton) ---
+builder.Services.AddSingleton<mmdba.Services.ITelegramService, mmdba.Services.TelegramService>();
 
 // --- 3. MVC E RAZOR PAGES COM LOCALIZAÇÃO ---
 var mvcBuilder = builder.Services.AddControllersWithViews()
@@ -98,6 +104,9 @@ Console.WriteLine("=============================================================
 // FIM DO TESTE DE DIAGNÓSTICO
 // ===================================================================
 
+// --- 6. CONFIGURAÇÃO DA ROTATIVA (Relatórios PDF) ---
+var wwwRootPath = builder.Environment.WebRootPath;
+Rotativa.AspNetCore.RotativaConfiguration.Setup(wwwRootPath, "Rotativa");
 
 var app = builder.Build();
 
@@ -157,5 +166,96 @@ app.MapHub<VelocidadeHub>("/velocidadeHub");
 app.MapHub<ContagemHub>("/contagemHub");
 
 #endregion
+
+// Bloco para semear o usuário Admin e a Role "Admin"
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    try
+    {
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        // Pega o serviço de configuração para ler o secrets.json
+        var configuration = services.GetRequiredService<IConfiguration>();
+
+        // Chama a função que definimos abaixo
+        await SeedAdminAsync(userManager, roleManager, logger, configuration);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Um erro ocorreu ao semear o usuário admin.");
+    }
+}
+
+async Task SeedAdminAsync(UserManager<ApplicationUser> userManager,
+                        RoleManager<IdentityRole> roleManager,
+                        ILogger<Program> logger,
+                        IConfiguration configuration) // Recebe a configuração
+{
+    string adminRoleName = "Admin";
+
+    // 1. LEIA AS CREDENCIAIS DA CONFIGURAÇÃO (User Secrets)
+    string adminEmail = configuration["AdminSeed:Email"];
+    string adminPassword = configuration["AdminSeed:Password"];
+
+    // 2. Verificação de segurança
+    if (string.IsNullOrEmpty(adminEmail) || string.IsNullOrEmpty(adminPassword))
+    {
+        logger.LogWarning("Email ou Senha do 'AdminSeed' não configurados nos 'User Secrets'.");
+        logger.LogWarning("Por favor, clique com o botão direito no projeto > Manage User Secrets e adicione 'AdminSeed:Email' e 'AdminSeed:Password'.");
+        logger.LogWarning("Pulando a semeadura do usuário admin.");
+        return; // Sai da função se os segredos não estiverem definidos
+    }
+
+    // 3. Criar a Role "Admin" se ela não existir
+    logger.LogInformation("Verificando se a role 'Admin' existe...");
+    if (!await roleManager.RoleExistsAsync(adminRoleName))
+    {
+        await roleManager.CreateAsync(new IdentityRole(adminRoleName));
+        logger.LogInformation("Role 'Admin' criada com sucesso.");
+    }
+    else
+    {
+        logger.LogInformation("Role 'Admin' já existe.");
+    }
+
+    // 4. Criar o Usuário Admin se ele não existir
+    logger.LogInformation($"Verificando se o usuário '{adminEmail}' existe...");
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+    if (adminUser == null)
+    {
+        logger.LogInformation("Usuário admin não encontrado. Criando...");
+        adminUser = new ApplicationUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            EmailConfirmed = true // Confirma o email automaticamente
+        };
+
+        // Usa a senha lida do "User Secrets"
+        var result = await userManager.CreateAsync(adminUser, adminPassword);
+
+        if (result.Succeeded)
+        {
+            logger.LogInformation($"Usuário '{adminEmail}' criado com sucesso.");
+            // 5. Adicionar o usuário à role "Admin"
+            await userManager.AddToRoleAsync(adminUser, adminRoleName);
+            logger.LogInformation($"Usuário '{adminEmail}' adicionado à role '{adminRoleName}'.");
+        }
+        else
+        {
+            foreach (var error in result.Errors)
+            {
+                logger.LogError($"Erro ao criar usuário admin: {error.Description}");
+            }
+        }
+    }
+    else
+    {
+        logger.LogInformation($"Usuário '{adminEmail}' já existe.");
+    }
+}
 
 app.Run();

@@ -1591,6 +1591,7 @@ C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\P
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\NuGet.ProjectModel.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\NuGet.Protocol.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\NuGet.Versioning.dll
+C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\Rotativa.AspNetCore.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\SendGrid.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\SQLitePCLRaw.core.dll
@@ -1612,6 +1613,7 @@ C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\P
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\System.Security.Permissions.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\Telegram.Bot.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\af\Humanizer.resources.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\ar\Humanizer.resources.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Debug\net8.0\az\Humanizer.resources.dll
@@ -1803,10 +1805,10 @@ C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\P
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\mmdba.csproj.Up2Date
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\mmdba.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\refint\mmdba.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\mmdba.pdb
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\mmdba.genruntimeconfig.cache
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\ref\mmdba.dll
-C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

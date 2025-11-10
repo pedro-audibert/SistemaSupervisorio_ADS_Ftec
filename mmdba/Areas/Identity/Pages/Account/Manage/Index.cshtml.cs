@@ -64,6 +64,10 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
             [Phone(ErrorMessage = "Por favor, insira um número de telefone válido.")]
             [Display(Name = "Número de telefone")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Telegram Chat ID")]
+            [StringLength(50)]
+            public string? TelegramChatId { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -75,7 +79,8 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                TelegramChatId = user.TelegramChatId
             };
         }
 
@@ -115,6 +120,14 @@ namespace mmdba.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            if (Input.TelegramChatId != user.TelegramChatId)
+            {
+                user.TelegramChatId = Input.TelegramChatId;
+            }
+
+            await _userManager.UpdateAsync(user);
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Seu perfil foi atualizado com sucesso!";

@@ -11,9 +11,12 @@ namespace mmdba.Data
             : base(options)
         {
         }
+
         public DbSet<EventoMaquina> EventosMaquina { get; set; }
         public DbSet<VelocidadeInstMaquina> VelocidadeInstMaquina { get; set; }
         public DbSet<ProducaoInstMaquina> ProducaoInstMaquina { get; set; }
+        public DbSet<RegraNotificacao> RegrasNotificacao { get; set; } 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder); 

@@ -1,0 +1,232 @@
+﻿@model RegrasNotificacaoViewModel
+@using mmdba.Models.Entidades
+@{
+    // Define o título da página
+    ViewData["Title"] = "Regras de Notificação";
+    // Define qual página está ativa para colorir o menu lateral
+    ViewData["ActivePage"] = "RegrasNotificacao";
+}
+
+@* Cabeçalho Principal (Espelha o formato H1 e HR de Usuarios.cshtml) *@
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<div class="row">
+    @* Coluna de Navegação Lateral (col-md-3) - PADRONIZADA *@
+    <div class="col-md-3">
+        <ul class="nav nav-pills flex-column">
+            @* Item: Gestão de Usuários *@
+            <li class="nav-item">
+                <a class="nav-link @(ViewData["ActivePage"] as string == "Usuarios" ? "active" : "")"
+                   asp-controller="Sistema" asp-action="Usuarios">Gestão de Usuários</a>
+            </li>
+            @* Item: Regras de Notificação (Este link será marcado como ativo nesta tela) *@
+            <li class="nav-item">
+                <a class="nav-link @(ViewData["ActivePage"] as string == "RegrasNotificacao" ? "active" : "")"
+                   asp-controller="Sistema" asp-action="RegrasNotificacao">Regras de Notificação</a>
+            </li>
+            @* Item: Parâmetros de OEE (Desabilitado) *@
+            <li class="nav-item"><a class="nav-link disabled" id="oee" href="#">Parâmetros de OEE</a></li>
+        </ul>
+    </div>
+
+    @* Conteúdo Principal (col-md-9) - Padronizada com caixas de erro e layout *@
+    <div class="col-md-9">
+
+        <div id="erro-sumario-ajax-regras" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+        @* Título principal do painel (Espelha o d-flex justify-content-between de Usuarios.cshtml) *@
+        <div class="d-flex justify-content-between mb-3">
+            <h4>Configuração de Notificações por Usuário</h4>
+            <p class="mb-0 text-muted align-self-end">(Para Telegram)</p>
+        </div>
+
+        @* Tabela de Usuários (Lista usuários para configurar regras) *@
+        <table class="table table-striped">
+            <thead> <tr> <th>Email</th> <th>Permissão</th> <th>Ações</th> </tr> </thead>
+            <tbody>
+                @foreach (var usuario in Model.UsuariosComPermissao)
+                {
+                    <tr>
+                        <td>@usuario.Email</td>
+                        <td>@(usuario.IsAdmin ? "Administrador" : "Usuário")</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary btn-configurar-regras"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#configurarRegrasModal"
+                                    data-userid="@usuario.UserId"
+                                    data-useremail="@usuario.Email"
+                                    data-chatid="@usuario.TelegramChatId">
+                                Configurar Regras
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@* MODAL DE CONFIGURAÇÃO DE REGRAS *@
+<div class="modal fade" id="configurarRegrasModal" tabindex="-1" aria-labelledby="configurarRegrasLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="configurarRegrasLabel">
+                    Regras de Notificação para: <span id="regraUserEmail"></span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="regraUserId" />
+
+                <div id="aviso-sem-chatid" class="alert alert-warning" role="alert" style="display: none;">
+                    <h5 class="alert-heading">⚠️ Usuário Não Configurado</h5>
+                    <p class="mb-0">
+                        Este usuário não tem um <strong>Telegram Chat ID</strong> cadastrado no Perfil.
+                        Peça para que ele acesse o Perfil e configure o ID para poder receber notificações.
+                    </p>
+                </div>
+                <div id="regrasContainer">
+                    <p>Selecione quais tipos de eventos o usuário deve receber via Telegram.</p>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input regra-checkbox" type="checkbox" id="regraAlarme" data-tipo="Alarme">
+                        <label class="form-check-label" for="regraAlarme">Alarme (Crítico)</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input regra-checkbox" type="checkbox" id="regraAviso" data-tipo="Aviso">
+                        <label class="form-check-label" for="regraAviso">Aviso (Warning)</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input regra-checkbox" type="checkbox" id="regraStatus" data-tipo="Status">
+                        <label class="form-check-label" for="regraStatus">Status (Informativo)</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            // Variáveis DOM
+            var modalRegras = $('#configurarRegrasModal');
+            var regraUserIdEl = $('#regraUserId');
+            var regraUserEmailEl = $('#regraUserEmail');
+            var checkboxes = $('.regra-checkbox');
+            var erroSumario = $('#erro-sumario-ajax-regras');
+            // Elementos para a nova lógica
+            var avisoEl = $('#aviso-sem-chatid');
+            var regrasContainerEl = $('#regrasContainer');
+
+
+            // --- 1. CARREGAR REGRAS DO USUÁRIO (AJAX GET) ---
+            $(document).on('click', '.btn-configurar-regras', function () {
+
+                // Limpa o estado do modal
+                erroSumario.hide().empty();
+                checkboxes.prop('disabled', true).prop('checked', false);
+                $('#loading-regra-spinner').remove(); // Remove spinner antigo
+
+                // Lê os dados do botão
+                var userId = $(this).data('userid');
+                var userEmail = $(this).data('useremail');
+                var userChatId = $(this).data('chatid');
+
+                // Atualiza o título do modal
+                regraUserIdEl.val(userId);
+                regraUserEmailEl.text(userEmail);
+
+                // ==================================================
+                //     ALTERAÇÃO 2: Lógica de Exibição (JS)
+                // ==================================================
+                if (userChatId) {
+                    // 1. TEM CHAT ID: Mostra as regras e carrega
+                    avisoEl.hide();
+                    regrasContainerEl.show();
+
+                    // Adiciona um spinner visual
+                    modalRegras.find('.modal-body').append('<div id="loading-regra-spinner" class="text-center mt-3"><i class="fas fa-spinner fa-spin"></i> Carregando regras...</div>');
+
+                    // Busca as regras ativas via AJAX
+                    $.ajax({
+                        type: "GET",
+                        url: '/Sistema/ObterRegrasUsuario',
+                        data: { userId: userId },
+                        success: function (response) {
+                            if (response.success) {
+                                $('#regraAlarme').prop('checked', response.regras.Alarme);
+                                $('#regraAviso').prop('checked', response.regras.Aviso);
+                                $('#regraStatus').prop('checked', response.regras.Status);
+                            } else {
+                                erroSumario.text(response.message || 'Falha ao carregar regras.').show();
+                            }
+                        },
+                        error: function () {
+                            erroSumario.text('Erro de comunicação ao buscar regras.').show();
+                        },
+                        complete: function() {
+                            $('#loading-regra-spinner').remove();
+                            checkboxes.prop('disabled', false); // Habilita após o carregamento
+                        }
+                    });
+
+                } else {
+                    // 2. NÃO TEM CHAT ID: Mostra o aviso e esconde as regras
+                    avisoEl.show();
+                    regrasContainerEl.hide();
+                }
+                // ==================================================
+
+            });
+
+            // --- 2. SALVAR/REMOVER REGRA (AJAX POST no evento change) ---
+            checkboxes.on('change', function () {
+                var userId = regraUserIdEl.val();
+                var tipoEvento = $(this).data('tipo');
+                var ativo = $(this).is(':checked');
+                var checkboxElement = $(this);
+
+                checkboxes.prop('disabled', true);
+
+                // Requisição AJAX POST para Salvar/Remover a regra
+                $.ajax({
+                    type: "POST",
+                    url: '/Sistema/SalvarRegrasUsuario',
+                    data: {
+                        userId: userId,
+                        tipoEvento: tipoEvento,
+                        ativo: ativo,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (!response.success) {
+                            checkboxElement.prop('checked', !ativo);
+                            erroSumario.text(response.message || 'Falha ao atualizar a regra.').show();
+                        }
+                    },
+                    error: function () {
+                        checkboxElement.prop('checked', !ativo);
+                        erroSumario.text('Erro de comunicação ao salvar a regra.').show();
+                    },
+                    complete: function() {
+                        checkboxes.prop('disabled', false);
+                        if (erroSumario.is(':visible')) {
+                             setTimeout(function() { erroSumario.hide().empty(); }, 5000);
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
+}

@@ -1,14 +1,31 @@
 ﻿@*
-=========================================================================================================
-ARQUIVO: Views/Home/PainelManutencao.cshtml
-FUNÇÃO: Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do sistema,
-         com persistência de dados para manter o estado após recarregar a página.
-=========================================================================================================
+    =========================================================================================================
+    ARQUIVO:  Views/Home/PainelManutencao.cshtml (VERSÃO CORRIGIDA)
+    FUNÇÃO:   Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do sistema.
+    ---------------------------------------------------------------------------------------------------------
+    NOTA DE CORREÇÃO:
+    - Adicionada uma nova regra de estilo para a classe ".table-custom-bg .thead-dark".
+    - Esta regra aplica um fundo azul mais sólido aos cabeçalhos das tabelas, criando um
+      contraste visual e melhorando a organização da página.
+    =========================================================================================================
 *@
 
 @{
     ViewData["Title"] = "Painel de Manutenção";
 }
+
+@* Bloco de estilo para a cor de fundo personalizada das tabelas e cabeçalhos *@
+<style>
+    .table-custom-bg tbody {
+        background-color: #e7f3ff; /* Cor azul suave para o corpo da tabela */
+    }
+
+    .table-custom-bg .thead-dark {
+        background-color: #b8daff; /* Cor azul mais sólida para o cabeçalho */
+        color: #004085; /* Cor do texto escura para bom contraste */
+        border-color: #9fcdff; /* Cor da borda para combinar */
+    }
+</style>
 
 <div class="container-fluid my-4">
     <h1 class="mb-3 text-center">Painel de Manutenção</h1>
@@ -18,16 +35,12 @@ FUNÇÃO: Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do s
         Conectando ao servidor...
     </div>
 
-    <div class="row mb-4">
-        <div class="col-md-6" id="containerEntradasDigitais"></div>
-        <div class="col-md-6" id="containerSaidasDigitais"></div>
-    </div>
-    <div class="row mb-4">
-        <div class="col-md-6" id="containerEntradasAnalogicas"></div>
-        <div class="col-md-6" id="containerSaidasAnalogicas"></div>
-    </div>
-    <div class="row mb-4">
-        <div class="col-md-6" id="containerEntradasRapidas"></div>
+    <div class="row">
+        <div class="col-md-6 mb-4" id="containerEntradasDigitais"></div>
+        <div class="col-md-6 mb-4" id="containerSaidasDigitais"></div>
+        <div class="col-md-6 mb-4" id="containerEntradasAnalogicas"></div>
+        <div class="col-md-6 mb-4" id="containerSaidasAnalogicas"></div>
+        <div class="col-md-6 mb-4" id="containerEntradasRapidas"></div>
     </div>
 </div>
 
@@ -143,7 +156,7 @@ FUNÇÃO: Exibe o status em tempo real de todas as Entradas e Saídas (IOs) do s
 
                 container.innerHTML = `
                     <h4 class="text-center">${titulo}</h4>
-                    <table class="table table-bordered table-sm">
+                    <table class="table table-bordered table-sm table-custom-bg">
                         <thead class="thead-dark text-center">
                             <tr><th>${cabecalhos[0]}</th><th>${cabecalhos[1]}</th><th>${cabecalhos[2]}</th></tr>
                         </thead>

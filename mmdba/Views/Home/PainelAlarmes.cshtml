@@ -1,18 +1,35 @@
 ﻿@*
 =========================================================================================================
-ARQUIVO: Views/Home/PainelAlarmes.cshtml (VERSÃO FINAL COM REFINO VISUAL)
-FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Avisos e Status),
-         com uma área de filtros moderna, profissional e padronizada.
+ARQUIVO: Views/Home/PainelAlarmes.cshtml (VISUAL REFINADO)
+FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Avisos e Status).
+         Inclui filtros, botões de exportação (PDF/CSV) e lógica de tempo real via SignalR.
 =========================================================================================================
 *@
 @{
     ViewData["Title"] = "Histórico de Eventos";
 }
 
+<style>
+    /* * Estilo CSS para anular o efeito padrão do Bootstrap:
+         * Garante que o texto do cabeçalho do acordeão permaneça escuro
+         * e o fundo não mude drasticamente quando o painel de filtros é expandido.
+         */
+    #accordionFiltros .accordion-button:not(.collapsed) {
+        color: #212529 !important; /* Mantém o texto escuro */
+        background-color: #f7f7f7 !important; /* Fundo levemente cinza */
+        box-shadow: none;
+    }
+
+    #accordionFiltros .accordion-button:focus {
+        box-shadow: none;
+    }
+</style>
+
 <div class="container-fluid my-4">
     <h1 class="mb-3 text-center">Painel de Eventos</h1>
     <p class="text-center text-muted">Visualize o histórico completo de eventos da máquina.</p>
 
+    @* Card de Status de Conexão (Informativo) *@
     <div id="statusConexao" class="alert alert-info alert-status text-center">
         Conectando ao servidor...
     </div>
@@ -20,16 +37,19 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
     <div class="row justify-content-center">
         <div class="col-xl-10 col-lg-11">
 
+            @* Início do Acordeão de Filtros *@
             <div class="accordion mb-4" id="accordionFiltros">
                 <div class="accordion-item border-secondary">
                     <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFiltros" aria-expanded="false" aria-controls="collapseFiltros">
-                            <strong class="me-2">Filtros de Eventos</strong>
-                            <small class="text-muted">(Clique para expandir)</small>
+                        @* Título do Filtro: CENTRALIZADO e texto estático sem mudança de cor (usando estilo customizado acima) *@
+                        <button class="accordion-button collapsed d-flex justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFiltros" aria-expanded="false" aria-controls="collapseFiltros">
+                            <strong class="text-dark">Filtros de Eventos</strong>
+                            @* Removido o texto "(Clique para expandir)" *@
                         </button>
                     </h2>
                     <div id="collapseFiltros" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionFiltros">
                         <div class="accordion-body">
+                            @* Filtros de Tipo de Evento (Rádios) *@
                             <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mb-4">
                                 <label class="form-label fw-bold mb-0">Tipo de Evento:</label>
                                 <div class="btn-group event-filter-buttons" role="group" aria-label="Filtro de tipo de evento">
@@ -48,6 +68,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                             </div>
                             <hr>
                             <div class="mt-3">
+                                @* Filtros de Data *@
                                 <div class="row g-3 justify-content-center">
                                     <div class="col-md-auto">
                                         <label for="filtro-data-inicial" class="form-label">Data Inicial:</label>
@@ -58,13 +79,33 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                                         <input type="date" class="form-control" id="filtro-data-final">
                                     </div>
                                 </div>
+
+                                @* Botões de Ação (Aplicar Filtro e Exportação) *@
                                 <div class="row mt-3">
                                     <div class="col-12 d-flex justify-content-center gap-2">
+
+                                        @* Botão Filtrar: MANTÉM AZUL (btn-primary) *@
                                         <button type="button" class="btn btn-primary" id="btn-aplicar-filtro-data">Filtrar</button>
-                                        <button type="button" class="btn btn-outline-secondary" id="btn-limpar-filtro-data">Limpar</button>
+
+                                        @* Botão Limpar: ALTERADO PARA VERMELHO (btn-danger) *@
+                                        <button type="button" class="btn btn-danger" id="btn-limpar-filtro-data">Limpar</button>
+
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            @* Botão Gerar PDF: ALTERADO PARA VERDE (btn-success) *@
+                                            <button type="button" class="btn btn-success" id="btn-gerar-pdf">
+                                                <i class="fas fa-file-pdf"></i> Gerar Relatório PDF
+                                            </button>
+                                            @* Botão Gerar CSV: ALTERADO PARA AMARELO (btn-warning) *@
+                                            <button type="button" class="btn btn-warning" id="btn-gerar-csv">
+                                                <i class="fas fa-file-csv"></i> Gerar Relatório CSV
+                                            </button>
+                                        }
                                     </div>
                                 </div>
+
                             </div>
+                            @* Filtros Rápidos *@
                             <div class="row mt-4">
                                 <div class="col-12">
                                     <div class="d-flex justify-content-center gap-2 flex-wrap">
@@ -78,10 +119,14 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                     </div>
                 </div>
             </div>
+            @* Fim do Acordeão de Filtros *@
 
+            @* Bloco de Histórico de Eventos e Filtro de Limite *@
             <div class="d-flex flex-column align-items-center mb-3">
                 <h4 id="titulo-historico" class="mb-2">Histórico de Eventos</h4>
-                <div>
+
+                <div class="d-flex flex-column align-items-center">
+                    @* Select para Limite de Eventos Visíveis *@
                     <select class="form-select" id="filtro-limite-eventos" style="width: auto;">
                         <option value="10" selected>10 eventos</option>
                         <option value="25">25 eventos</option>
@@ -89,13 +134,31 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                         <option value="100">100 eventos</option>
                         <option value="500">500 eventos</option>
                     </select>
+
+                    @* Botões Flutuantes (Visíveis quando o filtro está recolhido) *@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="mt-3 text-center" id="btn-gerar-pdf-float" style="display: none;">
+                            @* Botão PDF Flutuante: ALTERADO PARA VERDE (btn-success) *@
+                            <button type="button" class="btn btn-sm btn-success" onclick="gerarRelatorioPDF(true)">
+                                <i class="fas fa-file-pdf"></i> Gerar Relatório (PDF)
+                            </button>
+                            @* Botão CSV Flutuante: ALTERADO PARA AMARELO (btn-warning) *@
+                            <button type="button" class="btn btn-sm btn-warning" onclick="gerarRelatorioCSV(true)">
+                                <i class="fas fa-file-csv"></i> Gerar Relatório (CSV)
+                            </button>
+                            <small class="form-text text-muted d-block mt-1">Gera PDF para os eventos visíveis (limite atual).</small>
+                        </div>
+                    }
                 </div>
             </div>
 
+            @* Informação do Filtro Aplicado *@
             <div id="info-filtro-aplicado" class="alert alert-primary text-center small" style="display: none;" role="alert">
                 ℹ️ <span id="texto-filtro-aplicado"></span>
             </div>
 
+            @* Tabela de Histórico *@
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-sm text-center" id="tblHistoricoEventos">
                     <thead class="thead-dark"></thead>
@@ -106,6 +169,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
     </div>
 </div>
 
+@* Modal de Alerta (Reutilizado para mensagens de erro/validação) *@
 <div class="modal fade" id="modalAlerta" tabindex="-1" aria-labelledby="modalAlertaLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -114,7 +178,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body" id="modalAlertaMensagem">
-                </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
@@ -128,8 +192,9 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
         (function () {
 
             // ---------------------------
-            // ELEMENTOS DO DOM
+            // 1. VARIÁVEIS DOM
             // ---------------------------
+            // Variáveis para manipulação dos elementos da página
             const statusDiv = document.getElementById("statusConexao");
             const tabelaBody = document.querySelector("#tblHistoricoEventos tbody");
             const tabelaHead = document.querySelector("#tblHistoricoEventos thead");
@@ -139,20 +204,27 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
             const dataFinalEl = document.getElementById("filtro-data-final");
             const btnAplicarFiltroData = document.getElementById("btn-aplicar-filtro-data");
             const btnLimparFiltroData = document.getElementById("btn-limpar-filtro-data");
+            const btnGerarPdf = document.getElementById("btn-gerar-pdf");
+            const btnGerarCsv = document.getElementById("btn-gerar-csv");
+            const btnGerarPdfFloat = document.getElementById("btn-gerar-pdf-float");
             const botoesRapidos = document.querySelectorAll(".filtro-rapido");
             const infoFiltroEl = document.getElementById("info-filtro-aplicado");
             const textoFiltroEl = document.getElementById("texto-filtro-aplicado");
+            const accordionCollapseEl = document.getElementById("collapseFiltros");
 
             let historicoDeEventos = [];
             let filtroDataAtivo = false;
 
             // ---------------------------
-            // FUNÇÕES DE UI
+            // 2. FUNÇÕES DE UI E RENDERIZAÇÃO
             // ---------------------------
+
+            // Define o cabeçalho estático da tabela de histórico.
             function criarCabecalhoTabela() {
                 tabelaHead.innerHTML = `<tr><th>Tipo</th><th>Descrição</th><th>Código</th><th>Horário</th></tr>`;
             }
 
+            // Renderiza os eventos na tabela, aplicando limite ou filtro de data.
             function renderizarTabela() {
                 tabelaBody.innerHTML = '';
                 const limite = parseInt(filtroLimiteEl.value, 10);
@@ -171,6 +243,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                     ? historicoDeEventos
                     : historicoDeEventos.slice(0, limite);
 
+                // Insere os eventos na tabela, aplicando a cor de fundo (definida no CSS da View PDF)
                 for (let i = eventosParaExibir.length - 1; i >= 0; i--) {
                     const e = eventosParaExibir[i];
                     const linha = tabelaBody.insertRow(0);
@@ -190,6 +263,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 atualizarInfoFiltro();
             }
 
+            // Atualiza a barra de informação sobre o filtro de data ativo.
             function atualizarInfoFiltro() {
                 if (filtroDataAtivo) {
                     infoFiltroEl.style.display = 'block';
@@ -199,9 +273,19 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 }
             }
 
+            // Exibe um modal de alerta para mensagens de validação.
+            function exibirModalAlerta(mensagem) {
+                const modalMensagem = document.getElementById("modalAlertaMensagem");
+                modalMensagem.textContent = mensagem;
+                const modal = new bootstrap.Modal(document.getElementById("modalAlerta"));
+                modal.show();
+            }
+
             // ---------------------------
-            // FUNÇÕES DE FILTRO
+            // 3. FUNÇÕES DE FILTRO
             // ---------------------------
+
+            // Aplica os filtros de data e recarrega o histórico do banco.
             function aplicarFiltroData() {
                 const dataInicial = dataInicialEl.value;
                 const dataFinal = dataFinalEl.value;
@@ -219,6 +303,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 carregarHistoricoDoBanco();
             }
 
+            // Limpa os campos de filtro de data e recarrega o histórico.
             function limparFiltrosData() {
                 dataInicialEl.value = '';
                 dataFinalEl.value = '';
@@ -226,6 +311,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 carregarHistoricoDoBanco();
             }
 
+            // Define um intervalo de datas rápido (Hoje, 7 dias, 30 dias).
             function definirDataRapida(dias) {
                 const hoje = new Date();
                 const dataInicial = new Date();
@@ -241,8 +327,92 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
             }
 
             // ---------------------------
-            // FUNÇÃO DE CARREGAMENTO DE DADOS
+            // 4. FUNÇÕES DE EXPORTAÇÃO (Globalmente acessíveis)
             // ---------------------------
+
+            // FUNÇÃO INTERNA: GERA O RELATÓRIO PDF
+            var internalGerarRelatorioPDF = function(isFloatButton = false) {
+                const dataInicial = dataInicialEl.value;
+                const dataFinal = dataFinalEl.value;
+                const tipoFiltroValue = document.querySelector('input[name="filtro-tipo"]:checked').value;
+                const tipoParaController = (tipoFiltroValue === "Alarme,Aviso,Status") ? "Todos" : tipoFiltroValue;
+
+                let url = `/Home/GerarRelatorioEventosPDF?tipoEvento=${tipoParaController}&origem=Rotuladora`;
+
+                if (isFloatButton) {
+                    const limite = filtroLimiteEl.value;
+                    if (limite === "0" || !limite) {
+                         exibirModalAlerta('Atenção! Selecione um limite de eventos válido para o relatório rápido.');
+                         return;
+                    }
+                    url += `&limite=${limite}`;
+                } else {
+                    if (!dataInicial || !dataFinal) {
+                        exibirModalAlerta('Atenção! Para gerar um relatório detalhado por data, defina as datas Inicial e Final.');
+                        return;
+                    }
+                    if (dataInicial && dataFinal && dataInicial > dataFinal) {
+                        exibirModalAlerta('A data inicial não pode ser posterior à data final.');
+                        return;
+                    }
+                    url += `&dataInicio=${dataInicial}&dataFim=${dataFinal}`;
+                }
+
+                // Força o download na aba atual.
+                const link = document.createElement('a');
+                link.href = url;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            // FUNÇÃO INTERNA: GERA O RELATÓRIO CSV
+            var internalGerarRelatorioCSV = function(isFloatButton = false) {
+                const dataInicial = dataInicialEl.value;
+                const dataFinal = dataFinalEl.value;
+                const tipoFiltroValue = document.querySelector('input[name="filtro-tipo"]:checked').value;
+                const tipoParaController = (tipoFiltroValue === "Alarme,Aviso,Status") ? "Todos" : tipoFiltroValue;
+
+                let url = `/Home/GerarRelatorioEventosCSV?tipoEvento=${tipoParaController}&origem=Rotuladora`;
+
+                if (isFloatButton) {
+                    const limite = filtroLimiteEl.value;
+                    if (limite === "0" || !limite) {
+                         exibirModalAlerta('Atenção! Selecione um limite de eventos válido para o relatório rápido.');
+                         return;
+                    }
+                    url += `&limite=${limite}`;
+                } else {
+                    if (!dataInicial || !dataFinal) {
+                        exibirModalAlerta('Atenção! Para gerar um relatório detalhado por data, defina as datas Inicial e Final.');
+                        return;
+                    }
+                    if (dataInicial && dataFinal && dataInicial > dataFinal) {
+                        exibirModalAlerta('A data inicial não pode ser posterior à data final.');
+                        return;
+                    }
+                    url += `&dataInicio=${dataInicial}&dataFim=${dataFinal}`;
+                }
+
+                // Força o download na aba atual.
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `relatorio_eventos_${new Date().toISOString().slice(0, 10)}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            // EXPOR AS FUNÇÕES GLOBALMENTE (necessário para o onclick no HTML)
+            window.gerarRelatorioPDF = internalGerarRelatorioPDF;
+            window.gerarRelatorioCSV = internalGerarRelatorioCSV;
+
+
+            // ---------------------------
+            // 5. FUNÇÕES DE BACKEND (AJAX/API)
+            // ---------------------------
+
+            // Carrega o histórico de eventos da API para preencher a tabela.
             async function carregarHistoricoDoBanco() {
                 const limite = filtroLimiteEl.value;
                 const tipoSelecionado = document.querySelector('input[name="filtro-tipo"]:checked').value;
@@ -264,18 +434,10 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
             }
 
             // ---------------------------
-            // FUNÇÕES DE MODAL
+            // 6. SIGNALR E INICIALIZAÇÃO
             // ---------------------------
-            function exibirModalAlerta(mensagem) {
-                const modalMensagem = document.getElementById("modalAlertaMensagem");
-                modalMensagem.textContent = mensagem;
-                const modal = new bootstrap.Modal(document.getElementById("modalAlerta"));
-                modal.show();
-            }
 
-            // ---------------------------
-            // FUNÇÕES SIGNALR
-            // ---------------------------
+            // Inicia as conexões SignalR para receber eventos em tempo real.
             async function iniciarConexaoSignalR() {
                 const hubs = ["/alarmesHub", "/avisosHub", "/statusHub"];
 
@@ -309,6 +471,7 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 criarCabecalhoTabela();
             }
 
+            // Lida com eventos em tempo real recebidos via SignalR.
             function handleEventoRealTime(evento) {
                 if (!filtroDataAtivo) {
                     historicoDeEventos.unshift(evento);
@@ -319,20 +482,55 @@ FUNÇÃO:  Exibe uma tabela com o histórico de TODOS os eventos (Alarmes, Aviso
                 }
             }
 
+            // Controla a visibilidade do botão PDF flutuante (fora do acordeão).
+            function updateFloatButtonVisibility() {
+                // Verifica se o elemento flutuante existe (apenas para Admin)
+                if (btnGerarPdfFloat) {
+                    const isExpanded = document.querySelector('[data-bs-toggle="collapse"]').getAttribute('aria-expanded') === 'true';
+                    if (isExpanded) {
+                        btnGerarPdfFloat.style.display = 'none';
+                    } else {
+                        btnGerarPdfFloat.style.display = 'block';
+                    }
+                }
+            }
+
             // ---------------------------
-            // EVENT LISTENERS
+            // 7. LISTENERS E INICIALIZAÇÃO
             // ---------------------------
+
+            // Listeners de mudança de filtro e ação
             filtroLimiteEl.addEventListener('change', carregarHistoricoDoBanco);
             tipoFiltroRadios.forEach(radio => radio.addEventListener('change', carregarHistoricoDoBanco));
             btnAplicarFiltroData.addEventListener('click', aplicarFiltroData);
             btnLimparFiltroData.addEventListener('click', limparFiltrosData);
+
+            // Listeners para os botões de exportação (verifica se existem)
+            if (btnGerarPdf) {
+                 btnGerarPdf.addEventListener('click', () => internalGerarRelatorioPDF(false));
+            }
+            if (btnGerarCsv) {
+                 btnGerarCsv.addEventListener('click', () => internalGerarRelatorioCSV(false));
+            }
+
             botoesRapidos.forEach(botao => {
                 botao.addEventListener('click', e => definirDataRapida(parseInt(e.target.dataset.dias)));
             });
 
-            // ---------------------------
-            // INICIALIZAÇÃO
-            // ---------------------------
+            // Listeners para o Acordeão (esconde/mostra botão flutuante)
+            if (accordionCollapseEl) {
+                accordionCollapseEl.addEventListener('show.bs.collapse', () => {
+                    if (btnGerarPdfFloat) btnGerarPdfFloat.style.display = 'none';
+                });
+
+                accordionCollapseEl.addEventListener('hide.bs.collapse', () => {
+                    if (btnGerarPdfFloat) btnGerarPdfFloat.style.display = 'block';
+                });
+            }
+
+            updateFloatButtonVisibility();
+
+            // Inicia o processo de conexão SignalR e carregamento de dados iniciais.
             iniciarConexaoSignalR();
 
         })();

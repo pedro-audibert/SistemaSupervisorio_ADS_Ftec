@@ -1,0 +1,407 @@
+﻿@model GestaoUsuariosViewModel
+@{
+    ViewData["Title"] = "Gestão de Usuários";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<div class="row">
+
+    <div class="col-md-3">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+                <a class="nav-link @(ViewData["ActivePage"] as string == "Usuarios" ? "active" : "")" asp-controller="Sistema" asp-action="Usuarios">Gestão de Usuários</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ViewData["ActivePage"] as string == "RegrasNotificacao" ? "active" : "")" asp-controller="Sistema" asp-action="RegrasNotificacao">Regras de Notificação</a>
+            </li>
+            <li class="nav-item"><a class="nav-link disabled" id="oee" href="#">Parâmetros de OEE</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-9">
+
+        <div id="erro-sumario-ajax" class="alert alert-danger" role="alert" style="display: none;"></div>
+        @* NOVO: Caixa de erro para remover *@
+        <div id="erro-sumario-ajax-remover" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+        <div class="d-flex justify-content-between mb-3">
+            <h4>Usuários Cadastrados</h4>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#criarUsuarioModal">
+                <i class="fas fa-plus"></i> Criar Novo Usuário
+            </button>
+        </div>
+
+        <table class="table table-striped">
+            <thead> <tr> <th>Email</th> <th>Permissão</th> <th>Ações</th> </tr> </thead>
+            <tbody>
+                @foreach (var usuario in Model.Usuarios)
+                {
+                    <tr>
+                        <td>@usuario.Email</td>
+                        <td>@(usuario.IsAdmin ? "Administrador" : "Usuário")</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary btn-editar"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editarUsuarioModal"
+                                    data-userid="@usuario.UserId"
+                                    data-useremail="@usuario.Email">
+                                Editar
+                            </button>
+                            @* NOVO: Botão de remover habilitado *@
+                            <button class="btn btn-sm btn-outline-danger btn-remover"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#removerUsuarioModal"
+                                    data-userid="@usuario.UserId"
+                                    data-useremail="@usuario.Email">
+                                Remover
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@* MODAL CRIAR NOVO USUÁRIO (NÃO MUDA) *@
+<div class="modal fade" id="criarUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="criarUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="formCriarUsuario" asp-controller="Sistema" asp-action="CriarUsuarioAjax" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="criarUsuarioLabel">Criar Novo Usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="InputNovoUsuario.NovoEmail"></label>
+                        <input asp-for="InputNovoUsuario.NovoEmail" class="form-control" />
+                        <span id="erro-NovoEmail" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="InputNovoUsuario.NovoPassword"></label>
+                        <input asp-for="InputNovoUsuario.NovoPassword" class="form-control" />
+                        <span id="erro-NovoPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="InputNovoUsuario.NovoConfirmPassword"></label>
+                        <input asp-for="InputNovoUsuario.NovoConfirmPassword" class="form-control" />
+                        <span id="erro-NovoConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input asp-for="InputNovoUsuario.NovoIsAdmin" type="checkbox" class="form-check-input" />
+                        <label asp-for="InputNovoUsuario.NovoIsAdmin" class="form-check-label"></label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btnSalvarUsuario" type="submit" class="btn btn-primary">Criar Usuário</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* ===== NOVO: MODAL DE EDITAR USUÁRIO ===== *@
+<div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formEditarUsuario" asp-controller="Sistema" asp-action="EditarUsuarioAjax" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="editarUserId" name="editarUserId" />
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarUsuarioLabel">
+                        <i class="fas fa-user-edit"></i> Editar Permissões
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="text" id="editarUserEmail" class="form-control" readonly />
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" id="editarIsAdmin" name="editarIsAdmin" class="form-check-input" />
+                        <label for="editarIsAdmin" class="form-check-label">É Administrador</label>
+                        <span id="erro-editarIsAdmin" class="text-danger d-block"></span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btnSalvarEdicao" type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@* ===== NOVO: MODAL DE REMOVER USUÁRIO ===== *@
+<div class="modal fade" id="removerUsuarioModal" tabindex="-1" aria-labelledby="removerUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formRemoverUsuario" asp-controller="Sistema" asp-action="RemoverUsuarioAjax" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="removerUserId" name="userId" />
+
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="removerUsuarioLabel">
+                        <i class="fas fa-exclamation-triangle"></i> Confirmar Remoção
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Tem a certeza que deseja remover permanentemente o usuário?</p>
+                    <p><strong><span id="removerUserEmail"></span></strong></p>
+                    <p class="text-danger"><i class="fas fa-info-circle"></i> Esta ação não pode ser revertida.</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btnConfirmarRemocao" type="submit" class="btn btn-danger">Confirmar Remoção</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* MODAL DE SUCESSO (NÃO MUDA) *@
+<div class="modal fade" id="sucessoModal" tabindex="-1" aria-labelledby="sucessoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="sucessoModalLabel">
+                    <i class="fas fa-check-circle"></i> Sucesso
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @* MODIFICADO: Texto dinâmico *@
+                <p class="mb-0" id="sucessoModalBody">Operação realizada com sucesso!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            // ===== VARIÁVEIS COMPARTILHADAS (EXISTENTES) =====
+            var modal = $('#criarUsuarioModal');
+            var form = $('#formCriarUsuario');
+            var btnSalvar = $('#btnSalvarUsuario');
+            var erroSumario = $('#erro-sumario-ajax');
+            var modalSucesso = $('#sucessoModal');
+
+            // ===== VARIÁVEIS DE REMOÇÃO (EXISTENTES) =====
+            var modalRemover = $('#removerUsuarioModal');
+            var formRemover = $('#formRemoverUsuario');
+            var btnConfirmarRemocao = $('#btnConfirmarRemocao');
+            var erroSumarioRemover = $('#erro-sumario-ajax-remover');
+
+            // ===== VARIÁVEIS DE EDIÇÃO (EXISTENTES) =====
+            var modalEditar = $('#editarUsuarioModal');
+            var formEditar = $('#formEditarUsuario');
+            var btnSalvarEdicao = $('#btnSalvarEdicao');
+            var erroSumarioEditar = $('#erro-editarIsAdmin');
+
+
+            // ===== CRIAR USUÁRIO (SEU CÓDIGO) =====
+            function limparModal() {
+                form[0].reset();
+                erroSumario.hide().empty();
+                form.find('.text-danger').empty();
+            }
+
+            modal.on('show.bs.modal', function () {
+                limparModal();
+            });
+
+            form.on('submit', function (e) {
+                e.preventDefault();
+                erroSumario.hide().empty();
+                form.find('.text-danger').empty();
+                btnSalvar.prop('disabled', true).text('A Criar...');
+
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            modal.modal('hide');
+                            $('#sucessoModalBody').text('Usuário criado com sucesso!');
+                            modalSucesso.modal('show');
+                        } else {
+                            if (response.errors) {
+                                $.each(response.errors, function (key, messages) {
+                                    var spanId = "#erro-" + key.split('.')[1];
+                                    $(spanId).text(messages[0]);
+                                });
+                            }
+                            btnSalvar.prop('disabled', false).text('Criar Usuário');
+                        }
+                    },
+                    error: function () {
+                        erroSumario.text('Erro inesperado ao contactar o servidor.').show();
+                        btnSalvar.prop('disabled', false).text('Criar Usuário');
+                    }
+                });
+            });
+
+            modalSucesso.on('hidden.bs.modal', function () {
+                location.reload();
+            });
+
+            // ===== REMOVER USUÁRIO (SEU CÓDIGO) =====
+
+            // Quando clicar no botão "Remover", preenche o modal
+            $('.btn-remover').on('click', function () {
+                var userId = $(this).data('userid');
+                var userEmail = $(this).data('useremail');
+
+                erroSumarioRemover.hide().empty();
+                $('#removerUserId').val(userId);
+                $('#removerUserEmail').text(userEmail);
+            });
+
+            // Quando submeter o formulário de remover
+            formRemover.on('submit', function (e) {
+                e.preventDefault();
+                btnConfirmarRemocao.prop('disabled', true).text('A Remover...');
+
+                $.ajax({
+                    type: "POST",
+                    url: formRemover.attr('action'),
+                    data: formRemover.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            modalRemover.modal('hide');
+                            $('#sucessoModalBody').text('Usuário removido com sucesso!');
+                            modalSucesso.modal('show');
+                        } else {
+                            modalRemover.modal('hide');
+                            erroSumarioRemover.text(response.message || 'Erro ao remover o usuário.').show();
+                            btnConfirmarRemocao.prop('disabled', false).text('Confirmar Remoção');
+                        }
+                    },
+                    error: function () {
+                        modalRemover.modal('hide');
+                        erroSumarioRemover.text('Erro inesperado ao remover o usuário.').show();
+                        btnConfirmarRemocao.prop('disabled', false).text('Confirmar Remoção');
+                    }
+                });
+            });
+
+
+            // ===========================================
+            // ===== NOVO: EDITAR USUÁRIO (LÓGICA) =====
+            // ===========================================
+
+            // 1. CARREGAR DADOS DO USUÁRIO NO MODAL (AJAX GET)
+
+            // CORREÇÃO: Usa delegação no 'document' para garantir que os botões (mesmo os novos após reload) funcionem.
+            $(document).on('click', '.btn-editar', function () {
+                var userId = $(this).data('userid');
+                var userEmail = $(this).data('useremail');
+
+                // CORREÇÃO: Verifica se o ID foi lido corretamente
+                if (!userId) {
+                    alert('Erro: ID do usuário não encontrado.');
+                    return;
+                }
+
+                // Limpa erros e preenche campos estáticos
+                erroSumarioEditar.hide().empty();
+                $('#editarUserEmail').val(userEmail);
+                $('#editarUserId').val(userId); // ID oculto
+
+                // Remove qualquer spinner antigo e adiciona um novo
+                $('#loading-spinner').remove();
+                modalEditar.find('.modal-body').append('<div id="loading-spinner" class="text-center mt-3"><i class="fas fa-spinner fa-spin"></i> Carregando permissões...</div>');
+
+                // Requisição AJAX para obter o estado isAdmin
+                $.ajax({
+                    type: "GET",
+                    url: '/Sistema/ObterDadosUsuario',
+                    data: { id: userId },
+                    success: function (response) {
+                        $('#loading-spinner').remove();
+                        if (response.success) {
+                            var usuario = response.usuario;
+                            // Preenche o checkbox com o valor retornado do Controller
+                            $('#editarIsAdmin').prop('checked', usuario.isAdmin);
+                            modalEditar.modal('show'); // Apenas mostra o modal APÓS carregar dados
+                        } else {
+                            alert(response.message || 'Falha ao carregar dados do usuário.');
+                        }
+                    },
+                    error: function () {
+                        $('#loading-spinner').remove();
+                        alert('Erro ao carregar dados de permissão do usuário.');
+                    }
+                });
+            });
+
+
+            // 2. SALVAR EDIÇÃO DE PERMISSÕES (AJAX POST)
+
+            // CORREÇÃO: Verifica se o modal existe antes de tentar atribuir o listener.
+            if (modalEditar.length) {
+                formEditar.on('submit', function (e) {
+                    e.preventDefault();
+
+                    erroSumarioEditar.hide().empty();
+                    btnSalvarEdicao.prop('disabled', true).text('A Salvar...');
+
+                    var formData = {
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(),
+                        editarUserId: $('#editarUserId').val(),
+                        editarIsAdmin: $('#editarIsAdmin').is(':checked')
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: formEditar.attr('action'),
+                        data: formData,
+                        success: function (response) {
+                            if (response.success) {
+                                modalEditar.modal('hide');
+                                $('#sucessoModalBody').text('Permissões atualizadas com sucesso!');
+                                modalSucesso.modal('show');
+                            } else {
+                                // Erro do Controller (ex: tentativa de remover própria permissão)
+                                erroSumarioEditar.text(response.message || 'Erro ao editar as permissões.').show();
+                            }
+                        },
+                        error: function () {
+                            erroSumarioEditar.text('Erro inesperado ao contactar o servidor.').show();
+                        },
+                        complete: function() {
+                            btnSalvarEdicao.prop('disabled', false).text('Salvar Alterações');
+                        }
+                    });
+                });
+            }
+
+        });
+    </script>
+}
