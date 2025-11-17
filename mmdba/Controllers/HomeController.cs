@@ -22,7 +22,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text;
-// O 'using mmdba.Services;' foi removido pois o ITelegramService não é mais usado aqui.
+using Microsoft.AspNetCore.Http; // Para ter acesso ao HttpContext.Session
+using mmdba.Services; // <--- ADICIONE ESTE NAMESPACE (Para IOeeService)#endregion
 #endregion
 
 namespace mmdba.Controllers
@@ -46,7 +47,7 @@ namespace mmdba.Controllers
         /// </summary>
         private readonly ApplicationDbContext _context;
 
-        // A propriedade ITelegramService foi removida.
+        private readonly IOeeService _oeeService; // <--- PROPRIEDADE ADICIONADA
 
         // --- CONSTRUTOR ---
 
@@ -55,12 +56,13 @@ namespace mmdba.Controllers
         /// fornece automaticamente os serviços (logger, dbContext) aqui.
         /// </summary>
         public HomeController(ILogger<HomeController> logger,
-                              ApplicationDbContext context) // ITelegramService removido
+                                      ApplicationDbContext context,
+                                      IOeeService oeeService) // <--- CORRIGIDO: PARÂMETRO ADICIONADO AQUI
         {
             // Atribui os serviços injetados às propriedades privadas
             _logger = logger;
             _context = context;
-            // A atribuição do _telegramService foi removida.
+            _oeeService = oeeService;
         }
 
         // --- ACTIONS (PÁGINAS) ---
@@ -81,9 +83,15 @@ namespace mmdba.Controllers
         /// Exibe o painel de supervisão em tempo real.
         /// </summary>
         /// <returns>O arquivo de View (Views/Home/PainelSupervisao.cshtml)</returns>
-        public IActionResult PainelSupervisao()
+        public IActionResult PainelSupervisao(string maquina) // 1. Adicionamos o parâmetro "maquina"
         {
-            _logger.LogInformation("Usuário '{UserName}' acessou o Painel de Supervisão.", User.Identity?.Name);
+            // 2. Adicionamos a lógica para salvar na Sessão
+            if (!string.IsNullOrEmpty(maquina))
+            {
+                HttpContext.Session.SetString("SelectedMachineId", maquina);
+            }
+            _logger.LogInformation("Usuário '{UserName}' acessou o Painel de Supervisão da máquina {Maquina}.", User.Identity?.Name, maquina);
+            ViewData["Maquina"] = maquina;
             return View();
         }
 
@@ -108,6 +116,65 @@ namespace mmdba.Controllers
             _logger.LogInformation("Usuário '{UserName}' acessou o Painel de Alarmes da Enchedora.", User.Identity?.Name);
             return View();
         }
+
+
+        /// <summary>
+        /// Action para exibir o Painel de Análise de OEE (UC6).
+        /// </summary>
+        public async Task<IActionResult> PainelOEE(
+            DateTime? dataInicio,
+            DateTime? dataFim,
+            int? turnoId) // turnoId da URL (filtro)
+        {
+            // 1. Obter a máquina selecionada da Sessão
+            var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
+
+            if (string.IsNullOrEmpty(maquinaId))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // --- INÍCIO DA LÓGICA DE PERSISTÊNCIA DE TURNO (Passo 5.5 - Robusto) ---
+
+            int idParaUsar;
+
+            if (turnoId.HasValue)
+            {
+                // 1. Veio um ID da URL (o utilizador clicou em "Recalcular")
+                idParaUsar = turnoId.Value;
+                // Salva este novo ID na sessão
+                HttpContext.Session.SetInt32("SelectedTurnoId", idParaUsar);
+            }
+            else
+            {
+                // 2. Não veio ID da URL (F5, reload, ou veio de outro link)
+                // Tenta pegar da sessão. Se não existir, GetInt32() retorna null.
+                // Usamos '?? 0' para definir "Todos" (ID 0) como padrão.
+                idParaUsar = HttpContext.Session.GetInt32("SelectedTurnoId") ?? 0;
+            }
+
+            // Passa o ID (da URL ou da Sessão) para a View
+            ViewData["SelectedTurnoId"] = idParaUsar;
+
+            // --- FIM DA LÓGICA DE PERSISTÊNCIA ---
+
+            // 2. Definir o período padrão (ex: Hoje)
+            var inicio = dataInicio ?? DateTime.Today;
+            var fim = dataFim ?? DateTime.Today;
+
+            // 3. Chamar o serviço OEE (usando o idParaUsar)
+            var viewModel = await _oeeService.CalcularOEEAsync(
+                maquinaId,
+                inicio,
+                fim,
+                idParaUsar
+            );
+
+            // 4. Retornar a View com o ViewModel
+            return View(viewModel);
+        }
+
+
 
         // --- ACTIONS (RELATÓRIOS) ---
 
@@ -223,6 +290,42 @@ namespace mmdba.Controllers
             };
         }
 
+        /// <summary>
+        /// Action que retorna a lista de turnos cadastrados para a máquina na sessão (para filtros AJAX).
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> ObterTurnosMaquina()
+        {
+            var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
+
+            if (string.IsNullOrEmpty(maquinaId))
+            {
+                // Retorna 404 (Not Found) se não houver máquina selecionada
+                return NotFound();
+            }
+
+            try
+            {
+                // Busca os turnos no banco de dados
+                var turnos = await _context.Turnos
+                    .Where(t => t.MaquinaId == maquinaId) //
+                    .OrderBy(t => t.HoraInicio)
+                    .Select(t => new TurnoViewModel // Projeta para o modelo simplificado
+                    {
+                        Id = t.Id,
+                        Nome = t.Nome
+                    })
+                    .ToListAsync();
+
+                // Retorna a lista em JSON. O ASP.NET Core cuidará da serialização.
+                return Json(turnos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Falha ao obter lista de turnos para a máquina {Maquina}.", maquinaId);
+                return StatusCode(500, "Erro interno ao processar a requisição de turnos.");
+            }
+        }
 
         /*
         ================================================================================================
@@ -330,9 +433,6 @@ namespace mmdba.Controllers
                 return File(csvData, "text/csv", fileName);
             }
         }
-
-
-        // A ACTION de teste 'TesteTelegram()' foi removida.
 
 
         // --- ACTIONS PADRÃO (PRIVACY, ERROR) ---

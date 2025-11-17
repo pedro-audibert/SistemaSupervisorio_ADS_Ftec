@@ -1,0 +1,611 @@
+﻿@model ParametrosOEEViewModel
+@{
+    ViewData["Title"] = "Parâmetros OEE";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<div class="row">
+
+    <div class="col-md-3">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+                <a class="nav-link @(ViewData["ActivePage"] as string == "Usuarios" ? "active" : "")" asp-controller="Sistema" asp-action="Usuarios">Gestão de Usuários</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ViewData["ActivePage"] as string == "RegrasNotificacao" ? "active" : "")" asp-controller="Sistema" asp-action="RegrasNotificacao">Regras de Notificação</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ViewData["ActivePage"] as string == "ParametrosOEE" ? "active" : "")" asp-controller="Sistema" asp-action="ParametrosOEE">Parâmetros OEE</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-9">
+        <div id="erro-sumario-ajax-velocidade" class="alert alert-danger" role="alert" style="display: none;"></div>
+        <div id="erro-sumario-ajax-remover-turno" class="alert alert-danger" role="alert" style="display: none;"></div>
+        <div id="erro-sumario-ajax-remover-parada" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Passo 1: Definição de Tempo (Disponibilidade)</h5>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdicionarTurno">
+                    <i class="fas fa-plus"></i> Adicionar Turno
+                </button>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Configure os turnos de trabalho e as paradas planejadas (como almoço, café ou manutenções programadas) que ocorrem dentro deles.</p>
+                @if (!Model.Turnos.Any())
+                {
+                    <div class="alert alert-info">Nenhum turno cadastrado para esta máquina. Comece adicionando o primeiro turno.</div>
+                }
+                @foreach (var turno in Model.Turnos)
+                {
+                    <div class="card mb-3">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <strong>@turno.Nome (@turno.HoraInicio.ToString(@"hh\:mm") - @turno.HoraFim.ToString(@"hh\:mm"))</strong>
+                            <div>
+                                <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalAdicionarParada" data-turnoid="@turno.Id">
+                                    <i class="fas fa-plus"></i> Adicionar Parada
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger btn-remover-turno" data-bs-toggle="modal" data-bs-target="#modalRemoverTurno" data-turnoid="@turno.Id" data-turnonome="@turno.Nome">
+                                    <i class="fas fa-trash"></i> Remover Turno
+                                </button>
+                            </div>
+                        </div>
+                        @if (turno.ParadasPlanejadas.Any())
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var parada in turno.ParadasPlanejadas)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>@parada.Descricao (@parada.DuracaoMinutos min)</span>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-danger btn-remover-parada"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalRemoverParada"
+                                                data-paradaid="@parada.Id"
+                                                data-parada-descricao="@parada.Descricao">
+                                            <i class="fas fa-trash"></i> Remover
+                                        </button>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <div class="card-body text-muted">Nenhuma parada planejada para este turno.</div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Passo 2: Definição de Produção (Performance)</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Insira a velocidade que a máquina <strong>deveria</strong> atingir em operação normal (Garrafas por Hora).</p>
+                <form id="formSalvarVelocidade" asp-action="SalvarVelocidadeOEE" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="display:none;"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="VelocidadeIdealPorHora" class="form-label"></label>
+                                <div class="input-group">
+                                    <input asp-for="VelocidadeIdealPorHora" class="form-control" type="text" inputmode="numeric" />
+                                    <span class="input-group-text">Grf/Hr</span>
+                                </div>
+                                <span asp-validation-for="VelocidadeIdealPorHora" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar Velocidade</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0">Passo 3: Definição de Qualidade</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Habilite esta opção se desejar que os operadores possam lançar manualmente a contagem de refugo (peças ruins) na tela de supervisão.</p>
+
+                <div class="form-check form-switch fs-5">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           role="switch"
+                           id="HabilitarRefugoManual"
+                           name="HabilitarRefugoManual"
+                           @(Model.HabilitarRefugoManual ? "checked" : "")>
+                    <label class="form-check-label" for="HabilitarRefugoManual">Habilitar Lançamento Manual de Refugo</label>
+                </div>
+
+                <div id="erro-sumario-ajax-qualidade" class="alert alert-danger mt-3" role="alert" style="display: none;"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdicionarTurno" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formAdicionarTurno" asp-action="AdicionarTurnoOEE" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Novo Turno</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="erro-sumario-ajax-turno" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+                    <div class="form-group mb-3">
+                        <label for="InputTurno_Nome" class="form-label">Nome do Turno</label>
+                        <input id="InputTurno_Nome" name="InputTurno.Nome" class="form-control" type="text" />
+                        <span id="erro-InputTurno-Nome" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 form-group mb-3">
+                            <label for="InputTurno_HoraInicio" class="form-label">Hora de Início</label>
+                            <input id="InputTurno_HoraInicio" name="InputTurno.HoraInicio" class="form-control" type="time" />
+                            <span id="erro-InputTurno-HoraInicio" class="text-danger"></span>
+                        </div>
+                        <div class="col-6 form-group mb-3">
+                            <label for="InputTurno_HoraFim" class="form-label">Hora de Fim</label>
+                            <input id="InputTurno_HoraFim" name="InputTurno.HoraFim" class="form-control" type="time" />
+                            <span id="erro-InputTurno-HoraFim" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btnSalvarTurno" type="submit" class="btn btn-primary">Salvar Turno</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdicionarParada" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formAdicionarParada" asp-action="AdicionarParadaOEE" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="paradaTurnoId" name="InputParada.TurnoId" />
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Parada Planejada</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="erro-sumario-ajax-parada" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+                    <div class="form-group mb-3">
+                        <label for="InputParada_Descricao" class="form-label">Descrição da Parada</label>
+                        <input id="InputParada_Descricao" name="InputParada.Descricao" class="form-control" />
+                        <span id="erro-InputParada-Descricao" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="InputParada_DuracaoMinutos" class="form-label">Duração (em minutos)</label>
+                        <input id="InputParada_DuracaoMinutos" name="InputParada.DuracaoMinutos" class="form-control" type="number" min="1" />
+                        <span id="erro-InputParada-DuracaoMinutos" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btnSalvarParada" type="submit" class="btn btn-primary">Salvar Parada</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalRemoverTurno" tabindex="-1">
+    <div class="modal-dialog">
+        <form id="formRemoverTurno" asp-action="RemoverTurnoOEE" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="removerTurnoId" name="turnoId" />
+
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-exclamation-triangle"></i> Confirmar Remoção
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem a certeza que deseja remover permanentemente o turno?</p>
+                    <p><strong><span id="nomeTurnoParaRemover"></span></strong></p>
+                    <p class="text-danger"><i class="fas fa-info-circle"></i> Todas as paradas planejadas associadas a este turno também serão removidas.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btnConfirmarRemocaoTurno" type="submit" class="btn btn-danger">Confirmar Remoção</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="sucessoModal" tabindex="-1" aria-labelledby="sucessoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="sucessoModalLabel">
+                    <i class="fas fa-check-circle"></i> Sucesso
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="sucessoModalBody">Operação realizada com sucesso!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalRemoverParada" tabindex="-1">
+    <div class="modal-dialog">
+        <form id="formRemoverParada" asp-action="RemoverParadaOEE" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="paradaIdParaRemover" name="paradaId" />
+
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-exclamation-triangle"></i> Confirmar Remoção
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem a certeza que deseja remover permanentemente a parada?</p>
+                    <p><strong><span id="nomeParadaParaRemover"></span></strong></p>
+                    <p class="text-danger"><i class="fas fa-info-circle"></i> Esta ação não pode ser revertida.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btnConfirmarRemocaoParada" type="submit" class="btn btn-danger">Confirmar Remoção</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            // --- Variáveis (Corretas) ---
+            var form = $('#formSalvarVelocidade');
+            var erroSumario = $('#erro-sumario-ajax-velocidade');
+            var modalSucesso = $('#sucessoModal');
+            var btnSalvar = form.find('button[type="submit"]');
+            var inputVelocidade = $('#VelocidadeIdealPorHora');
+            var modalTurno = $('#modalAdicionarTurno');
+            var formTurno = $('#formAdicionarTurno');
+            var btnSalvarTurno = $('#btnSalvarTurno');
+            var erroSumarioTurno = $('#erro-sumario-ajax-turno');
+            var modalRemoverTurno = $('#modalRemoverTurno');
+            var formRemoverTurno = $('#formRemoverTurno');
+            var btnConfirmarRemocaoTurno = $('#btnConfirmarRemocaoTurno');
+            var erroSumarioRemoverTurno = $('#erro-sumario-ajax-remover-turno');
+
+            var modalRemoverParada = $('#modalRemoverParada');
+            var formRemoverParada = $('#formRemoverParada');
+            var btnConfirmarRemocaoParada = $('#btnConfirmarRemocaoParada');
+            var erroSumarioRemoverParada = $('#erro-sumario-ajax-remover-parada');
+
+            var modalParada = $('#modalAdicionarParada');
+            var formParada = $('#formAdicionarParada');
+            var btnSalvarParada = $('#btnSalvarParada');
+            var erroSumarioParada = $('#erro-sumario-ajax-parada');
+
+            var toggleRefugoManual = $('#HabilitarRefugoManual');
+            var erroSumarioQualidade = $('#erro-sumario-ajax-qualidade');
+            var token = $('input[name="__RequestVerificationToken"]').first().val();
+
+
+            // --- Lógica Salvar Velocidade ---
+            form.on('submit', function (e) {
+                e.preventDefault();
+                erroSumario.hide().empty();
+                btnSalvar.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Salvando...');
+
+                var valorDigitado = inputVelocidade.val();
+                var valorLimpo = String(valorDigitado).replace(/\./g, '');
+                inputVelocidade.val(valorLimpo);
+
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            $('#sucessoModalBody').text('Velocidade ideal salva com sucesso!');
+                            modalSucesso.modal('show');
+                        } else {
+                            erroSumario.text(response.message || 'Erro ao salvar. Verifique os dados.').show();
+                        }
+                    },
+                    error: function () {
+                        erroSumario.text('Erro de comunicação com o servidor.').show();
+                    },
+                    complete: function() {
+                        btnSalvar.prop('disabled', false).html('<i class="fas fa-save"></i> Salvar Velocidade');
+                        inputVelocidade.val(valorLimpo);
+                    }
+                });
+            });
+
+            // --- Lógica Modal Sucesso ---
+            modalSucesso.on('hidden.bs.modal', function () {
+                location.reload();
+            });
+
+            // --- Limpar modal de Turno ao abrir ---
+            modalTurno.on('show.bs.modal', function () {
+                formTurno[0].reset();
+                erroSumarioTurno.hide().empty();
+                formTurno.find('.text-danger').empty();
+            });
+
+            // ===== CORRIGIDO: Lógica para salvar Turno (AJAX) =====
+            formTurno.on('submit', function (e) {
+                e.preventDefault();
+
+                // Limpa erros antigos
+                erroSumarioTurno.hide().empty();
+                formTurno.find('.text-danger').empty();
+
+                // ===== VALIDAÇÃO: hora final > hora inicial =====
+                var horaInicio = $('#InputTurno_HoraInicio').val();
+                var horaFim = $('#InputTurno_HoraFim').val();
+
+                if (horaInicio && horaFim && horaFim <= horaInicio) {
+                    $('#erro-InputTurno-HoraFim').text('A hora de fim deve ser maior que a hora de início.');
+                    return;
+                }
+
+                btnSalvarTurno.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Salvando...');
+
+                $.ajax({
+                    type: "POST",
+                    url: formTurno.attr('action'),
+                    data: formTurno.serialize(),
+                    success: function (response) {
+                        console.log('Resposta do servidor:', response); // DEBUG
+
+                        if (response.success) {
+                            modalTurno.modal('hide');
+                            $('#sucessoModalBody').text('Turno adicionado com sucesso!');
+                            modalSucesso.modal('show');
+                        } else {
+                            // Trata erros de validação
+                            if (response.errors) {
+                                $.each(response.errors, function (key, messages) {
+                                    // key vem como "InputTurno.Nome", "InputTurno.HoraInicio", etc
+                                    // Precisamos remover "InputTurno." e adicionar "erro-InputTurno-"
+
+                                    // Remove o prefixo "InputTurno." se existir
+                                    var fieldName = key.replace('InputTurno.', '');
+
+                                    // Monta o spanId: #erro-InputTurno-Nome
+                                    var spanId = "#erro-InputTurno-" + fieldName;
+
+                                    console.log('Campo original:', key, '| Campo limpo:', fieldName, '| SpanId:', spanId, '| Erro:', messages[0]); // DEBUG
+                                    $(spanId).text(messages[0]);
+                                });
+                            }
+
+                            // Mostra erro geral se houver
+                            if (response.message) {
+                                erroSumarioTurno.text(response.message).show();
+                            }
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Erro AJAX:', status, error); // DEBUG
+                        erroSumarioTurno.text('Erro de comunicação com o servidor.').show();
+                    },
+                    complete: function() {
+                        btnSalvarTurno.prop('disabled', false).html('Salvar Turno');
+                    }
+                });
+            });
+
+
+            // 5. Lógica para PREENCHER o modal de Remoção de Turno
+            // (Padrão do 'btn-remover' do seu Usuarios.cshtml)
+            $(document).on('click', '.btn-remover-turno', function () {
+                var turnoId = $(this).data('turnoid');
+                var turnoNome = $(this).data('turnonome');
+
+                erroSumarioRemoverTurno.hide().empty(); // Limpa erros antigos
+
+                // Preenche os campos do modal
+                $('#removerTurnoId').val(turnoId);
+                $('#nomeTurnoParaRemover').text(turnoNome);
+            });
+
+            // 6. Lógica para SUBMETER a Remoção de Turno (AJAX)
+            // (Padrão do 'formRemover' do seu Usuarios.cshtml)
+            formRemoverTurno.on('submit', function (e) {
+                e.preventDefault();
+                btnConfirmarRemocaoTurno.prop('disabled', true).text('A Remover...');
+
+                $.ajax({
+                    type: "POST",
+                    url: formRemoverTurno.attr('action'),
+                    data: formRemoverTurno.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            modalRemoverTurno.modal('hide');
+                            $('#sucessoModalBody').text('Turno removido com sucesso!');
+                            modalSucesso.modal('show'); // Reutiliza o modal de sucesso
+                        } else {
+                            // Erro
+                            modalRemoverTurno.modal('hide');
+                            erroSumarioRemoverTurno.text(response.message || 'Erro ao remover o turno.').show();
+                        }
+                    },
+                    error: function () {
+                        modalRemoverTurno.modal('hide');
+                        erroSumarioRemoverTurno.text('Erro de comunicação com o servidor.').show();
+                    },
+                    complete: function() {
+                        btnConfirmarRemocaoTurno.prop('disabled', false).text('Confirmar Remoção');
+                    }
+                });
+            });
+
+            // --- ADICIONE OS DOIS BLOCOS DE CÓDIGO ABAIXO ---
+
+            // 7. Lógica para PREENCHER e LIMPAR o modal "Adicionar Parada"
+            modalParada.on('show.bs.modal', function (event) {
+                // Limpa o formulário (padrão Adicionar Turno)
+                formParada[0].reset();
+                erroSumarioParada.hide().empty();
+                formParada.find('.text-danger').empty();
+
+                // Pega o ID do turno do botão que foi clicado
+                var button = $(event.relatedTarget); // O botão verde <i class="fas fa-plus"></i>
+                var turnoId = button.data('turnoid'); // Lê o 'data-turnoid' do botão
+
+                // Define o valor no input oculto do formulário
+                $('#paradaTurnoId').val(turnoId);
+            });
+
+            // 8. Lógica para SUBMETER a "Adicionar Parada" (AJAX)
+            // (Padrão exato do 'formTurno.on('submit', ...)' )
+            formParada.on('submit', function (e) {
+                e.preventDefault();
+
+                erroSumarioParada.hide().empty();
+                formParada.find('.text-danger').empty();
+                btnSalvarParada.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Salvando...');
+
+                $.ajax({
+                    type: "POST",
+                    url: formParada.attr('action'),
+                    data: formParada.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            modalParada.modal('hide');
+                            $('#sucessoModalBody').text('Parada adicionada com sucesso!');
+                            modalSucesso.modal('show');
+                        } else {
+                            if (response.errors) {
+                                $.each(response.errors, function (key, messages) {
+                                    // Padrão "Adicionar Turno" (replace/re-add)
+                                    // key: "InputParada.Descricao" -> fieldName: "Descricao"
+                                    var fieldName = key.replace('InputParada.', '');
+                                    // spanId: "#erro-InputParada-Descricao"
+                                    var spanId = "#erro-InputParada-" + fieldName;
+                                    $(spanId).text(messages[0]);
+                                });
+                            } else {
+                                erroSumarioParada.text(response.message || 'Erro ao salvar a parada.').show();
+                            }
+                        }
+                    },
+                    error: function () {
+                        erroSumarioParada.text('Erro de comunicação com o servidor.').show();
+                    },
+                    complete: function() {
+                        btnSalvarParada.prop('disabled', false).html('Salvar Parada');
+                    }
+                });
+            });
+
+            // 7. Lógica para PREENCHER o modal de Remoção de Parada
+            $(document).on('click', '.btn-remover-parada', function () {
+                var paradaId = $(this).data('paradaid');
+                var paradaDescricao = $(this).data('parada-descricao');
+
+                erroSumarioRemoverParada.hide().empty();
+
+                $('#paradaIdParaRemover').val(paradaId);
+                $('#nomeParadaParaRemover').text(paradaDescricao);
+            });
+
+            // 8. Lógica para SUBMETER a Remoção de Parada (AJAX)
+            formRemoverParada.on('submit', function (e) {
+                e.preventDefault();
+                btnConfirmarRemocaoParada.prop('disabled', true).text('A Remover...');
+
+                $.ajax({
+                    type: "POST",
+                    url: formRemoverParada.attr('action'),
+                    data: formRemoverParada.serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            modalRemoverParada.modal('hide');
+                            $('#sucessoModalBody').text('Parada removida com sucesso!');
+                            modalSucesso.modal('show');
+                        } else {
+                            modalRemoverParada.modal('hide');
+                            erroSumarioRemoverParada.text(response.message || 'Erro ao remover a parada.').show();
+                        }
+                    },
+                    error: function () {
+                        modalRemoverParada.modal('hide');
+                        erroSumarioRemoverParada.text('Erro de comunicação com o servidor.').show();
+                    },
+                    complete: function() {
+                        btnConfirmarRemocaoParada.prop('disabled', false).text('Confirmar Remoção');
+                    }
+                });
+            });
+
+            // --- LÓGICA DE AUTO-SAVE DO PASSO 3 (QUALIDADE) ---
+            toggleRefugoManual.on('change', function () {
+                var isAtivo = $(this).is(':checked');
+
+                toggleRefugoManual.prop('disabled', true);
+                erroSumarioQualidade.hide().empty();
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SalvarConfigQualidade", "Sistema")',
+                    data: {
+                        __RequestVerificationToken: token,
+                        HabilitarRefugoManual: isAtivo
+                    },
+                    success: function (response) {
+                        if (!response.success) {
+                            // Falhou, desfaz o clique e mostra o erro
+                            toggleRefugoManual.prop('checked', !isAtivo);
+                            erroSumarioQualidade.text(response.message || 'Erro ao salvar.').show();
+                        }
+                    },
+                    error: function () {
+                        // Falhou, desfaz o clique e mostra o erro
+                        toggleRefugoManual.prop('checked', !isAtivo);
+                        erroSumarioQualidade.text('Erro de comunicação com o servidor.').show();
+                    },
+                    complete: function() {
+                        toggleRefugoManual.prop('disabled', false);
+                    }
+                });
+            });
+
+        }); // Fim do $(document).ready
+    </script>
+}

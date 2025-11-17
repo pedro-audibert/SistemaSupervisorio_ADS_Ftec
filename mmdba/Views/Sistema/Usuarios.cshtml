@@ -16,7 +16,7 @@
             <li class="nav-item">
                 <a class="nav-link @(ViewData["ActivePage"] as string == "RegrasNotificacao" ? "active" : "")" asp-controller="Sistema" asp-action="RegrasNotificacao">Regras de Notificação</a>
             </li>
-            <li class="nav-item"><a class="nav-link disabled" id="oee" href="#">Parâmetros de OEE</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Sistema" asp-action="ParametrosOEE">Parâmetros OEE</a></li>
         </ul>
     </div>
 

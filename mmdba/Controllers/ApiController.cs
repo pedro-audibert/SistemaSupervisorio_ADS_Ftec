@@ -9,6 +9,7 @@ FUNÇÃO: Fornece endpoints da API para receber dados em tempo real da Rotulador
 */
 
 #region NAMESPACES
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore; // Para FirstOrDefaultAsync

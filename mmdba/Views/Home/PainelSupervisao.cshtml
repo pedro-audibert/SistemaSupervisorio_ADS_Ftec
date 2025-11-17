@@ -472,21 +472,23 @@
 
 
 
-                // Tenta conectar a todos os hubs.
+        try {
+                            await Promise.all(Object.values(hubs).map(hub => hub.start()));
 
-                try {
+                            // CORREÇÃO: Altera a classe para 'alert-success' (verde) no sucesso
+                            if(statusConexaoElement) {
+                                statusConexaoElement.className = "alert alert-success alert-status text-center";
+                                statusConexaoElement.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
+                            }
+                        } catch (err) {
+                            console.error(`Falha ao conectar nos hubs:`, err);
 
-                    await Promise.all(Object.values(hubs).map(hub => hub.start()));
-
-                    if(statusConexaoElement) statusConexaoElement.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
-
-                } catch (err) {
-
-                    console.error(`Falha ao conectar nos hubs:`, err);
-
-                    if(statusConexaoElement) statusConexaoElement.textContent = "Falha na conexão.";
-
-                }
+                            // CORREÇÃO: Altera a classe para 'alert-danger' (vermelho) no erro
+                            if(statusConexaoElement) {
+                                statusConexaoElement.className = "alert alert-danger alert-status text-center";
+                                statusConexaoElement.textContent = "Falha na conexão.";
+                            }
+                        }
 
             }
 

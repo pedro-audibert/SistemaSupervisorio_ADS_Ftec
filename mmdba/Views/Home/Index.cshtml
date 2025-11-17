@@ -30,11 +30,13 @@ FUNÇÃO: Criei esta página para ser o portal principal da aplicação.
 
             <div class="col">
                 <div class="card h-100 shadow-sm card-hover">
-                    <a asp-controller="Home" asp-action="PainelSupervisao">
+
+                    <a asp-controller="Home" asp-action="PainelSupervisao" asp-route-maquina="Rotuladora">
                         <img src="~/images/icone_rotuladora.png" class="card-img-top" alt="Rotuladora">
                     </a>
                     <div class="card-footer bg-transparent border-top-0">
-                        <a asp-controller="Home" asp-action="PainelSupervisao" class="btn btn-primary w-100">Acessar Painel</a>
+
+                        <a asp-controller="Home" asp-action="PainelSupervisao" asp-route-maquina="Rotuladora" class="btn btn-primary w-100">Acessar Painel</a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,751 @@
+﻿@*
+=========================================================================================================
+ARQUIVO: Views/Home/PainelOEE.cshtml (UC6 - ANÁLISE OEE) - VERSÃO CORRIGIDA
+FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automática funcional
+=========================================================================================================
+*@
+@{
+    ViewData["Title"] = "Painel OEE";
+    ViewData["ActivePage"] = "OEE";
+    Layout = "_Layout";
+}
+@model mmdba.Models.AnaliseOEEViewModel
+@using System.Globalization
+
+<style>
+    .card {
+        border-width: 2px !important;
+    }
+
+    .card-header {
+        border-bottom-width: 2px !important;
+    }
+
+    .card-body label {
+        padding-right: 0.75rem;
+    }
+
+    .card-body hr {
+        border: 0;
+        border-top: 2px solid rgba(0, 0, 0, 0.1);
+        width: 100%;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .gauge {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+    }
+
+        .gauge .dial {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .gauge .fill {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .gauge .cover {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            height: 75%;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+            .gauge .cover small {
+                font-size: 1.2rem;
+                font-weight: normal;
+            }
+</style>
+
+<div class="container-fluid my-4">
+
+    <h1 class="mb-3 text-center">Análise de OEE</h1>
+    <p class="text-center text-muted">Acompanhe a Eficiência Global do Equipamento (OEE) e as maiores perdas no período da máquina.</p>
+
+    @* Card de Status de Conexão (Informativo) *@
+    <div id="statusConexao" class="alert alert-info alert-status text-center">
+        Conectando ao servidor...
+    </div>
+
+    @* Card de Status da Máquina (Tempo Real) *@
+    <div id="statusMaquina" class="alert alert-secondary alert-status text-center mb-4">Carregando...</div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-11">
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-lg-6 d-flex">
+                    <div class="card card-outline card-primary w-100 border-secondary">
+                        <div class="card-header fw-bold">
+                            <i class="fas fa-calendar-alt"></i> Filtros
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <form id="oeeFilterForm" class="d-flex flex-column align-items-center w-100">
+                                <div class="row mb-3 justify-content-center w-100">
+                                    <div class="col-auto d-flex align-items-center px-3 mb-2">
+                                        <label for="dataInicio" class="mb-0">De:</label>
+                                        <input type="date" id="dataInicio" name="dataInicio" class="form-control" value="@Model.DataInicio.ToString("yyyy-MM-dd")" style="width: 150px;" />
+                                    </div>
+                                    <div class="col-auto d-flex align-items-center px-3 mb-2">
+                                        <label for="dataFim" class="mb-0">Até:</label>
+                                        <input type="date" id="dataFim" name="dataFim" class="form-control" value="@Model.DataFim.ToString("yyyy-MM-dd")" style="width: 150px;" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4 justify-content-center w-100">
+                                    <div class="col-md-auto d-flex align-items-center">
+                                        <label for="turnoSelect" class="mb-0">Turno:</label>
+                                        <select class="form-select" id="turnoSelect" name="turnoId" style="width: auto;">
+                                            <option value="0">Todos</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center w-100">
+                                    <div class="col-md-auto">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-redo"></i> Recalcular
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-flex">
+                    <div class="card card-outline card-secondary w-100 border-secondary">
+                        <div class="card-header fw-bold">
+                            <i class="fas fa-sliders-h"></i> Controles
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <div class="form-group d-flex justify-content-between align-items-center mb-3 w-100" style="max-width: 350px;">
+                                <label for="refreshRate" class="text-muted mb-0">Atualização Automática (Min):</label>
+                                <input type="number" id="refreshRate" name="refreshRate" class="form-control text-center" style="width: 80px;" value="@Model.TaxaAtualizacaoMinutos" min="1" max="60" title="Tempo de atualização automática do painel." />
+                            </div>
+
+                            <hr class="my-3" />
+
+                            @if (Model.HabilitarRefugoManual)
+                            {
+                                <form id="refugoManualForm" class="d-flex flex-column align-items-center w-100">
+                                    <p class="mb-3 text-muted">Lançamento Manual Refugo:</p>
+                                    <div class="d-flex justify-content-center w-100">
+                                        <input type="number" id="refugoManualQtd" name="refugoManualQtd" class="form-control text-center" placeholder="Qtd. Refugo" required style="width: 150px; margin-right: 1rem;" />
+
+                                        <button type="submit" class="btn btn-secondary" style="margin-right: 0.5rem;">
+                                            <i class="fas fa-plus-circle"></i> Lançar
+                                        </button>
+
+                                        <button type="button" id="btnCorrigirRefugo" class="btn btn-warning">
+                                            <i class="fas fa-edit"></i> Corrigir
+                                        </button>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
+                                <div class="alert alert-secondary mb-0 p-2 text-center small w-100" style="max-width: 350px;">
+                                    Lançamento de Refugo Manual Desabilitado.
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-md-3 d-flex">
+                    <div class="card w-100 border-secondary">
+                        <div class="card-header bg-success text-white fw-bold text-center">OEE Global</div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-3">
+                            <div id="oeeGauge" class="gauge">
+                                <div class="dial">
+                                    <div class="fill"></div>
+                                    <div class="cover">
+                                        <span id="valorOeeAtual">@Model.OEE.ToString("N1")</span>
+                                        <small>%</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-muted small mt-2">Eficiência total.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 d-flex">
+                    <div class="card w-100 border-secondary">
+                        <div class="card-header bg-info text-white fw-bold text-center">Disponibilidade (A)</div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-3">
+                            <div id="disponibilidadeGauge" class="gauge">
+                                <div class="dial">
+                                    <div class="fill"></div>
+                                    <div class="cover">
+                                        <span id="valorDisponibilidadeAtual">@Model.Disponibilidade.ToString("N1")</span>
+                                        <small>%</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-muted small mt-2">Fator de tempo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 d-flex">
+                    <div class="card w-100 border-secondary">
+                        <div class="card-header bg-warning text-dark fw-bold text-center">Performance (P)</div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-3">
+                            <div id="performanceGauge" class="gauge">
+                                <div class="dial">
+                                    <div class="fill"></div>
+                                    <div class="cover">
+                                        <span id="valorPerformanceAtual">@Model.Performance.ToString("N1")</span>
+                                        <small>%</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-muted small mt-2">Fator de velocidade.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 d-flex">
+                    <div class="card w-100 border-secondary">
+                        <div class="card-header bg-danger text-white fw-bold text-center">Qualidade (Q)</div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-3">
+                            <div id="qualidadeGauge" class="gauge">
+                                <div class="dial">
+                                    <div class="fill"></div>
+                                    <div class="cover">
+                                        <span id="valorQualidadeAtual">@Model.Qualidade.ToString("N1")</span>
+                                        <small>%</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-muted small mt-2">Fator de refugo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-lg-6 d-flex">
+                    <div class="card card-info card-outline w-100 border-secondary">
+                        <div class="card-header fw-bold">
+                            <i class="fas fa-stopwatch"></i> Balanço de Tempo Operacional
+                        </div>
+                        <div class="card-body">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-8 text-primary">Tempo de Carga (Total)</dt>
+                                <dd class="col-sm-4 text-primary">@(Model.TempoCarga.ToString(@"hh\:mm\:ss"))</dd>
+
+                                @{
+                                    var paradasPlanejadas = Model.TempoCarga - Model.TempoOperacionalPlanejado;
+                                }
+                                <dt class="col-sm-8 text-muted">Paradas Planejadas</dt>
+                                <dd class="col-sm-4 text-muted">@(paradasPlanejadas.ToString(@"hh\:mm\:ss"))</dd>
+
+                                <hr class="my-3" />
+                                <dt class="col-sm-8 text-danger">Perda por Falhas/Alarmes</dt>
+                                <dd class="col-sm-4 text-danger">@(Model.TempoParadasNaoPlanejadas.ToString(@"hh\:mm\:ss"))</dd>
+
+                                <dt class="col-sm-8 text-warning">Perda por Ajustes/Setup Não Planejado</dt>
+                                <dd class="col-sm-4 text-warning">@(Model.TempoParadasAguardando.ToString(@"hh\:mm\:ss"))</dd>
+
+                                @{
+                                    // CORREÇÃO: Tempo Líquido = TempoCarga - ParadasPlanejadas - Alarmes
+                                    // (Avisos NÃO reduzem o tempo líquido, são apenas indicativos)
+                                    var tempoLiquido = Model.TempoCarga - paradasPlanejadas - Model.TempoParadasNaoPlanejadas;
+                                    if (tempoLiquido < TimeSpan.Zero) tempoLiquido = TimeSpan.Zero;
+                                }
+                                <dt class="col-sm-8 text-success font-weight-bold">Tempo de Operação Líquido</dt>
+                                <dd class="col-sm-4 text-success font-weight-bold">@(tempoLiquido.ToString(@"hh\:mm\:ss"))</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-flex">
+                    <div class="card card-warning card-outline w-100 border-secondary">
+                        <div class="card-header fw-bold">
+                            <i class="fas fa-cubes"></i> Balanço de Produção e Refugo
+                        </div>
+                        <div class="card-body">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-8 text-primary">Produção Ideal (Potencial)</dt>
+                                <dd class="col-sm-4 text-primary">@Model.ContagemIdeal.ToString("N0")</dd>
+
+                                <hr class="my-3" />
+                                @{
+                                    var perdaVelocidade = Math.Max(0, Model.ContagemIdeal - Model.ContagemTotal);
+                                }
+                                <dt class="col-sm-8 text-warning">Perda por Velocidade Reduzida</dt>
+                                <dd class="col-sm-4 text-warning">@perdaVelocidade.ToString("N0")</dd>
+
+                                <dt class="col-sm-8 text-danger">Refugo por Qualidade</dt>
+                                <dd class="col-sm-4 text-danger">@Model.RefugoQualidade.ToString("N0")</dd>
+
+                                @{
+                                    var producaoValida = Math.Max(0, Model.ContagemTotal - Model.RefugoQualidade);
+                                }
+                                <dt class="col-sm-8 text-success font-weight-bold">Produção Válida (Líquida)</dt>
+                                <dd class="col-sm-4 text-success font-weight-bold">@producaoValida.ToString("N0")</dd>
+                            </dl>
+                            <hr class="my-3" />
+                            <p class="text-muted">Parâmetro de Velocidade Ideal: <span class="text-dark fw-bold">@Model.VelocidadeIdealPorHora.ToString("N0") Garrafas/Hora</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-danger card-outline border-secondary">
+                        <div class="card-header fw-bold">
+                            <i class="fas fa-list-ol"></i> Top 5 Causas de Parada Não Planejada
+                        </div>
+                        <div class="card-body">
+                            @if (Model.PerdasNaoPlanejadas.Any())
+                            {
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Código / Descrição do Evento</th>
+                                            <th>Tempo Total Parado</th>
+                                            <th>Frequência</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Math.Min(5, Model.PerdasNaoPlanejadas.Count); i++)
+                                        {
+                                            var perda = Model.PerdasNaoPlanejadas[i];
+                                            <tr>
+                                                <td>@(i + 1)</td>
+                                                <td><strong>@perda.CodigoEvento</strong> - @perda.Descricao</td>
+                                                <td>@(perda.TempoTotalParado.ToString(@"hh\:mm\:ss"))</td>
+                                                <td>@perda.Frequencia</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <div class="alert alert-success text-center mb-0">
+                                    <i class="fas fa-check-circle"></i> Nenhuma parada não planejada relevante registrada neste período.
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalConfirmacaoStatus" tabindex="-1" aria-labelledby="modalConfirmacaoStatusLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" id="modalHeaderConfirmacao">
+                <h5 class="modal-title" id="modalConfirmacaoStatusLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body" id="modalBodyConfirmacao">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="modalBotaoAcao">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            // -----------------------------------------------------
+            // 0. VARIÁVEIS DE STATUS (ADICIONADAS)
+            // -----------------------------------------------------
+            const statusDiv = document.getElementById("statusConexao");
+            const statusMaquinaElement = document.getElementById("statusMaquina");
+
+            // -----------------------------------------------------
+            // 0. INICIALIZAÇÃO (Existente)
+            // -----------------------------------------------------
+            carregarTurnos();
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Inicializa Gauges
+            function inicializarGaugeOEE(gaugeId, valor, cor) {
+                // ... (Função Gauge omitida por brevidade, mas deve existir aqui) ...
+                const dialElement = document.getElementById(gaugeId)?.querySelector(".dial");
+                const valorElement = document.getElementById(gaugeId)?.querySelector(".dial span");
+                if (!dialElement || !valorElement) return;
+
+                const max = 100;
+                let valorNumerico = Math.min(Math.max(Number(valor) || 0, 0), max);
+
+                const prop = valorNumerico / max;
+                const angulo = prop * 270;
+
+                valorElement.textContent = String(valorNumerico.toFixed(1));
+
+                const fill = dialElement.querySelector(".fill");
+
+                if (fill) {
+                    fill.style.background = `conic-gradient(from -135deg, ${cor} ${angulo}deg, #f0f0f0 ${angulo}deg 270deg)`;
+                    fill.style.filter = `drop-shadow(0 0 4px ${cor})`;
+                }
+
+                dialElement.style.boxShadow = `inset 0px 10px 15px -3px rgba(0,0,0,0.2), inset 0px 4px 6px -2px rgba(0,0,0,0.15), 0 0 12px -2px ${cor}`;
+                valorElement.style.color = cor;
+            }
+
+            const coresGauges = {
+                'oeeGauge': '#28a745',
+                'disponibilidadeGauge': '#17a2b8',
+                'performanceGauge': '#ffc107',
+                'qualidadeGauge': '#dc3545'
+            };
+
+            inicializarGaugeOEE('oeeGauge', @(Model.OEE.ToString(CultureInfo.InvariantCulture)), coresGauges.oeeGauge);
+            inicializarGaugeOEE('disponibilidadeGauge', @(Model.Disponibilidade.ToString(CultureInfo.InvariantCulture)), coresGauges.disponibilidadeGauge);
+            inicializarGaugeOEE('performanceGauge', @(Model.Performance.ToString(CultureInfo.InvariantCulture)), coresGauges.performanceGauge);
+            inicializarGaugeOEE('qualidadeGauge', @(Model.Qualidade.ToString(CultureInfo.InvariantCulture)), coresGauges.qualidadeGauge);
+
+            // Inicia a conexão SignalR para status
+            iniciarConexaoSignalR();
+
+
+            // -----------------------------------------------------
+            // FUNÇÃO AUXILIAR: EXIBIR MODAL DE STATUS (SUCESSO/ERRO)
+            // -----------------------------------------------------
+            function exibirModalStatus(success, message) {
+                const modal = new bootstrap.Modal(document.getElementById('modalConfirmacaoStatus'));
+                const header = $('#modalHeaderConfirmacao');
+                const title = $('#modalConfirmacaoStatusLabel');
+                const body = $('#modalBodyConfirmacao');
+                const button = $('#modalBotaoAcao');
+
+                header.removeClass('bg-success bg-danger').addClass(success ? 'bg-success text-white' : 'bg-danger text-white');
+                title.html(success ? '<i class="fas fa-check-circle"></i> Sucesso' : '<i class="fas fa-exclamation-triangle"></i> Erro');
+                body.html('<p>' + message + '</p>');
+
+                button.removeClass('btn-success btn-danger').addClass(success ? 'btn-success' : 'btn-danger').text('OK');
+
+                button.off('click');
+
+                if (success) {
+                    button.on('click', function() {
+                        window.location.reload(true);
+                    });
+                }
+
+                modal.show();
+            }
+
+
+            // -----------------------------------------------------
+            // FUNÇÃO: Carregar e popular a lista de turnos
+            // -----------------------------------------------------
+            async function carregarTurnos() {
+                try {
+                    const response = await fetch('@Url.Action("ObterTurnosMaquina", "Home")');
+
+                    if (!response.ok) {
+                        console.warn("Não foi possível carregar a lista de turnos. Status:", response.status);
+                        return;
+                    }
+
+                    const turnos = await response.json();
+                    const turnoSelect = $('#turnoSelect');
+                    const turnoIdParam = "@(ViewData["SelectedTurnoId"] ?? 0)";
+                    if (turnos && turnos.length > 0) {
+                        turnos.forEach(turno => {
+                            // Compara o ID do turno (string) com o ID salvo (string)
+                            const isSelected = turnoIdParam === turno.id.toString();
+                            turnoSelect.append(new Option(turno.nome, turno.id, isSelected, isSelected));
+                        });
+                    }
+
+                } catch (error) {
+                    console.error("Erro fatal ao carregar turnos:", error);
+                }
+            }
+
+
+            // -----------------------------------------------------
+            // 4. LÓGICA DE ATUALIZAÇÃO AUTOMÁTICA (CORRIGIDA)
+            // -----------------------------------------------------
+            function autoRefresh() {
+                var rate = parseInt($('#refreshRate').val()); // Lê o valor atual (persistido ou 10)
+                if (rate && rate > 0) {
+                    var ms = rate * 60 * 1000;
+                    setTimeout(function() {
+                        // Apenas recarrega a página. O Controller (backend)
+                        // usará o valor salvo na Sessão.
+                        window.location.reload(true);
+                    }, ms);
+                }
+            }
+            autoRefresh();
+
+
+            // NOVO LISTENER: AUTO-SAVE DO VALOR DE ATUALIZAÇÃO
+            $('#refreshRate').on('change', function() {
+                var newRate = parseInt($(this).val());
+
+                if (isNaN(newRate) || newRate <= 0) {
+                    exibirModalStatus(false, 'A taxa de atualização deve ser um número inteiro maior que 0.');
+                    // Volta para o valor que veio do Model se for inválido
+                    $('#refreshRate').val(@Model.TaxaAtualizacaoMinutos);
+                    return;
+                }
+
+                // Envia o novo valor para o backend
+                $.ajax({
+                    url: '@Url.Action("SalvarTaxaAtualizacaoOEE", "Sistema")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    // Enviamos o valor bruto como JSON (o controller espera o int)
+                    data: JSON.stringify(newRate),
+                    success: function(response) {
+                        // Apenas loga no console para auto-save discreto
+                        console.log(response.message);
+                    },
+                    error: function(xhr) {
+                        // Exibe erro se a validação falhar (ex: valor zero)
+                        var responseMessage = xhr.responseJSON?.message || 'Erro ao salvar taxa.';
+                        exibirModalStatus(false, responseMessage);
+                    }
+                });
+            });
+
+
+            // -----------------------------------------------------
+            // 5. LISTENERS DE REFUGO E FILTROS (MANTIDOS)
+            // -----------------------------------------------------
+            $('#oeeFilterForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var dataInicio = $('#dataInicio').val();
+                var dataFim = $('#dataFim').val();
+                var turnoId = $('#turnoSelect').val();
+                var refreshRate = $('#refreshRate').val(); // Inclui a taxa atual
+
+                if (!dataInicio || !dataFim) {
+                    exibirModalStatus(false, 'Por favor, selecione as datas de Início e Fim.');
+                    return;
+                }
+
+                var url = '@Url.Action("PainelOEE", "Home")' +
+                          '?dataInicio=' + dataInicio +
+                          '&dataFim=' + dataFim +
+                          '&turnoId=' + turnoId +
+                          '&refreshRate=' + refreshRate; // MANTÉM A TAXA APÓS RECALCULAR
+
+                window.location.href = url;
+            });
+
+            function enviarRefugo(quantidade) {
+                var maquinaId = '@Model.MaquinaId';
+
+                if (quantidade === 0) {
+                    exibirModalStatus(false, 'A quantidade lançada/corrigida deve ser diferente de zero.');
+                    return;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("LancarRefugoManual", "Sistema")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    data: JSON.stringify({
+                        MaquinaId: maquinaId,
+                        Quantidade: quantidade,
+                        Timestamp: new Date().toISOString()
+                    }),
+                    success: function(response) {
+                        exibirModalStatus(true, response.message + ' O painel será atualizado.');
+                        $('#refugoManualQtd').val('');
+                    },
+                    error: function(xhr) {
+                        var responseMessage = 'Ocorreu um erro desconhecido. (Status: ' + xhr.status + ').';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            responseMessage = xhr.responseJSON.message;
+                        } else if (xhr.status === 400) {
+                            responseMessage = 'Requisição inválida. Verifique os dados de entrada.';
+                        }
+
+                        exibirModalStatus(false, responseMessage);
+                    }
+                });
+            }
+
+            // 5.1 Listener para o botão LANÇAR (submit do formulário)
+            $('#refugoManualForm').on('submit', function(e) {
+                e.preventDefault();
+                var refugoQtd = parseFloat($('#refugoManualQtd').val());
+
+                if (isNaN(refugoQtd)) {
+                     exibirModalStatus(false, 'Insira um valor numérico válido.');
+                    return;
+                }
+
+                if (refugoQtd <= 0) {
+                    exibirModalStatus(false, 'Para Lançamento (botão Lançar), insira um valor positivo. Use o botão Corrigir para descontar.');
+                    return;
+                }
+
+                enviarRefugo(refugoQtd);
+            });
+
+            // 5.2 Listener para o botão CORRIGIR (clique no botão separado)
+            $('#btnCorrigirRefugo').on('click', function(e) {
+                e.preventDefault();
+                var refugoQtdRaw = parseFloat($('#refugoManualQtd').val());
+
+                if (isNaN(refugoQtdRaw)) {
+                     exibirModalStatus(false, 'Insira um valor numérico válido.');
+                    return;
+                }
+
+                var absQtd = Math.abs(refugoQtdRaw);
+
+                if (absQtd === 0) {
+                     exibirModalStatus(false, 'A quantidade de correção deve ser diferente de zero.');
+                    return;
+                }
+
+                if (refugoQtdRaw > 0) {
+                    exibirModalStatus(false, 'Para Corrigir/Descontar, o valor deve ser negativo ou zero. Use o botão "Lançar" para adicionar.');
+                    return;
+                }
+
+                enviarRefugo(refugoQtdRaw);
+            });
+
+        }); // Fim do $(document).ready
+
+        // -----------------------------------------------------
+        // 6. FUNÇÕES DE STATUS DA MÁQUINA (ADICIONADAS)
+        // -----------------------------------------------------
+
+        // Carrega o último status conhecido da máquina (para que a tela não comece vazia)
+        async function carregarUltimoStatus() {
+            try {
+                const response = await fetch('/api/dashboard/rotuladora/status/ultimo');
+                if (response.ok) {
+                    const ultimoStatus = await response.json();
+                    atualizarPainelStatus(ultimoStatus);
+                }
+            } catch (error) {
+                console.error("Erro ao carregar último status:", error);
+                atualizarPainelStatus({ valor: "Status Desconhecido", codigoEvento: "statusNOT" });
+            }
+        }
+
+        // Atualiza o painel de status da máquina (chamado pelo SignalR)
+        function atualizarPainelStatus(ultimoStatus) {
+            const statusMaquinaEl = document.getElementById("statusMaquina");
+            if (!statusMaquinaEl || !ultimoStatus) return;
+            statusMaquinaEl.textContent = ultimoStatus.valor;
+            atualizarCorStatusMaquina(ultimoStatus.codigoEvento);
+        }
+
+        // Atualiza a cor (classe CSS) do painel de status
+        function atualizarCorStatusMaquina(codigoEvento) {
+            const statusMaquinaEl = document.getElementById("statusMaquina");
+            if (!statusMaquinaEl) return;
+            // Limpa classes antigas e mantém as classes base (mb-4)
+            statusMaquinaEl.className = 'alert alert-status text-center mb-4';
+            switch (codigoEvento) {
+                case "statusAutomatico": statusMaquinaEl.classList.add('alert-success'); break;
+                case "statusManual":     statusMaquinaEl.classList.add('alert-primary'); break;
+                case "statusDesativada": statusMaquinaEl.classList.add('alert-danger'); break;
+                default:                 statusMaquinaEl.classList.add('alert-secondary'); break;
+            }
+        }
+
+        // -----------------------------------------------------
+        // 7. SIGNALR (ADICIONADO E ADAPTADO)
+        // -----------------------------------------------------
+        async function iniciarConexaoSignalR() {
+            const statusConexaoEl = document.getElementById("statusConexao");
+
+            // Conecta apenas ao hub de Status
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/statusHub")
+                .withAutomaticReconnect()
+                .build();
+
+            connection.onreconnecting(() => {
+                if (statusConexaoEl) {
+                    statusConexaoEl.className = "alert alert-warning alert-status text-center";
+                    statusConexaoEl.textContent = "Conexão perdida. Tentando reconectar…";
+                }
+            });
+
+            connection.onreconnected(() => {
+                if (statusConexaoEl) {
+                    statusConexaoEl.className = "alert alert-success alert-status text-center";
+                    statusConexaoEl.textContent = "Reconectado com sucesso!";
+                }
+            });
+
+            // Recebe eventos de status
+            connection.on("postStatus", atualizarPainelStatus);
+
+            try {
+                await connection.start();
+                if (statusConexaoEl) {
+                    statusConexaoEl.className = "alert alert-success alert-status text-center";
+                    statusConexaoEl.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
+                }
+
+                // Carrega o status inicial após conectar
+                carregarUltimoStatus();
+
+            } catch (err) {
+                console.error("Falha na conexão com o statusHub:", err);
+                if (statusConexaoEl) {
+                    statusConexaoEl.className = "alert alert-danger alert-status text-center";
+                    statusConexaoEl.textContent = "Falha na conexão.";
+                }
+            }
+        }
+    </script>
+}

@@ -64,6 +64,9 @@ builder.Services.Configure<mmdba.Models.TelegramSettings>(builder.Configuration.
 // --- Regista o Serviço Telegram (Singleton) ---
 builder.Services.AddSingleton<mmdba.Services.ITelegramService, mmdba.Services.TelegramService>();
 
+// --- Regista o Serviço OEE (Scoped) ---
+builder.Services.AddScoped<mmdba.Services.IOeeService, mmdba.Services.OeeService>();
+
 // --- 3. MVC E RAZOR PAGES COM LOCALIZAÇÃO ---
 var mvcBuilder = builder.Services.AddControllersWithViews()
     .AddViewLocalization();
