@@ -3,80 +3,67 @@
   "WorkspaceRootPath": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\home\\painelsupervisao.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\home\\painelsupervisao.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\home\\paineloee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\home\\paineloee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\home\\painelalarmes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\home\\painelalarmes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\services\\ioeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\services\\ioeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\models\\analiseoeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\models\\analiseoeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\services\\oeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\services\\oeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\sistema\\parametrosoee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\sistema\\parametrosoee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\controllers\\sistemacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\controllers\\sistemacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\models\\parametrosoeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\models\\parametrosoeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\controllers\\sistemacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\controllers\\sistemacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\models\\refugomanualapimodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\models\\refugomanualapimodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\sistema\\parametrosoee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\sistema\\parametrosoee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\migrations\\20251116211047_taxaatualizacaotooeeparametros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\migrations\\20251116211047_taxaatualizacaotooeeparametros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\home\\paineloee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\home\\paineloee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\home\\painelsupervisao.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\home\\painelsupervisao.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\models\\entidades\\oeeparametrosmaquina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\models\\entidades\\oeeparametrosmaquina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\home\\painelalarmes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\home\\painelalarmes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\models\\turnoviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\models\\turnoviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pedro Audibert\\AppData\\Roaming\\Microsoft\\UserSecrets\\c153369d-4dd0-4e77-96c0-3e594016a7cc\\secrets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\controllers\\apicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\controllers\\apicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\services\\oeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\services\\oeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\models\\analiseoeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\models\\analiseoeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\views\\home\\painelmanutencao.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\views\\home\\painelmanutencao.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|c:\\users\\pedro audibert\\documents\\pedro audibert\\ftec - ads\\ads_ead_m\u00F3dulo 17\\projeto empreendedor 1\\sistemasupervisorio\\mmdba\\models\\parametrosoeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0835DF49-D8C5-4E1A-8CC4-1406D00B24CB}|mmdba\\mmdba.csproj|solutionrelative:mmdba\\models\\parametrosoeeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -86,254 +73,200 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IOeeService.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Services\\IOeeService.cs",
-              "RelativeDocumentMoniker": "mmdba\\Services\\IOeeService.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Services\\IOeeService.cs",
-              "RelativeToolTip": "mmdba\\Services\\IOeeService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T17:27:28.212Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PainelAlarmes.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelAlarmes.cshtml",
-              "RelativeDocumentMoniker": "mmdba\\Views\\Home\\PainelAlarmes.cshtml",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelAlarmes.cshtml",
-              "RelativeToolTip": "mmdba\\Views\\Home\\PainelAlarmes.cshtml",
-              "ViewState": "AgIAAAECAAAAAAAAAAAswBkCAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-16T17:53:21.583Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PainelOEE.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelOEE.cshtml",
-              "RelativeDocumentMoniker": "mmdba\\Views\\Home\\PainelOEE.cshtml",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelOEE.cshtml",
-              "RelativeToolTip": "mmdba\\Views\\Home\\PainelOEE.cshtml",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAMwF8AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-16T17:19:01.917Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "OeeService.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Services\\OeeService.cs",
-              "RelativeDocumentMoniker": "mmdba\\Services\\OeeService.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Services\\OeeService.cs",
-              "RelativeToolTip": "mmdba\\Services\\OeeService.cs",
-              "ViewState": "AgIAABYBAAAAAAAAAAAuwCgBAAByAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T17:28:02.432Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "PainelSupervisao.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelSupervisao.cshtml",
-              "RelativeDocumentMoniker": "mmdba\\Views\\Home\\PainelSupervisao.cshtml",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelSupervisao.cshtml",
-              "RelativeToolTip": "mmdba\\Views\\Home\\PainelSupervisao.cshtml",
-              "ViewState": "AgIAANcBAAAAAAAAAAAEwOcBAAAwAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "mmdba\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "mmdba\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-16T17:53:16.844Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AnaliseOEEViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\AnaliseOEEViewModel.cs",
-              "RelativeDocumentMoniker": "mmdba\\Models\\AnaliseOEEViewModel.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\AnaliseOEEViewModel.cs",
-              "RelativeToolTip": "mmdba\\Models\\AnaliseOEEViewModel.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAA4wDkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T21:01:51.137Z",
+              "WhenOpened": "2025-11-29T19:36:31.229Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Privacy.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\Privacy.cshtml",
-              "RelativeDocumentMoniker": "mmdba\\Views\\Home\\Privacy.cshtml",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\Privacy.cshtml",
-              "RelativeToolTip": "mmdba\\Views\\Home\\Privacy.cshtml",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAswGQAAAAGAAAAAAAAAA==",
+              "Title": "PainelAlarmes.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelAlarmes.cshtml",
+              "RelativeDocumentMoniker": "mmdba\\Views\\Home\\PainelAlarmes.cshtml",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelAlarmes.cshtml",
+              "RelativeToolTip": "mmdba\\Views\\Home\\PainelAlarmes.cshtml",
+              "ViewState": "AgIAAPsBAAAAAAAAAAAwwBkCAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-16T18:04:10.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-29T19:36:32.46Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "mmdba\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "mmdba\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAALMBAAAAAAAAAAAUwM4BAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T17:32:01.16Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ParametrosOEE.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Sistema\\ParametrosOEE.cshtml",
-              "RelativeDocumentMoniker": "mmdba\\Views\\Sistema\\ParametrosOEE.cshtml",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Sistema\\ParametrosOEE.cshtml",
-              "RelativeToolTip": "mmdba\\Views\\Sistema\\ParametrosOEE.cshtml",
-              "ViewState": "AgIAAEoCAAAAAAAAAAAwwGICAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-16T21:23:26.946Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SistemaController.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Controllers\\SistemaController.cs",
-              "RelativeDocumentMoniker": "mmdba\\Controllers\\SistemaController.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Controllers\\SistemaController.cs",
-              "RelativeToolTip": "mmdba\\Controllers\\SistemaController.cs",
-              "ViewState": "AgIAAJACAAAAAAAAAAAqwKcCAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T19:27:58.379Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Program.cs",
               "RelativeDocumentMoniker": "mmdba\\Program.cs",
               "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Program.cs",
               "RelativeToolTip": "mmdba\\Program.cs",
-              "ViewState": "AgIAAPAAAAAAAAAAAAAwwAgBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAOkAAAAAAAAAAAAUwAgBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T17:28:27.717Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-29T22:06:57.118Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ParametrosOEEViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\ParametrosOEEViewModel.cs",
-              "RelativeDocumentMoniker": "mmdba\\Models\\ParametrosOEEViewModel.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\ParametrosOEEViewModel.cs",
-              "RelativeToolTip": "mmdba\\Models\\ParametrosOEEViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T21:16:20.586Z",
-              "EditorCaption": ""
+              "DocumentIndex": 7,
+              "Title": "appsettings.Production.json",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\appsettings.Production.json",
+              "RelativeDocumentMoniker": "mmdba\\appsettings.Production.json",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\appsettings.Production.json",
+              "RelativeToolTip": "mmdba\\appsettings.Production.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-29T16:59:33.483Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "20251116211047_TaxaAtualizacaoToOeeParametros.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Migrations\\20251116211047_TaxaAtualizacaoToOeeParametros.cs",
-              "RelativeDocumentMoniker": "mmdba\\Migrations\\20251116211047_TaxaAtualizacaoToOeeParametros.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Migrations\\20251116211047_TaxaAtualizacaoToOeeParametros.cs",
-              "RelativeToolTip": "mmdba\\Migrations\\20251116211047_TaxaAtualizacaoToOeeParametros.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "SistemaController.cs",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Controllers\\SistemaController.cs",
+              "RelativeDocumentMoniker": "mmdba\\Controllers\\SistemaController.cs",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Controllers\\SistemaController.cs",
+              "RelativeToolTip": "mmdba\\Controllers\\SistemaController.cs",
+              "ViewState": "AgIAAEoCAAAAAAAAAAAUwI0CAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T21:10:47.209Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-30T02:29:37.348Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "RefugoManualApiModel.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\RefugoManualApiModel.cs",
-              "RelativeDocumentMoniker": "mmdba\\Models\\RefugoManualApiModel.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\RefugoManualApiModel.cs",
-              "RelativeToolTip": "mmdba\\Models\\RefugoManualApiModel.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T19:10:30.631Z",
-              "EditorCaption": ""
+              "DocumentIndex": 3,
+              "Title": "ParametrosOEE.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Sistema\\ParametrosOEE.cshtml",
+              "RelativeDocumentMoniker": "mmdba\\Views\\Sistema\\ParametrosOEE.cshtml",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Sistema\\ParametrosOEE.cshtml",
+              "RelativeToolTip": "mmdba\\Views\\Sistema\\ParametrosOEE.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAACeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-30T02:24:19.042Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "mmdba\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "mmdba\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T21:08:24.856Z",
-              "EditorCaption": ""
+              "DocumentIndex": 4,
+              "Title": "PainelOEE.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelOEE.cshtml",
+              "RelativeDocumentMoniker": "mmdba\\Views\\Home\\PainelOEE.cshtml",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelOEE.cshtml",
+              "RelativeToolTip": "mmdba\\Views\\Home\\PainelOEE.cshtml",
+              "ViewState": "AgIAAPoAAAAAAAAAAAAAAA4BAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-29T22:45:48.246Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "OeeParametrosMaquina.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\Entidades\\OeeParametrosMaquina.cs",
-              "RelativeDocumentMoniker": "mmdba\\Models\\Entidades\\OeeParametrosMaquina.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\Entidades\\OeeParametrosMaquina.cs",
-              "RelativeToolTip": "mmdba\\Models\\Entidades\\OeeParametrosMaquina.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAQwBMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T21:00:50.394Z",
-              "EditorCaption": ""
+              "DocumentIndex": 5,
+              "Title": "PainelSupervisao.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelSupervisao.cshtml",
+              "RelativeDocumentMoniker": "mmdba\\Views\\Home\\PainelSupervisao.cshtml",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelSupervisao.cshtml",
+              "RelativeToolTip": "mmdba\\Views\\Home\\PainelSupervisao.cshtml",
+              "ViewState": "AgIAABkDAAAAAAAAAAAwwC8DAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-29T19:47:38.145Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "TurnoViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\TurnoViewModel.cs",
-              "RelativeDocumentMoniker": "mmdba\\Models\\TurnoViewModel.cs",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\TurnoViewModel.cs",
-              "RelativeToolTip": "mmdba\\Models\\TurnoViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T20:09:36.081Z",
-              "EditorCaption": ""
+              "DocumentIndex": 8,
+              "Title": "secrets.json",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\AppData\\Roaming\\Microsoft\\UserSecrets\\c153369d-4dd0-4e77-96c0-3e594016a7cc\\secrets.json",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\c153369d-4dd0-4e77-96c0-3e594016a7cc\\secrets.json",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\AppData\\Roaming\\Microsoft\\UserSecrets\\c153369d-4dd0-4e77-96c0-3e594016a7cc\\secrets.json",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\c153369d-4dd0-4e77-96c0-3e594016a7cc\\secrets.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-29T17:08:54.38Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 9,
               "Title": "ApiController.cs",
               "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Controllers\\ApiController.cs",
               "RelativeDocumentMoniker": "mmdba\\Controllers\\ApiController.cs",
               "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Controllers\\ApiController.cs",
               "RelativeToolTip": "mmdba\\Controllers\\ApiController.cs",
-              "ViewState": "AgIAAEABAAAAAAAAAAAAAEsBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKABAAAAAAAAAADwv7QBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-16T19:11:19.007Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-30T05:49:50.738Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "mmdba\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "mmdba\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAEUAAABrAAAAAAAAAA==",
+              "DocumentIndex": 11,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\appsettings.json",
+              "RelativeDocumentMoniker": "mmdba\\appsettings.json",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\appsettings.json",
+              "RelativeToolTip": "mmdba\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-30T05:22:16.735Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "mmdba\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\appsettings.Development.json",
+              "RelativeToolTip": "mmdba\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-29T17:10:37.563Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ParametrosOEEViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\ParametrosOEEViewModel.cs",
+              "RelativeDocumentMoniker": "mmdba\\Models\\ParametrosOEEViewModel.cs",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\ParametrosOEEViewModel.cs",
+              "RelativeToolTip": "mmdba\\Models\\ParametrosOEEViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T03:50:13.231Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "PainelManutencao.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelManutencao.cshtml",
+              "RelativeDocumentMoniker": "mmdba\\Views\\Home\\PainelManutencao.cshtml",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Views\\Home\\PainelManutencao.cshtml",
+              "RelativeToolTip": "mmdba\\Views\\Home\\PainelManutencao.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAFwAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-16T17:48:03.506Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-29T19:10:10.566Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AnaliseOEEViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\AnaliseOEEViewModel.cs",
+              "RelativeDocumentMoniker": "mmdba\\Models\\AnaliseOEEViewModel.cs",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Models\\AnaliseOEEViewModel.cs",
+              "RelativeToolTip": "mmdba\\Models\\AnaliseOEEViewModel.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAowDkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T22:34:53.777Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "OeeService.cs",
+              "DocumentMoniker": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Services\\OeeService.cs",
+              "RelativeDocumentMoniker": "mmdba\\Services\\OeeService.cs",
+              "ToolTip": "C:\\Users\\Pedro Audibert\\Documents\\Pedro Audibert\\FTec - ADS\\ADS_EAD_M\u00F3dulo 17\\Projeto Empreendedor 1\\SistemaSupervisorio\\mmdba\\Services\\OeeService.cs",
+              "RelativeToolTip": "mmdba\\Services\\OeeService.cs",
+              "ViewState": "AgIAANQAAAAAAAAAAAAowPQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T22:44:23.087Z"
             }
           ]
         }

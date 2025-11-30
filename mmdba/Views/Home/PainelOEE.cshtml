@@ -1,6 +1,6 @@
 ﻿@*
 =========================================================================================================
-ARQUIVO: Views/Home/PainelOEE.cshtml (UC6 - ANÁLISE OEE) - VERSÃO CORRIGIDA
+ARQUIVO: Views/Home/PainelOEE.cshtml (UC6 - ANÁLISE OEE)
 FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automática funcional
 =========================================================================================================
 *@
@@ -264,27 +264,19 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                                 <dt class="col-sm-8 text-primary">Tempo de Carga (Total)</dt>
                                 <dd class="col-sm-4 text-primary">@(Model.TempoCarga.ToString(@"hh\:mm\:ss"))</dd>
 
-                                @{
-                                    var paradasPlanejadas = Model.TempoCarga - Model.TempoOperacionalPlanejado;
-                                }
+                                @* ALTERAÇÃO: Exibe o valor calculado no serviço, sem subtração na View *@
                                 <dt class="col-sm-8 text-muted">Paradas Planejadas</dt>
-                                <dd class="col-sm-4 text-muted">@(paradasPlanejadas.ToString(@"hh\:mm\:ss"))</dd>
+                                <dd class="col-sm-4 text-muted">@(Model.TempoParadasPlanejadas.ToString(@"hh\:mm\:ss"))</dd>
 
                                 <hr class="my-3" />
-                                <dt class="col-sm-8 text-danger">Perda por Falhas/Alarmes</dt>
+                                <dt class="col-sm-8 text-danger">Tempo de Parada por Alarmes</dt>
                                 <dd class="col-sm-4 text-danger">@(Model.TempoParadasNaoPlanejadas.ToString(@"hh\:mm\:ss"))</dd>
 
-                                <dt class="col-sm-8 text-warning">Perda por Ajustes/Setup Não Planejado</dt>
+                                <dt class="col-sm-8 text-warning">Tempo de Avisos Ativos</dt>
                                 <dd class="col-sm-4 text-warning">@(Model.TempoParadasAguardando.ToString(@"hh\:mm\:ss"))</dd>
 
-                                @{
-                                    // CORREÇÃO: Tempo Líquido = TempoCarga - ParadasPlanejadas - Alarmes
-                                    // (Avisos NÃO reduzem o tempo líquido, são apenas indicativos)
-                                    var tempoLiquido = Model.TempoCarga - paradasPlanejadas - Model.TempoParadasNaoPlanejadas;
-                                    if (tempoLiquido < TimeSpan.Zero) tempoLiquido = TimeSpan.Zero;
-                                }
                                 <dt class="col-sm-8 text-success font-weight-bold">Tempo de Operação Líquido</dt>
-                                <dd class="col-sm-4 text-success font-weight-bold">@(tempoLiquido.ToString(@"hh\:mm\:ss"))</dd>
+                                <dd class="col-sm-4 text-success font-weight-bold">@Model.TempoOperacionalLiquido.ToString(@"hh\:mm\:ss")</dd>
                             </dl>
                         </div>
                     </div>
@@ -392,20 +384,19 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
         $(document).ready(function () {
 
             // -----------------------------------------------------
-            // 0. VARIÁVEIS DE STATUS (ADICIONADAS)
+            // 0. VARIÁVEIS DE STATUS
             // -----------------------------------------------------
             const statusDiv = document.getElementById("statusConexao");
             const statusMaquinaElement = document.getElementById("statusMaquina");
 
             // -----------------------------------------------------
-            // 0. INICIALIZAÇÃO (Existente)
+            // 0. INICIALIZAÇÃO
             // -----------------------------------------------------
             carregarTurnos();
             $('[data-toggle="tooltip"]').tooltip();
 
             // Inicializa Gauges
             function inicializarGaugeOEE(gaugeId, valor, cor) {
-                // ... (Função Gauge omitida por brevidade, mas deve existir aqui) ...
                 const dialElement = document.getElementById(gaugeId)?.querySelector(".dial");
                 const valorElement = document.getElementById(gaugeId)?.querySelector(".dial span");
                 if (!dialElement || !valorElement) return;
@@ -446,7 +437,7 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
 
 
             // -----------------------------------------------------
-            // FUNÇÃO AUXILIAR: EXIBIR MODAL DE STATUS (SUCESSO/ERRO)
+            // FUNÇÃO AUXILIAR: EXIBIR MODAL DE STATUS
             // -----------------------------------------------------
             function exibirModalStatus(success, message) {
                 const modal = new bootstrap.Modal(document.getElementById('modalConfirmacaoStatus'));
@@ -490,7 +481,6 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                     const turnoIdParam = "@(ViewData["SelectedTurnoId"] ?? 0)";
                     if (turnos && turnos.length > 0) {
                         turnos.forEach(turno => {
-                            // Compara o ID do turno (string) com o ID salvo (string)
                             const isSelected = turnoIdParam === turno.id.toString();
                             turnoSelect.append(new Option(turno.nome, turno.id, isSelected, isSelected));
                         });
@@ -503,15 +493,13 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
 
 
             // -----------------------------------------------------
-            // 4. LÓGICA DE ATUALIZAÇÃO AUTOMÁTICA (CORRIGIDA)
+            // 4. LÓGICA DE ATUALIZAÇÃO AUTOMÁTICA
             // -----------------------------------------------------
             function autoRefresh() {
-                var rate = parseInt($('#refreshRate').val()); // Lê o valor atual (persistido ou 10)
+                var rate = parseInt($('#refreshRate').val());
                 if (rate && rate > 0) {
                     var ms = rate * 60 * 1000;
                     setTimeout(function() {
-                        // Apenas recarrega a página. O Controller (backend)
-                        // usará o valor salvo na Sessão.
                         window.location.reload(true);
                     }, ms);
                 }
@@ -525,12 +513,10 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
 
                 if (isNaN(newRate) || newRate <= 0) {
                     exibirModalStatus(false, 'A taxa de atualização deve ser um número inteiro maior que 0.');
-                    // Volta para o valor que veio do Model se for inválido
                     $('#refreshRate').val(@Model.TaxaAtualizacaoMinutos);
                     return;
                 }
 
-                // Envia o novo valor para o backend
                 $.ajax({
                     url: '@Url.Action("SalvarTaxaAtualizacaoOEE", "Sistema")',
                     type: 'POST',
@@ -538,14 +524,11 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                     headers: {
                         'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
                     },
-                    // Enviamos o valor bruto como JSON (o controller espera o int)
                     data: JSON.stringify(newRate),
                     success: function(response) {
-                        // Apenas loga no console para auto-save discreto
                         console.log(response.message);
                     },
                     error: function(xhr) {
-                        // Exibe erro se a validação falhar (ex: valor zero)
                         var responseMessage = xhr.responseJSON?.message || 'Erro ao salvar taxa.';
                         exibirModalStatus(false, responseMessage);
                     }
@@ -554,7 +537,7 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
 
 
             // -----------------------------------------------------
-            // 5. LISTENERS DE REFUGO E FILTROS (MANTIDOS)
+            // 5. LISTENERS DE REFUGO E FILTROS
             // -----------------------------------------------------
             $('#oeeFilterForm').on('submit', function(e) {
                 e.preventDefault();
@@ -562,7 +545,7 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                 var dataInicio = $('#dataInicio').val();
                 var dataFim = $('#dataFim').val();
                 var turnoId = $('#turnoSelect').val();
-                var refreshRate = $('#refreshRate').val(); // Inclui a taxa atual
+                var refreshRate = $('#refreshRate').val();
 
                 if (!dataInicio || !dataFim) {
                     exibirModalStatus(false, 'Por favor, selecione as datas de Início e Fim.');
@@ -573,7 +556,7 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                           '?dataInicio=' + dataInicio +
                           '&dataFim=' + dataFim +
                           '&turnoId=' + turnoId +
-                          '&refreshRate=' + refreshRate; // MANTÉM A TAXA APÓS RECALCULAR
+                          '&refreshRate=' + refreshRate;
 
                 window.location.href = url;
             });
@@ -615,7 +598,6 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                 });
             }
 
-            // 5.1 Listener para o botão LANÇAR (submit do formulário)
             $('#refugoManualForm').on('submit', function(e) {
                 e.preventDefault();
                 var refugoQtd = parseFloat($('#refugoManualQtd').val());
@@ -633,7 +615,6 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                 enviarRefugo(refugoQtd);
             });
 
-            // 5.2 Listener para o botão CORRIGIR (clique no botão separado)
             $('#btnCorrigirRefugo').on('click', function(e) {
                 e.preventDefault();
                 var refugoQtdRaw = parseFloat($('#refugoManualQtd').val());
@@ -658,13 +639,12 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                 enviarRefugo(refugoQtdRaw);
             });
 
-        }); // Fim do $(document).ready
+        });
 
         // -----------------------------------------------------
-        // 6. FUNÇÕES DE STATUS DA MÁQUINA (ADICIONADAS)
+        // 6. FUNÇÕES DE STATUS DA MÁQUINA
         // -----------------------------------------------------
 
-        // Carrega o último status conhecido da máquina (para que a tela não comece vazia)
         async function carregarUltimoStatus() {
             try {
                 const response = await fetch('/api/dashboard/rotuladora/status/ultimo');
@@ -678,7 +658,6 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
             }
         }
 
-        // Atualiza o painel de status da máquina (chamado pelo SignalR)
         function atualizarPainelStatus(ultimoStatus) {
             const statusMaquinaEl = document.getElementById("statusMaquina");
             if (!statusMaquinaEl || !ultimoStatus) return;
@@ -686,11 +665,9 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
             atualizarCorStatusMaquina(ultimoStatus.codigoEvento);
         }
 
-        // Atualiza a cor (classe CSS) do painel de status
         function atualizarCorStatusMaquina(codigoEvento) {
             const statusMaquinaEl = document.getElementById("statusMaquina");
             if (!statusMaquinaEl) return;
-            // Limpa classes antigas e mantém as classes base (mb-4)
             statusMaquinaEl.className = 'alert alert-status text-center mb-4';
             switch (codigoEvento) {
                 case "statusAutomatico": statusMaquinaEl.classList.add('alert-success'); break;
@@ -701,12 +678,11 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
         }
 
         // -----------------------------------------------------
-        // 7. SIGNALR (ADICIONADO E ADAPTADO)
+        // 7. SIGNALR
         // -----------------------------------------------------
         async function iniciarConexaoSignalR() {
             const statusConexaoEl = document.getElementById("statusConexao");
 
-            // Conecta apenas ao hub de Status
             const connection = new signalR.HubConnectionBuilder()
                 .withUrl("/statusHub")
                 .withAutomaticReconnect()
@@ -726,7 +702,6 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                 }
             });
 
-            // Recebe eventos de status
             connection.on("postStatus", atualizarPainelStatus);
 
             try {
@@ -736,7 +711,6 @@ FUNÇÃO:  Exibe os KPIs de OEE com cálculos corretos e atualização automáti
                     statusConexaoEl.textContent = "Conectado ao servidor em " + new Date().toLocaleTimeString();
                 }
 
-                // Carrega o status inicial após conectar
                 carregarUltimoStatus();
 
             } catch (err) {

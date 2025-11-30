@@ -331,44 +331,46 @@ public class ApiController : ControllerBase
     }
 
     /*
-    ====================================================================================
-    MÉTODO PRIVADO: VerificarENotificarAsync (Versão Final - Dinâmica)
-    FUNÇÃO: (FUNCIONALIDADE 7)
-            Verifica o evento contra as regras, encontra os utilizadores
-            associados a essas regras, e envia a notificação para o
-            'TelegramChatId' específico de cada utilizador.
-    ====================================================================================
-    */
-    /// <summary>
-    /// Método auxiliar que verifica e envia notificações via Telegram
-    /// com base nas Regras de Notificação cadastradas.
-    /// </summary>
-    /// <param name="evento">O EventoMaquina que acabou de ser salvo.</param>
+        ====================================================================================
+        MÉTODO PRIVADO: VerificarENotificarAsync (VERSÃO DIAGNÓSTICO)
+        FUNÇÃO: Verifica regras e envia Telegram com LOGS DETALHADOS para depuração.
+        ====================================================================================
+        */
     private async Task VerificarENotificarAsync(EventoMaquina evento)
     {
-        // 1. CRIAR UM NOVO ESCOPO DE SERVIÇO (para evitar Race Condition)
+        // Cria um novo escopo para garantir acesso à base de dados em segundo plano
         using (var scope = _scopeFactory.CreateScope())
         {
+            // Obtém o Logger especificamente para escrever na janela de Saída
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<ApiController>>();
+
             try
             {
-                // 2. PEDIR OS SERVIÇOS (DbContext e Logger) DO NOVO ESCOPO
-                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<ApiController>>();
+                // LOG 1: Entrada no método
+                logger.LogWarning($"[TELEGRAM DEBUG] >>> INÍCIO DO PROCESSO <<<");
+                logger.LogWarning($"[TELEGRAM DEBUG] Evento recebido no método: Tipo='{evento.TipoEvento}', Origem='{evento.Origem}', Codigo='{evento.CodigoEvento}'");
 
-                // 3. Encontrar todas as regras para este TipoEvento,
-                //    e INCLUIR (Include) a informação do Utilizador (User)
-                var regrasParaEsteEvento = await dbContext.RegrasNotificacao
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var telegramService = scope.ServiceProvider.GetRequiredService<ITelegramService>();
+
+                // LOG 2: Consulta ao Banco
+                logger.LogWarning($"[TELEGRAM DEBUG] Consultando tabela 'RegrasNotificacao' para TipoEvento: '{evento.TipoEvento}'...");
+
+                var regras = await dbContext.RegrasNotificacao
                     .Where(r => r.TipoEvento == evento.TipoEvento)
-                    .Include(r => r.User) // <-- Isto faz o JOIN com a tabela AspNetUsers
+                    .Include(r => r.User) // Traz os dados do utilizador (Email, ChatId)
                     .ToListAsync();
 
-                // 4. Se nenhuma regra foi encontrada, não faz nada
-                if (regrasParaEsteEvento == null || !regrasParaEsteEvento.Any())
+                // LOG 3: Resultado da consulta
+                if (regras == null || !regras.Any())
                 {
+                    logger.LogError($"[TELEGRAM DEBUG] FALHA: Nenhuma regra encontrada na tabela para '{evento.TipoEvento}'. O processo será encerrado.");
                     return;
                 }
 
-                // 5. Formata a mensagem (NOVO FORMATO PROFISSIONAL)
+                logger.LogWarning($"[TELEGRAM DEBUG] SUCESSO: Encontradas {regras.Count} regras correspondentes.");
+
+                // 4. Prepara a mensagem
                 string valorLimpo = evento.Valor ?? "N/A";
                 string infoLimpa = evento.Informacao ?? "N/A";
 
@@ -382,28 +384,54 @@ public class ApiController : ControllerBase
                     $"--------------------------------------\n" +
                     $"ℹ️ <b>Info:</b> <i>{infoLimpa}</i>";
 
-                // 6. Itera sobre cada regra encontrada
-                foreach (var regra in regrasParaEsteEvento)
+                // LOG 4: Iteração sobre usuários
+                foreach (var regra in regras)
                 {
-                    // 7. Verifica se o utilizador da regra existe e se tem um ChatId configurado
-                    if (regra.User != null && !string.IsNullOrEmpty(regra.User.TelegramChatId))
+                    logger.LogWarning($"[TELEGRAM DEBUG] Avaliando regra ID: {regra.Id}...");
+
+                    if (regra.User == null)
                     {
-                        // 8. CHAMA O MÉTODO CORRETAMENTE (com 2 parâmetros)
-                        //    (O _telegramService é Singleton, podemos usá-lo aqui)
-                        await _telegramService.EnviarMensagemAsync(regra.User.TelegramChatId, mensagemTelegram);
-                        logger.LogInformation($"Notificação enviada para o utilizador '{regra.User.UserName}' (ChatId: {regra.User.TelegramChatId}).");
+                        logger.LogError($"[TELEGRAM DEBUG] FALHA: A regra {regra.Id} tem o campo 'User' nulo. Inconsistência no banco.");
+                        continue;
                     }
-                    else
+
+                    logger.LogWarning($"[TELEGRAM DEBUG] Utilizador da regra: {regra.User.Email}. Verificando ChatId...");
+
+                    if (string.IsNullOrEmpty(regra.User.TelegramChatId))
                     {
-                        logger.LogWarning($"Regra ID {regra.Id} acionada, mas o utilizador '{regra.UserId}' não tem um TelegramChatId configurado.");
+                        logger.LogError($"[TELEGRAM DEBUG] FALHA: O utilizador {regra.User.Email} NÃO tem 'TelegramChatId' preenchido na tabela AspNetUsers.");
+                        continue;
+                    }
+
+                    // LOG 5: Tentativa de Envio
+                    logger.LogWarning($"[TELEGRAM DEBUG] TENTANDO ENVIAR para ChatId: '{regra.User.TelegramChatId}'...");
+
+                    try
+                    {
+                        // Chama o serviço de envio
+                        await telegramService.EnviarMensagemAsync(regra.User.TelegramChatId, mensagemTelegram);
+
+                        // LOG 6: Sucesso no envio
+                        logger.LogWarning($"[TELEGRAM DEBUG] >>> ENVIOU COM SUCESSO (Método telegramService finalizou sem erro) <<<");
+                    }
+                    catch (Exception envEx)
+                    {
+                        // LOG 7: Erro no envio
+                        logger.LogError($"[TELEGRAM DEBUG] ERRO NO ENVIO (Exceção do Telegram): {envEx.Message}");
+                        if (envEx.InnerException != null)
+                        {
+                            logger.LogError($"[TELEGRAM DEBUG] Detalhe interno: {envEx.InnerException.Message}");
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                // O ILogger (do scope) é seguro de usar aqui
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<ApiController>>();
-                logger.LogError(ex, "Falha na tarefa de fundo (VerificarENotificarAsync - Dinâmico).");
+                logger.LogError(ex, "[TELEGRAM DEBUG] ERRO CRÍTICO GERAL dentro do método VerificarENotificarAsync.");
+            }
+            finally
+            {
+                logger.LogWarning($"[TELEGRAM DEBUG] >>> FIM DO PROCESSO <<<");
             }
         }
     }

@@ -29,7 +29,7 @@
 
         <div class="card shadow-sm mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Passo 1: Definição de Tempo (Disponibilidade)</h5>
+                <h5 class="mb-0">Definição de Tempo (Disponibilidade)</h5>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdicionarTurno">
                     <i class="fas fa-plus"></i> Adicionar Turno
                 </button>
@@ -84,7 +84,7 @@
 
         <div class="card shadow-sm mb-4">
             <div class="card-header">
-                <h5 class="mb-0">Passo 2: Definição de Produção (Performance)</h5>
+                <h5 class="mb-0">: Definição de Produção (Performance)</h5>
             </div>
             <div class="card-body">
                 <p class="card-text">Insira a velocidade que a máquina <strong>deveria</strong> atingir em operação normal (Garrafas por Hora).</p>
@@ -112,7 +112,7 @@
 
         <div class="card shadow-sm">
             <div class="card-header">
-                <h5 class="mb-0">Passo 3: Definição de Qualidade</h5>
+                <h5 class="mb-0">Definição de Qualidade</h5>
             </div>
             <div class="card-body">
                 <p class="card-text">Habilite esta opção se desejar que os operadores possam lançar manualmente a contagem de refugo (peças ruins) na tela de supervisão.</p>
@@ -321,7 +321,6 @@
             var erroSumarioQualidade = $('#erro-sumario-ajax-qualidade');
             var token = $('input[name="__RequestVerificationToken"]').first().val();
 
-
             // --- Lógica Salvar Velocidade ---
             form.on('submit', function (e) {
                 e.preventDefault();
@@ -430,7 +429,6 @@
                 });
             });
 
-
             // 5. Lógica para PREENCHER o modal de Remoção de Turno
             // (Padrão do 'btn-remover' do seu Usuarios.cshtml)
             $(document).on('click', '.btn-remover-turno', function () {
@@ -474,6 +472,7 @@
                     }
                 });
             });
+
 
             // --- ADICIONE OS DOIS BLOCOS DE CÓDIGO ABAIXO ---
 

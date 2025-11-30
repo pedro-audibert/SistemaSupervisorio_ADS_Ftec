@@ -1,27 +1,23 @@
 ﻿/*
 ================================================================================================
 ARQUIVO: SistemaController.cs
-FUNÇÃO:  Controlador MVC para a área de Administração do Sistema (Gestão de Usuários e Regras).
+FUNÇÃO:  Controlador MVC para a área de Administração (Gestão de Usuários, Regras e Parâmetros OEE).
 ================================================================================================
 */
 
-#region NAMESPACES
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using mmdba.Data; // Necessário para ApplicationDbContext
+using mmdba.Data;
 using mmdba.Models;
-using mmdba.Models.Entidades; // Necessário para RegraNotificacao
+using mmdba.Models.Entidades;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Collections.Generic; // Necessário para List<T>
-using Microsoft.AspNetCore.Http; // Para aceder ao HttpContext.Session
-using mmdba.Models; // Para acedermos ao novo ParametrosOEEViewModel
-using Microsoft.EntityFrameworkCore; // Para usarmos o .Include() e .FirstOrDefaultAsync()
-using System; // Já deve existir, mas garanta
-#endregion
+using Microsoft.AspNetCore.Http;
 
 namespace mmdba.Controllers
 {
@@ -31,20 +27,22 @@ namespace mmdba.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        // Construtor com injeção de dependência do Identity e do DbContext.
+        // Construtor com injeção de dependência
         public SistemaController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _context = context;
         }
 
+        #region VIEWS (GET)
+
         // Action para a página de Gestão de Usuários.
         [HttpGet]
         public async Task<IActionResult> Usuarios()
         {
             var viewModel = new GestaoUsuariosViewModel();
-            await PopulaListaUsuarios(viewModel); // Chama o método auxiliar modificado
-            ViewData["ActivePage"] = "Usuarios"; // Marca esta aba como ativa
+            await PopulaListaUsuarios(viewModel);
+            ViewData["ActivePage"] = "Usuarios";
             return View(viewModel);
         }
 
@@ -53,8 +51,8 @@ namespace mmdba.Controllers
         public async Task<IActionResult> RegrasNotificacao()
         {
             var viewModel = new RegrasNotificacaoViewModel();
-            viewModel.UsuariosComPermissao = await PopulaListaUsuarios(); // Chama o método auxiliar modificado
-            ViewData["ActivePage"] = "RegrasNotificacao"; // Marca esta aba como ativa
+            viewModel.UsuariosComPermissao = await PopulaListaUsuarios();
+            ViewData["ActivePage"] = "RegrasNotificacao";
             return View(viewModel);
         }
 
@@ -64,50 +62,48 @@ namespace mmdba.Controllers
         {
             ViewData["ActivePage"] = "ParametrosOEE";
 
-            // 1. Obter a máquina selecionada da Sessão (definida no HomeController)
+            // 1. Obter a máquina selecionada da Sessão
             var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
 
-            // 2. Se o utilizador aceder a esta página diretamente sem selecionar uma máquina,
-            //    redireciona-o para a seleção de máquina.
             if (string.IsNullOrEmpty(maquinaId))
             {
-                // Redireciona para /Home/Index
                 return RedirectToAction("Index", "Home");
             }
 
-            // 3. Criar o ViewModel que será enviado para a View
+            // 2. Criar o ViewModel
             var viewModel = new ParametrosOEEViewModel();
 
-            // 4. Carregar a Velocidade Ideal E Configuração de Qualidade
+            // 3. Carregar Parâmetros (Velocidade, Refugo Manual, Taxa de Atualização)
             var parametros = await _context.OeeParametrosMaquina
                                             .FirstOrDefaultAsync(p => p.MaquinaId == maquinaId);
 
             if (parametros != null)
             {
                 viewModel.VelocidadeIdealPorHora = parametros.VelocidadeIdealPorHora;
-                // --- ADICIONE ESTA LINHA ---
                 viewModel.HabilitarRefugoManual = parametros.HabilitarRefugoManual;
+                // Carrega a taxa salva para exibir no input da tela
+                viewModel.TaxaAtualizacaoMinutos = parametros.TaxaAtualizacaoMinutos;
             }
-            // OBS: Se 'parametros' for null, a 'viewModel' usará o default (0 para int, false para bool), o que está correto.
 
-            // 5. Carregar os Turnos e Paradas (do Passo 1 da nossa estratégia)
-            // Usamos .Include() para trazer as ParadasPlanejadas "filhas" de cada Turno.
+            // 4. Carregar Turnos e Paradas Planejadas
             viewModel.Turnos = await _context.Turnos
                                         .Where(t => t.MaquinaId == maquinaId)
                                         .Include(t => t.ParadasPlanejadas)
                                         .OrderBy(t => t.HoraInicio)
                                         .ToListAsync();
 
-            // 6. Envia o ViewModel (com os dados preenchidos) para a View
             return View(viewModel);
         }
 
+        #endregion
+
+        #region PARÂMETROS OEE (POST/AJAX)
+
         /// <summary>
-        /// Action (POST) que salva a Velocidade Ideal (Passo 2).
+        /// Salva a Velocidade Ideal.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // 1. Alterado o tipo de retorno para JsonResult (para funcionar com AJAX)
         public async Task<JsonResult> SalvarVelocidadeOEE(ParametrosOEEViewModel model)
         {
             try
@@ -115,11 +111,9 @@ namespace mmdba.Controllers
                 var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
                 if (string.IsNullOrEmpty(maquinaId))
                 {
-                    // 2. Retorna um erro JSON se a sessão expirar
                     return Json(new { success = false, message = "Sessão expirada. Por favor, selecione a máquina novamente." });
                 }
 
-                // 3. Validação do lado do servidor (o JS já limpou o ".")
                 if (model.VelocidadeIdealPorHora <= 0)
                 {
                     return Json(new { success = false, message = "A velocidade ideal deve ser um número maior que 0." });
@@ -144,26 +138,105 @@ namespace mmdba.Controllers
                 }
 
                 await _context.SaveChangesAsync();
-
-                // 4. Retorna sucesso em JSON
                 return Json(new { success = true });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // 5. Retorna um erro JSON em caso de falha no banco
-                // (Nota: Não estamos a usar ILogger aqui porque não foi injetado no seu SistemaController)
                 return Json(new { success = false, message = "Ocorreu um erro interno ao salvar no banco de dados." });
             }
         }
 
-
         /// <summary>
-        /// Action (POST) que salva um novo Turno (Passo 1) via AJAX.
+        /// Salva a configuração de Qualidade (Habilitar Refugo Manual).
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<JsonResult> AdicionarTurnoOEE(
-    [FromForm(Name = "InputTurno")] InputTurnoViewModel model)
+        public async Task<JsonResult> SalvarConfigQualidade(bool HabilitarRefugoManual)
+        {
+            try
+            {
+                var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
+                if (string.IsNullOrEmpty(maquinaId))
+                {
+                    return Json(new { success = false, message = "Sessão expirada. Por favor, selecione a máquina novamente." });
+                }
+
+                var parametros = await _context.OeeParametrosMaquina
+                                            .FirstOrDefaultAsync(p => p.MaquinaId == maquinaId);
+
+                if (parametros == null)
+                {
+                    parametros = new OeeParametrosMaquina
+                    {
+                        MaquinaId = maquinaId
+                    };
+                    _context.OeeParametrosMaquina.Add(parametros);
+                }
+
+                parametros.HabilitarRefugoManual = HabilitarRefugoManual;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Ocorreu um erro interno ao salvar a configuração." });
+            }
+        }
+
+        /// <summary>
+        /// Action (POST) que salva a Taxa de Atualização Automática via AJAX.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> SalvarTaxaAtualizacaoOEE([FromBody] int taxaAtualizacao)
+        {
+            try
+            {
+                var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
+                if (string.IsNullOrEmpty(maquinaId))
+                {
+                    return Json(new { success = false, message = "Sessão expirada. Por favor, selecione a máquina novamente." });
+                }
+
+                if (taxaAtualizacao <= 0)
+                {
+                    return Json(new { success = false, message = "A taxa de atualização deve ser maior que 0." });
+                }
+
+                var parametros = await _context.OeeParametrosMaquina
+                                            .FirstOrDefaultAsync(p => p.MaquinaId == maquinaId);
+
+                if (parametros == null)
+                {
+                    parametros = new OeeParametrosMaquina
+                    {
+                        MaquinaId = maquinaId,
+                        TaxaAtualizacaoMinutos = taxaAtualizacao
+                    };
+                    _context.OeeParametrosMaquina.Add(parametros);
+                }
+                else
+                {
+                    parametros.TaxaAtualizacaoMinutos = taxaAtualizacao;
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Taxa de atualização salva com sucesso." });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Ocorreu um erro interno ao salvar a taxa." });
+            }
+        }
+
+        /// <summary>
+        /// Adiciona um novo Turno via AJAX.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> AdicionarTurnoOEE([FromForm(Name = "InputTurno")] InputTurnoViewModel model)
         {
             var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
             if (string.IsNullOrEmpty(maquinaId))
@@ -194,18 +267,16 @@ namespace mmdba.Controllers
                 }
             }
 
-            // ===== CORRIGIDO: Remove o prefixo "InputTurno." para evitar duplicação =====
             var errors = ModelState.ToDictionary(
-                kvp => kvp.Key, // SEM adicionar prefixo - mantém como "Nome", "HoraInicio", etc
+                kvp => kvp.Key,
                 kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
             );
 
             return Json(new { success = false, errors = errors });
         }
 
-
         /// <summary>
-        /// Action (POST) que remove um Turno (e suas Paradas) via AJAX.
+        /// Remove um Turno e suas paradas via AJAX.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -219,17 +290,10 @@ namespace mmdba.Controllers
                     return Json(new { success = false, message = "Sessão expirada. Por favor, selecione a máquina novamente." });
                 }
 
-                // Validação
-                if (turnoId <= 0)
-                {
-                    return Json(new { success = false, message = "ID do turno inválido." });
-                }
+                if (turnoId <= 0) return Json(new { success = false, message = "ID do turno inválido." });
 
-                // 1. Encontra o Turno
-                // IMPORTANTE: Usamos .Include() para carregar as ParadasPlanejadas "filhas"
-                // deste turno.
                 var turnoParaRemover = await _context.Turnos
-                    .Include(t => t.ParadasPlanejadas) // Carrega as paradas filhas
+                    .Include(t => t.ParadasPlanejadas)
                     .FirstOrDefaultAsync(t => t.Id == turnoId && t.MaquinaId == maquinaId);
 
                 if (turnoParaRemover == null)
@@ -237,31 +301,23 @@ namespace mmdba.Controllers
                     return Json(new { success = false, message = "Turno não encontrado ou não pertence a esta máquina." });
                 }
 
-                // 2. Remove o Turno.
-                // Graças ao .Include(), o EF Core saberá que deve remover
-                // também as ParadasPlanejadas associadas (em cascata).
                 _context.Turnos.Remove(turnoParaRemover);
-
-                // 3. Salva no banco
                 await _context.SaveChangesAsync();
 
-                // 4. Retorna sucesso
                 return Json(new { success = true });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(new { success = false, message = "Ocorreu um erro interno ao remover o turno." });
             }
         }
 
-
-        // <summary>
-        /// Action (POST) que salva uma nova Parada Planejada (Passo 1) via AJAX.
+        /// <summary>
+        /// Adiciona uma Parada Planejada via AJAX.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<JsonResult> AdicionarParadaOEE(
-            [FromForm(Name = "InputParada")] InputParadaViewModel model)
+        public async Task<JsonResult> AdicionarParadaOEE([FromForm(Name = "InputParada")] InputParadaViewModel model)
         {
             var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
             if (string.IsNullOrEmpty(maquinaId))
@@ -269,19 +325,17 @@ namespace mmdba.Controllers
                 return Json(new { success = false, message = "Sessão expirada. Por favor, selecione a máquina novamente." });
             }
 
-            // Validação de Negócio (TurnoId)
             if (model.TurnoId <= 0)
             {
                 ModelState.AddModelError("InputParada.Descricao", "ID do Turno inválido. Recarregue a página.");
             }
 
-            // Validação dos [Required] e [Range] (Descricao, DuracaoMinutos)
             if (ModelState.IsValid)
             {
                 try
                 {
-                    // Verifica se o Turno pertence à máquina da sessão (Segurança)
                     var turnoPai = await _context.Turnos
+                        .Include(t => t.ParadasPlanejadas)
                         .FirstOrDefaultAsync(t => t.Id == model.TurnoId && t.MaquinaId == maquinaId);
 
                     if (turnoPai == null)
@@ -289,11 +343,29 @@ namespace mmdba.Controllers
                         return Json(new { success = false, message = "Turno não encontrado ou inválido." });
                     }
 
+                    // Validação de Duração
+                    double minutosTurno;
+                    if (turnoPai.HoraFim >= turnoPai.HoraInicio)
+                        minutosTurno = (turnoPai.HoraFim - turnoPai.HoraInicio).TotalMinutes;
+                    else
+                        minutosTurno = (TimeSpan.FromHours(24) - turnoPai.HoraInicio + turnoPai.HoraFim).TotalMinutes;
+
+                    double minutosOcupados = turnoPai.ParadasPlanejadas.Sum(p => p.DuracaoMinutos);
+
+                    if ((minutosOcupados + model.DuracaoMinutos) > minutosTurno)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = $"Não é possível adicionar. O turno tem {minutosTurno} min e já possui {minutosOcupados} min de paradas. Adicionar {model.DuracaoMinutos} min excederia o total."
+                        });
+                    }
+
                     var novaParada = new ParadaPlanejada
                     {
                         Descricao = model.Descricao,
                         DuracaoMinutos = model.DuracaoMinutos,
-                        TurnoId = model.TurnoId // Associa ao Turno pai
+                        TurnoId = model.TurnoId
                     };
 
                     _context.ParadasPlanejadas.Add(novaParada);
@@ -307,19 +379,16 @@ namespace mmdba.Controllers
                 }
             }
 
-            // Retorna os erros de validação (ex: "InputParada.Descricao")
             var errors = ModelState.ToDictionary(
-                kvp => kvp.Key, // Retorna "InputParada.Descricao", etc.
+                kvp => kvp.Key,
                 kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
             );
 
             return Json(new { success = false, errors = errors });
         }
 
-
-
         /// <summary>
-        /// Action (POST) que remove uma Parada Planejada via AJAX.
+        /// Remove uma Parada Planejada via AJAX.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -333,15 +402,8 @@ namespace mmdba.Controllers
                     return Json(new { success = false, message = "Sessão expirada. Por favor, selecione a máquina novamente." });
                 }
 
-                // Validação
-                if (paradaId <= 0)
-                {
-                    return Json(new { success = false, message = "ID da parada inválido." });
-                }
+                if (paradaId <= 0) return Json(new { success = false, message = "ID da parada inválido." });
 
-                // 1. Encontra a Parada
-                // Incluímos o Turno para garantir que esta parada
-                // pertence à máquina que está na sessão (Segurança).
                 var paradaParaRemover = await _context.ParadasPlanejadas
                     .Include(p => p.Turno)
                     .FirstOrDefaultAsync(p => p.Id == paradaId && p.Turno.MaquinaId == maquinaId);
@@ -351,71 +413,21 @@ namespace mmdba.Controllers
                     return Json(new { success = false, message = "Parada não encontrada ou não pertence a esta máquina." });
                 }
 
-                // 2. Remove a Parada
                 _context.ParadasPlanejadas.Remove(paradaParaRemover);
-
-                // 3. Salva no banco
                 await _context.SaveChangesAsync();
 
-                // 4. Retorna sucesso
                 return Json(new { success = true });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //_logger.LogError(ex, "Erro ao remover ParadaPlanejada");
                 return Json(new { success = false, message = "Ocorreu um erro interno ao remover a parada." });
             }
         }
 
+        #endregion
 
-        /// <summary>
-        /// Action (POST) que salva a configuração de Qualidade (Passo 3) via AJAX (auto-save).
-        /// </summary>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        // O parâmetro 'HabilitarRefugoManual' corresponde ao nome do checkbox/toggle na View.
-        public async Task<JsonResult> SalvarConfigQualidade(bool HabilitarRefugoManual)
-        {
-            try
-            {
-                var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
-                if (string.IsNullOrEmpty(maquinaId))
-                {
-                    return Json(new { success = false, message = "Sessão expirada. Por favor, selecione a máquina novamente." });
-                }
+        #region GESTÃO DE USUÁRIOS (POST/AJAX)
 
-                // 1. Encontra os parâmetros existentes (ou cria um novo)
-                var parametros = await _context.OeeParametrosMaquina
-                                            .FirstOrDefaultAsync(p => p.MaquinaId == maquinaId);
-
-                if (parametros == null)
-                {
-                    // Se o utilizador mexe nisto antes de salvar a velocidade,
-                    // criamos o registo.
-                    parametros = new OeeParametrosMaquina
-                    {
-                        MaquinaId = maquinaId
-                    };
-                    _context.OeeParametrosMaquina.Add(parametros);
-                }
-
-                // 2. Atualiza o valor com o parâmetro recebido
-                parametros.HabilitarRefugoManual = HabilitarRefugoManual;
-
-                // 3. Salva no banco
-                await _context.SaveChangesAsync();
-
-                // 4. Retorna sucesso
-                return Json(new { success = true });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Ocorreu um erro interno ao salvar a configuração." });
-            }
-        }
-
-
-        // ===== CRIAÇÃO DE USUÁRIO (AJAX) =====
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CriarUsuarioAjax([Bind("InputNovoUsuario")] GestaoUsuariosViewModel viewModel)
@@ -433,7 +445,6 @@ namespace mmdba.Controllers
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
                     }
-
                     return Json(new { success = true });
                 }
 
@@ -451,7 +462,6 @@ namespace mmdba.Controllers
             return Json(new { success = false, errors = errors });
         }
 
-        // ===== REMOÇÃO DE USUÁRIO (AJAX) =====
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoverUsuarioAjax(string userId)
@@ -482,7 +492,6 @@ namespace mmdba.Controllers
             return Json(new { success = false, message = "Erro ao remover o usuário." });
         }
 
-        // ===== OBTER DADOS DO USUÁRIO PARA EDIÇÃO (AJAX) =====
         [HttpGet]
         public async Task<IActionResult> ObterDadosUsuario(string id)
         {
@@ -503,7 +512,6 @@ namespace mmdba.Controllers
             return Json(new { success = true, usuario = dadosUsuario });
         }
 
-        // ===== EDITAR PERMISSÕES DO USUÁRIO (AJAX) =====
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditarUsuarioAjax(string editarUserId, bool editarIsAdmin)
@@ -519,14 +527,12 @@ namespace mmdba.Controllers
                 return Json(new { success = false, message = "Usuário não encontrado." });
             }
 
-            // Impede que o admin remova a própria permissão
             var adminLogadoId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (user.Id == adminLogadoId && !editarIsAdmin)
             {
                 return Json(new { success = false, message = "Não pode remover a sua própria permissão de Administrador." });
             }
 
-            // Atualiza a permissão
             var isCurrentlyAdmin = await _userManager.IsInRoleAsync(user, "Admin");
 
             if (editarIsAdmin && !isCurrentlyAdmin)
@@ -541,12 +547,10 @@ namespace mmdba.Controllers
             return Json(new { success = true });
         }
 
+        #endregion
 
-        // =======================================================
-        // FUNÇÕES DE REGRAS DE NOTIFICAÇÃO (AJAX)
-        // =======================================================
+        #region REGRAS DE NOTIFICAÇÃO (AJAX)
 
-        // Obtém as regras de notificação ativas para um usuário específico.
         [HttpGet]
         public async Task<IActionResult> ObterRegrasUsuario(string userId)
         {
@@ -555,7 +559,6 @@ namespace mmdba.Controllers
                                         .Select(r => r.TipoEvento)
                                         .ToListAsync();
 
-            // Retorna um Dictionary com os tipos de eventos e seu status (true/false)
             var statusRegras = new Dictionary<string, bool>
             {
                 { "Alarme", regras.Contains("Alarme") },
@@ -566,7 +569,6 @@ namespace mmdba.Controllers
             return Json(new { success = true, regras = statusRegras });
         }
 
-        // Salva/remove uma regra de notificação (acionado por checkbox no frontend).
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SalvarRegrasUsuario(string userId, string tipoEvento, bool ativo)
@@ -581,13 +583,11 @@ namespace mmdba.Controllers
 
             if (ativo && regraExistente == null)
             {
-                // Adiciona a regra
                 _context.RegrasNotificacao.Add(new RegraNotificacao { UserId = userId, TipoEvento = tipoEvento });
                 await _context.SaveChangesAsync();
             }
             else if (!ativo && regraExistente != null)
             {
-                // Remove a regra
                 _context.RegrasNotificacao.Remove(regraExistente);
                 await _context.SaveChangesAsync();
             }
@@ -595,9 +595,12 @@ namespace mmdba.Controllers
             return Json(new { success = true });
         }
 
+        #endregion
+
+        #region LANÇAMENTO MANUAL DE REFUGO (POST/AJAX)
+
         /// <summary>
-        /// Action (POST) que registra o Lançamento Manual de Refugo via AJAX.
-        /// Requer a role "Admin" e é protegida pela autenticação de sessão.
+        /// Registra o Lançamento Manual de Refugo via AJAX.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -605,7 +608,6 @@ namespace mmdba.Controllers
         {
             var maquinaId = HttpContext.Session.GetString("SelectedMachineId");
 
-            // Valida a sessão e se o MaquinaId no payload corresponde à sessão (Segurança)
             if (string.IsNullOrEmpty(maquinaId) || maquinaId != model.MaquinaId)
             {
                 return Json(new { success = false, message = "Sessão expirada ou máquina inválida." });
@@ -613,47 +615,41 @@ namespace mmdba.Controllers
 
             if (!ModelState.IsValid)
             {
-                // Retorna os erros de validação
                 var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
                 return Json(new { success = false, message = "Dados inválidos: " + string.Join("; ", errors) });
             }
 
             try
             {
-                // 1. Cria a entidade EventoMaquina
                 var novoRefugo = new EventoMaquina
                 {
                     TipoEvento = "RefugoManual",
                     CodigoEvento = "REFUGO_MANUAL",
                     Origem = maquinaId,
-                    // O valor é a quantidade lançada
                     Valor = model.Quantidade.ToString(),
                     Informacao = $"Refugo manual lançado: {model.Quantidade} peças.",
-                    // Usa o timestamp recebido (convertido para UTC) ou UTC Now
                     Timestamp = model.Timestamp?.ToUniversalTime() ?? DateTime.UtcNow
                 };
 
-                // 2. Salva no Banco de Dados
                 _context.EventosMaquina.Add(novoRefugo);
                 await _context.SaveChangesAsync();
 
-                // 3. Sucesso.
                 return Json(new { success = true, message = "Refugo registrado com sucesso." });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Em caso de falha no banco
                 return Json(new { success = false, message = "Ocorreu um erro interno ao registrar o refugo." });
             }
         }
 
+        #endregion
+
+        #region MÉTODOS AUXILIARES
 
         // Função auxiliar para popular a lista de usuários e suas permissões.
         private async Task<List<UsuarioInfoViewModel>> PopulaListaUsuarios(GestaoUsuariosViewModel viewModel = null)
         {
             var lista = new List<UsuarioInfoViewModel>();
-
-            // Aqui estamos a ler da tabela AspNetUsers (ApplicationUser)
             var usuariosDoBanco = await _userManager.Users.ToListAsync();
 
             foreach (var user in usuariosDoBanco)
@@ -663,18 +659,18 @@ namespace mmdba.Controllers
                     UserId = user.Id,
                     Email = user.Email,
                     IsAdmin = await _userManager.IsInRoleAsync(user, "Admin"),
-
-                    // --- LINHA ADICIONADA ---
-                    // Preenche a propriedade TelegramChatId (que vem de ApplicationUser)
                     TelegramChatId = user.TelegramChatId
                 });
             }
-            // Se o viewModel foi passado (usado na Action Usuarios), preenche-o.
+
             if (viewModel != null)
             {
                 viewModel.Usuarios = lista;
             }
+
             return lista;
         }
+
+        #endregion
     }
 }

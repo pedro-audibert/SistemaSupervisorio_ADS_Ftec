@@ -63,3 +63,5 @@ wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\lib\signalr\dist\browser\signalr.min.js
+wwwroot\Rotativa\wkhtmltopdf.exe
+wwwroot\Rotativa\wkhtmltox.dll

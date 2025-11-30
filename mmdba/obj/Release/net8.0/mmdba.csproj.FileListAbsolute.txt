@@ -604,3 +604,5 @@ C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\P
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Release\net8.0\mmdba.genruntimeconfig.cache
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\obj\Release\net8.0\ref\mmdba.dll
 C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Release\net8.0\appsettings.Production.json
+C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Release\net8.0\Rotativa.AspNetCore.dll
+C:\Users\Pedro Audibert\Documents\Pedro Audibert\FTec - ADS\ADS_EAD_Módulo 17\Projeto Empreendedor 1\SistemaSupervisorio\mmdba\bin\Release\net8.0\Telegram.Bot.dll

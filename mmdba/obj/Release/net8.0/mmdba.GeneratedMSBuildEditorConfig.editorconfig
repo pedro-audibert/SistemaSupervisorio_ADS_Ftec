@@ -140,12 +140,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYWluZWxNYW51dGVuY2FvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Home/PainelOEE.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYWluZWxPRUUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Home/PainelRelatorios.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYWluZWxSZWxhdG9yaW9zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Home/PainelSupervisao.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYWluZWxTdXBlcnZpc2FvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Home/RelatorioEventosView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWxhdG9yaW9FdmVudG9zVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Shared/Error.cshtml]
@@ -158,6 +170,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Sistema/ParametrosOEE.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lzdGVtYVxQYXJhbWV0cm9zT0VFLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Sistema/RegrasNotificacao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lzdGVtYVxSZWdyYXNOb3RpZmljYWNhby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/Sistema/Usuarios.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lzdGVtYVxVc3Vhcmlvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Pedro Audibert/Documents/Pedro Audibert/FTec - ADS/ADS_EAD_Módulo 17/Projeto Empreendedor 1/SistemaSupervisorio/mmdba/Views/_ViewImports.cshtml]
